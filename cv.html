@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>CV</title>
@@ -7,7 +7,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Euphemia UCAS';
+            font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
             color: #333333;
         }
@@ -134,12 +134,15 @@
 
     <div class="cv-main-container">
         
+        <!-- 왼쪽 아티스트 사진 구역 -->
         <div class="photo-zone">
             <img src="images/artist photo.jpg" alt="Hyein Kim" class="artist-photo">
         </div>
 
+        <!-- 오른쪽 이력 정보 구역 -->
         <div class="info-zone">
             
+            <!-- 우측 고정 메뉴 시스템 -->
             <div class="header-menu-block" id="menuBlock">
                 <a href="index.html" class="cv-logo-link">
                     <span class="char-c">C</span><span class="char-v">V</span>
@@ -153,6 +156,7 @@
                 </div>
             </div>
             
+            <!-- 이력 본문 내용 -->
             <h2 class="section-title">Education</h2>
             <p class="cv-text">
                 2023 - 2026  OO대학교 미술학부 졸업<br>
@@ -171,11 +175,13 @@
                 Instagram: @hyein_art
             </p>
             
+            <!-- 스크롤 테스트용 하단 여백 -->
             <div style="height: 800px;"></div>
             
         </div>
     </div>
 
+    <!-- 스크롤 감지 센서 자바스크립트 -->
     <script>
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
