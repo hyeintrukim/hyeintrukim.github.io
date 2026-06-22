@@ -6,35 +6,141 @@
     <style>
         body {
             margin: 0;
-            padding: 40px;
+            padding: 0;
             font-family: 'Euphemia UCAS';
             background-color: #ffffff;
             color: #333333;
         }
-        .cv-container {
-            max-width: 800px;
+
+        /* 전체 레이아웃 구성을 위한 컨테이너 */
+        .cv-main-container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding-top: 40px;
+            padding: 100px 40px;
+            display: flex;
+            gap: 60px; /* 사진과 글 사이의 간격 */
+            position: relative;
         }
-        .back-home {
+
+        /* -------------------------------------------------------------
+           [1] 💡 왼쪽 중간에 배치되는 아담한 크기의 아티스트 사진 공간
+        ---------------------------------------------------------------- */
+        .photo-zone {
+            width: 300px; /* 손바닥만 한 느낌의 적당한 가로폭 */
+            flex-shrink: 0;
+            margin-top: 50px; /* 화면 중간쯤 위치하도록 상단 여백 조절 */
+        }
+
+        .artist-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 오른쪽 이력 텍스트 공간 */
+        .info-zone {
+            flex-grow: 1;
+            padding-top: 140px; /* 우측 상단 CV 타이틀과의 간격을 위해 여백 확보 */
+        }
+
+        /* -------------------------------------------------------------
+           [2] 💡 우측 상단 100px 크기의 커스텀 CV 타이포그래피
+        ---------------------------------------------------------------- */
+        .cv-logo-container {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        /* 메인 페이지(HOME)로 돌아가는 링크 역할도 겸하도록 설정 */
+        .cv-logo-link {
             text-decoration: none;
-            color: #98BA22;
-            font-weight: bold;
+            display: inline-block;
+        }
+
+        .char-c {
+            font-size: 100px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            letter-spacing: -4px;
+        }
+
+        .char-v {
+            font-size: 100px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            position: relative;
+            top: 45px;      /* 💡 C보다 아래로 툭 떨어지게 만드는 세로 위치 */
+            left: -15px;    /* 💡 C와 자연스럽게 걸쳐지며 겹치게 만드는 가로 위치 */
+        }
+
+        /* 이력서 타이틀 및 본문 스타일 */
+        .section-title {
+            font-size: 22px; 
+            color: #654321;
+            border-bottom: 1px solid #ccc; 
+            padding-bottom: 10px;
+            margin-top: 50px;
+            letter-spacing: -1px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0; /* 첫 번째 제목은 상단 여백 제거 */
+        }
+
+        .cv-text {
+            font-size: 16px; 
+            line-height: 1.9;
+            color: #555555;
         }
     </style>
 </head>
 <body>
 
-    <div class="cv-container">
-        <div class="intro-section">
-            /* 메뉴 속 글씨들의 기본 스타일 */
-        .menu-link {
-            font-size: 28px; 
-            text-decoration: none; 
-            letter-spacing: -2px; 
-            font-weight: 900; 
-            color: transparent; 
-            -webkit-text-stroke: 3px #654321; /* 원하시는 대로 선 두께를 3px로 도톰하게 맞췄습니다 */
+    <div class="cv-main-container">
+        
+        <!-- [1] 왼쪽 아티스트 사진 구역 -->
+        <div class="photo-zone">
+            <img src="images/artist photo.jpg" alt="Hyein Kim" class="artist-photo">
+        </div>
+
+        <!-- 오른쪽 이력 정보 구역 -->
+        <div class="info-zone">
+            
+            <!-- [2] 우측 상단에 배치된 감각적인 CV 로고 (클릭하면 메인 홈으로 이동 가능) -->
+            <div class="cv-logo-container">
+                <a href="index.html" class="cv-logo-link">
+                    <span class="char-c">C</span><span class="char-v">V</span>
+                </a>
+            </div>
+            
+            <!-- 이력 본문 내용 -->
+            <h2 class="section-title">Education</h2>
+            <p class="cv-text">
+                2023 - 2026  OO대학교 미술학부 졸업<br>
+                2020 - 2023  OO고등학교 졸업
+            </p>
+
+            <h2 class="section-title">Exhibitions</h2>
+            <p class="cv-text">
+                2025  Group Exhibition [제목] - OO 갤러리<br>
+                2024  Personal Project [제목] - 서울
+            </p>
+
+            <h2 class="section-title">Contact</h2>
+            <p class="cv-text">
+                Email: hyein@example.com<br>
+                Instagram: @hyein_art
+            </p>
+            
+        </div>
+
+    </div>
+
+</body>
+</html>            -webkit-text-stroke: 3px #654321; /* 원하시는 대로 선 두께를 3px로 도톰하게 맞췄습니다 */
             /* 글씨 크기가 줄어들 때도 뚝 끊기지 않고 부드럽게 변하도록 설정 */
             transition: all 0.3s ease-in-out;
         <!-- 상단 메뉴 바 (아이디 menuBar 추가) -->
