@@ -10,64 +10,77 @@
             padding: 0;
             font-family: 'Euphemia UCAS';
             height: 100vh;
-            /* 처음 보여줄 기본 배경 사진 */
-            background-image: url('images/Bienenstich.JPG');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            /* 사진이 바뀔 때 부드럽게 스르륵 바뀌는 효과 (1초 동안 변함) */
-            transition: background-image 1s ease-in-out;
+            background-color: #000; /* 사진 뒤 배경을 검은색으로 채워 깔끔하게 만듭니다 */
+            overflow: hidden; /* 스크롤바 방지 */
         }
-    /* 💡 1. 닫는 태그가 빠져 있어서 추가했습니다! */
+
+        /* 💡 슬라이드 이미지들을 화면 전체에 겹쳐서 배치하는 설정 */
+        .bg-slide {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* ⭐ contain: 사진이 절대 잘리지 않고 화면 안에 전체가 다 나오도록 설정 */
+            object-fit: contain; 
+            /* 처음에는 모든 사진을 투명하게 숨김 */
+            opacity: 0;
+            /* 1초 동안 스무스하게 투명도가 변하는 마법의 문장 */
+            transition: opacity 1s ease-in-out;
+            z-index: -1; /* 메뉴 버튼보다 뒤로 보냄 */
+        }
+
+        /* 현재 보여야 하는 사진만 투명도를 1(완전 선명)로 만듦 */
+        .bg-slide.active {
+            opacity: 1;
+        }
+
+        /* 메뉴 바 스타일 */
+        .menu-container {
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(0, 0, 0, 0.3); /* 배경이 보이니까 메뉴바에 어두운 투명감을 줍니다 */
+            position: relative;
+            z-index: 10;
+        }
     </style>
 </head>
-
 <body>
 
-    <div style="width: 100%; padding: 20px 0;">
+    <!-- 💡 배경 슬라이드 이미지들을 미리 깔아둡니다 (첫 번째 사진에만 active를 붙여둠) -->
+    <img src="images/Bienenstich.JPG" class="bg-slide active" alt="배경1">
+    <img src="images/Bad mom.jpg" class="bg-slide" alt="배경2">
+    <img src="images/Glimpse of Us.JPG" class="bg-slide" alt="배경3">
+
+    <!-- 메뉴 바 영역 (글씨 색상을 검정에서 흰색(white)계열로 바꾸면 사진 위에서 더 잘 보입니다!) -->
+    <div class="menu-container">
         <div style="width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 40px;">
-         
-            <div>
-                <a href="index.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">BIOGRAFIE</a>
-            </div>
-            
-            <div>
-                <a href="work.html" style="font-size: 16px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">WORKS</a>
-            </div>
-            
-             <div>
-                <a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">HOME</a>
-            </div>
-            
-            <div>
-                <a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">PRESS</a>
-            </div>
-            
-            <div>
-                <a href="contact.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">CONTACT</a>
-            </div>
-            
+            <div><a href="index.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">BIOGRAFIE</a></div>
+            <div><a href="work.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">WORKS</a></div>
+            <div><a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">HOME</a></div>
+            <div><a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">PRESS</a></div>
+            <div><a href="contact.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">CONTACT</a></div>
         </div>
     </div>
 
+    <!-- 💡 스무스하게 겹치며 넘어가도록 제어하는 자바스크립트 -->
     <script>
-        // 새로 추가하신 사진 이름들을 경로에 맞게 정확히 등록했습니다.
-        const images = [
-            'images/Bienenstich.JPG',
-            'images/Bad mom.jpg',
-            'images/Glimpse of Us.JPG'
-        ];
-
+        const slides = document.querySelectorAll('.bg-slide');
         let currentIndex = 0;
 
-        function changeBackground() {
-            currentIndex = (currentIndex + 1) % images.length;
-            document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
+        function nextSlide() {
+            // 1. 현재 보여지고 있는 사진에서 active 클래스를 빼서 투명하게 만듦
+            slides[currentIndex].classList.remove('active');
+            
+            // 2. 다음 사진 번호 계산
+            currentIndex = (currentIndex + 1) % slides.length;
+            
+            // 3. 다음 사진에 active 클래스를 넣어서 스르륵 나타나게 만듦
+            slides[currentIndex].classList.add('active');
         }
 
-        // 4000 = 4초마다 배경 사진을 변경합니다.
-        setInterval(changeBackground, 4000);
+        // 4초마다 실행
+        setInterval(nextSlide, 4000);
     </script>
 
 </body>
