@@ -10,58 +10,40 @@
             padding: 0;
             font-family: 'Euphemia UCAS';
             background-color: #ffffff;
-            /* 💡 스크롤을 해야 하므로 기존의 overflow: hidden; 을 지웠습니다! */
         }
 
-        /* -----------------------------------------
-           [1구역: 처음 들어왔을 때 보이는 꽉 찬 화면]
-        -------------------------------------------- */
+        /* [1구역: 처음 들어왔을 때 보이는 꽉 찬 화면] */
         .intro-section {
             position: relative;
             width: 100%;
-            height: 100vh; /* 정확히 화면 높이 100%만큼 차지하게 설정 */
-            overflow: hidden;
+            height: 100vh; /* 화면 높이를 정확히 100% 차지 */
+            
+            /* 💡 배경 사진 한 장을 가득 채우는 마법의 명령어들 */
+            background-image: url('images/Eden.JPG');
+            background-size: cover;    /* ⭐ 비율이 조금 바뀌더라도 화면에 빈틈없이 꽉 채우기 */
+            background-position: center; /* 사진의 중심이 항상 화면 한가운데에 오도록 고정 */
+            background-repeat: no-repeat;
         }
 
-        /* 슬라이드 이미지 설정 */
-        .bg-slide {
-            position: absolute; /* 이제 fixed가 아니라 intro-section 안에서만 고정됩니다 */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; 
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            z-index: 1;
-        }
-
-        .bg-slide.active {
-            opacity: 1;
-        }
-
-        /* 메뉴 바 스타일 */
+        /* 상단 메뉴 바 스타일 (사진 위에 글씨가 잘 보이도록 반투명 하얀 배경 적용) */
         .menu-container {
             width: 100%;
             padding: 20px 0;
-            background-color: 
+            background-color: rgba(255, 255, 255, 0.4); 
             position: absolute;
             top: 0;
             left: 0;
             z-index: 10;
         }
 
-
-        /* -----------------------------------------
-           [2구역: 스크롤을 내리면 나오는 아래 공간]
-        -------------------------------------------- */
+        /* [2구역: 스크롤을 내리면 나오는 아래 본문 공간] */
         .content-section {
             width: 100%;
-            min-height: 100vh; /* 이 구역도 시원하게 화면 하나 크기만큼 기본 확보 */
-            background-color: #ffffff; /* 본문은 깔끔하게 하얀 배경으로 설정 */
+            min-height: 100vh;
+            background-color: #ffffff;
             color: #333333;
             box-sizing: border-box;
-            padding: 80px 40px; /* 위아래, 좌우 여백 */
+            padding: 80px 40px;
         }
 
         .content-inner {
@@ -73,10 +55,6 @@
 <body>
 
     <div class="intro-section">
-        <img src="images/Bienenstich.JPG" class="bg-slide active" alt="배경1">
-        <img src="images/Bad mom.jpg" class="bg-slide" alt="배경2">
-        <img src="images/Glimpse of Us.JPG" class="bg-slide" alt="배경3">
-
         <div class="menu-container">
             <div style="width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 40px;">
                 <div><a href="index.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">BIOGRAFIE</a></div>
@@ -88,34 +66,16 @@
         </div>
     </div>
 
-
     <div class="content-section">
         <div class="content-inner">
             <h1 style="font-size: 36px; margin-bottom: 20px; color: #98BA22;">ABOUT ME</h1>
             <p style="font-size: 18px; line-height: 1.8;">
                 여기에 김혜인님의 소개글이나 간단한 프로필, 혹은 최신 작업물에 대한 설명을 적으실 수 있습니다.<br>
-                처음 들어왔을 때는 위의 멋진 슬라이드 화면만 가득 차 보이지만, 마우스 휠을 아래로 굴리면 
+                처음 들어왔을 때는 위의 멋진 대표 사진 한 장만 화면에 가득 차 보이지만, 마우스 휠을 아래로 굴리면 
                 이렇게 하얀 배경의 깔끔한 본문이 자연스럽게 올라오게 됩니다.
-            </p>
-            <p style="font-size: 18px; line-height: 1.8; margin-top: 40px;">
-                이 영역 안에 글씨뿐만 아니라 다른 작은 작업 사진들을 나열하거나 연락처 정보를 한 번 더 적어두셔도 좋습니다.
             </p>
         </div>
     </div>
-
-
-    <script>
-        const slides = document.querySelectorAll('.bg-slide');
-        let currentIndex = 0;
-
-        function nextSlide() {
-            slides[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % slides.length;
-            slides[currentIndex].classList.add('active');
-        }
-
-        setInterval(nextSlide, 4000);
-    </script>
 
 </body>
 </html>
