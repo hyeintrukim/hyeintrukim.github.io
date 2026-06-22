@@ -9,28 +9,33 @@
             margin: 0;
             padding: 0;
             font-family: 'Euphemia UCAS';
-            height: 100vh;
-            background-color: #000; /* 사진 뒤 배경을 검은색으로 채워 깔끔하게 만듭니다 */
-            overflow: hidden; /* 스크롤바 방지 */
+            background-color: #000;
+            /* 💡 스크롤을 해야 하므로 기존의 overflow: hidden; 을 지웠습니다! */
         }
 
-        /* 💡 슬라이드 이미지들을 화면 전체에 겹쳐서 배치하는 설정 */
+        /* -----------------------------------------
+           [1구역: 처음 들어왔을 때 보이는 꽉 찬 화면]
+        -------------------------------------------- */
+        .intro-section {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* 정확히 화면 높이 100%만큼 차지하게 설정 */
+            overflow: hidden;
+        }
+
+        /* 슬라이드 이미지 설정 */
         .bg-slide {
-            position: fixed;
+            position: absolute; /* 이제 fixed가 아니라 intro-section 안에서만 고정됩니다 */
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            /* ⭐ contain: 사진이 절대 잘리지 않고 화면 안에 전체가 다 나오도록 설정 */
+            width: 100%;
+            height: 100%;
             object-fit: contain; 
-            /* 처음에는 모든 사진을 투명하게 숨김 */
             opacity: 0;
-            /* 1초 동안 스무스하게 투명도가 변하는 마법의 문장 */
             transition: opacity 1s ease-in-out;
-            z-index: -1; /* 메뉴 버튼보다 뒤로 보냄 */
+            z-index: 1;
         }
 
-        /* 현재 보여야 하는 사진만 투명도를 1(완전 선명)로 만듦 */
         .bg-slide.active {
             opacity: 1;
         }
@@ -39,47 +44,76 @@
         .menu-container {
             width: 100%;
             padding: 20px 0;
-            background-color: rgba(0, 0, 0, 0.3); /* 배경이 보이니까 메뉴바에 어두운 투명감을 줍니다 */
-            position: relative;
+            background-color: rgba(0, 0, 0, 0.4); 
+            position: absolute;
+            top: 0;
+            left: 0;
             z-index: 10;
+        }
+
+
+        /* -----------------------------------------
+           [2구역: 스크롤을 내리면 나오는 아래 공간]
+        -------------------------------------------- */
+        .content-section {
+            width: 100%;
+            min-height: 100vh; /* 이 구역도 시원하게 화면 하나 크기만큼 기본 확보 */
+            background-color: #ffffff; /* 본문은 깔끔하게 하얀 배경으로 설정 */
+            color: #333333;
+            box-sizing: border-box;
+            padding: 80px 40px; /* 위아래, 좌우 여백 */
+        }
+
+        .content-inner {
+            max-width: 1000px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
 
-    <!-- 💡 배경 슬라이드 이미지들을 미리 깔아둡니다 (첫 번째 사진에만 active를 붙여둠) -->
-    <img src="images/Bienenstich.JPG" class="bg-slide active" alt="배경1">
-    <img src="images/Bad mom.jpg" class="bg-slide" alt="배경2">
-    <img src="images/Glimpse of Us.JPG" class="bg-slide" alt="배경3">
+    <div class="intro-section">
+        <img src="images/Bienenstich.JPG" class="bg-slide active" alt="배경1">
+        <img src="images/Bad mom.jpg" class="bg-slide" alt="배경2">
+        <img src="images/Glimpse of Us.JPG" class="bg-slide" alt="배경3">
 
-    <!-- 메뉴 바 영역 (글씨 색상을 검정에서 흰색(white)계열로 바꾸면 사진 위에서 더 잘 보입니다!) -->
-    <div class="menu-container">
-        <div style="width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 40px;">
-            <div><a href="index.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">BIOGRAFIE</a></div>
-            <div><a href="work.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">WORKS</a></div>
-            <div><a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">HOME</a></div>
-            <div><a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">PRESS</a></div>
-            <div><a href="contact.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">CONTACT</a></div>
+        <div class="menu-container">
+            <div style="width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 40px;">
+                <div><a href="index.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">BIOGRAFIE</a></div>
+                <div><a href="work.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">WORKS</a></div>
+                <div><a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">HOME</a></div>
+                <div><a href="press.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">PRESS</a></div>
+                <div><a href="contact.html" style="font-size: 20px; text-decoration: none; color: #98BA22; letter-spacing: -1px; font-weight: 900;">CONTACT</a></div>
+            </div>
         </div>
     </div>
 
-    <!-- 💡 스무스하게 겹치며 넘어가도록 제어하는 자바스크립트 -->
+
+    <div class="content-section">
+        <div class="content-inner">
+            <h1 style="font-size: 36px; margin-bottom: 20px; color: #98BA22;">ABOUT ME</h1>
+            <p style="font-size: 18px; line-height: 1.8;">
+                여기에 김혜인님의 소개글이나 간단한 프로필, 혹은 최신 작업물에 대한 설명을 적으실 수 있습니다.<br>
+                처음 들어왔을 때는 위의 멋진 슬라이드 화면만 가득 차 보이지만, 마우스 휠을 아래로 굴리면 
+                이렇게 하얀 배경의 깔끔한 본문이 자연스럽게 올라오게 됩니다.
+            </p>
+            <p style="font-size: 18px; line-height: 1.8; margin-top: 40px;">
+                이 영역 안에 글씨뿐만 아니라 다른 작은 작업 사진들을 나열하거나 연락처 정보를 한 번 더 적어두셔도 좋습니다.
+            </p>
+        </div>
+    </div>
+
+
     <script>
         const slides = document.querySelectorAll('.bg-slide');
         let currentIndex = 0;
 
         function nextSlide() {
-            // 1. 현재 보여지고 있는 사진에서 active 클래스를 빼서 투명하게 만듦
             slides[currentIndex].classList.remove('active');
-            
-            // 2. 다음 사진 번호 계산
             currentIndex = (currentIndex + 1) % slides.length;
-            
-            // 3. 다음 사진에 active 클래스를 넣어서 스르륵 나타나게 만듦
             slides[currentIndex].classList.add('active');
         }
 
-        // 4초마다 실행
         setInterval(nextSlide, 4000);
     </script>
 
