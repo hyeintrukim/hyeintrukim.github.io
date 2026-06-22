@@ -15,16 +15,14 @@
         .intro-section {
             position: relative;
             width: 100%;
-            height: 100vh; /* 화면 높이를 정확히 100% 차지 */
-            
-            /* 💡 배경 사진 한 장을 가득 채우는 마법의 명령어들 */
+            height: 100vh;
             background-image: url('images/Eden.JPG');
-            background-size: cover;    /* ⭐ 비율이 조금 바뀌더라도 화면에 빈틈없이 꽉 채우기 */
-            background-position: center; /* 사진의 중심이 항상 화면 한가운데에 오도록 고정 */
+            background-size: cover;    
+            background-position: center; 
             background-repeat: no-repeat;
         }
 
-        /* 상단 메뉴 바 스타일 (사진 위에 글씨가 잘 보이도록 반투명 하얀 배경 적용) */
+        /* 상단 메뉴 바 스타일 */
         .menu-container {
             width: 100%;
             padding: 40px 0;
@@ -32,6 +30,16 @@
             top: 0;
             left: 0;
             z-index: 10;
+        }
+
+        /* 💡 스타일 시트에 메뉴 스타일을 미리 등록해두면 아래 코드가 훨씬 깔끔해집니다! */
+        .menu-link {
+            font-size: 40px; 
+            text-decoration: none; 
+            letter-spacing: -2px; /* 너무 겹치지 않게 -5px에서 -2px로 조절했습니다 */
+            font-weight: 900; /* 컴퓨터 규격상 최대 두께인 900으로 안전하게 맞췄습니다 */
+            color: transparent; 
+            -webkit-text-stroke: 1.5px #654321; /* ⭐ 선 두께를 1.5px로 하여 안쪽 투명이 보이게 복구 */
         }
 
         /* [2구역: 스크롤을 내리면 나오는 아래 본문 공간] */
@@ -55,21 +63,15 @@
     <div class="intro-section">
         <div class="menu-container">
             <div style="width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 40px;">
-<div><a href="cv.html" class="menu-link">CV</a></div>style="font-size: 40px; text-decoration: none; letter-spacing: -5px; font-weight: 1300;
-                           color: transparent; 
-                           -webkit-text-stroke: 5px #654321; ">CV</a>
-<a href="index.html" style="font-size: 40px; text-decoration: none; letter-spacing: -5px; font-weight: 1300;
-                           color: transparent; 
-                           -webkit-text-stroke: 5px #654321; ">WORKS</a>                
-<a href="index.html" style="font-size: 40px; text-decoration: none; letter-spacing: -5px; font-weight: 1300;
-                           color: transparent; 
-                           -webkit-text-stroke: 5px #654321; ">HOME</a>
-<a href="index.html" style="font-size: 40px; text-decoration: none; letter-spacing: -5px; font-weight: 1300;
-                           color: transparent; 
-                           -webkit-text-stroke: 5px #654321; ">PRESS</a>
-<a href="index.html" style="font-size: 40px; text-decoration: none; letter-spacing: -5px; font-weight: 1300;
-                           color: transparent; 
-                           -webkit-text-stroke: 5px #654321; ">CONTACT</a>            </div>
+                
+                <!-- 💡 꼬여있던 태그를 풀고 주소를 정확히 매칭했습니다 -->
+                <div><a href="cv.html" class="menu-link">CV</a></div>
+                <div><a href="work.html" class="menu-link">WORKS</a></div>
+                <div><a href="index.html" class="menu-link">HOME</a></div>
+                <div><a href="press.html" class="menu-link">PRESS</a></div>
+                <div><a href="contact.html" class="menu-link">CONTACT</a></div>
+                
+            </div>
         </div>
     </div>
 
