@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Hyein Kim - Biografie</title>
+    <title>CV</title>
     <style>
         body {
             margin: 0;
@@ -26,10 +26,42 @@
 <body>
 
     <div class="cv-container">
-        <!-- 메인 홈으로 돌아가는 버튼 -->
-        <a href="index.html" class="back-home">← HOME</a>
-        
-        <h1 style="font-size: 36px; color: #654321; margin-top: 30px; margin-bottom: 40px;">BIOGRAFIE (CV)</h1>
+        <div class="intro-section">
+            /* 메뉴 속 글씨들의 기본 스타일 */
+        .menu-link {
+            font-size: 28px; 
+            text-decoration: none; 
+            letter-spacing: -2px; 
+            font-weight: 900; 
+            color: transparent; 
+            -webkit-text-stroke: 3px #654321; /* 원하시는 대로 선 두께를 3px로 도톰하게 맞췄습니다 */
+            /* 글씨 크기가 줄어들 때도 뚝 끊기지 않고 부드럽게 변하도록 설정 */
+            transition: all 0.3s ease-in-out;
+        <!-- 상단 메뉴 바 (아이디 menuBar 추가) -->
+        <div class="menu-container" id="menuBar">
+            <div style="width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 40px;">
+                <div><a href="cv.html" class="menu-link">CV</a></div>
+                <div><a href="work.html" class="menu-link">WORKS</a></div>
+                <div><a href="index.html" class="menu-link">HOME</a></div>
+                <div><a href="press.html" class="menu-link">PRESS</a></div>
+                <div><a href="contact.html" class="menu-link">CONTACT</a></div>
+            </div>
+        </div>
+    </div>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Euphemia UCAS';
+            height: 100vh;
+            /* 처음 보여줄 기본 배경 사진 */
+            background-image: url('images/artist photo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            
+        <h1 style="font-size: 36px; color: #654321; margin-top: 30px; margin-bottom: 40px;">cv (CV)</h1>
         
         <!-- 💡 여기에 혜인님의 이력, 학력, 전시 경력 등을 자유롭게 적으시면 됩니다! -->
         <h2 style="font-size: 22px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Education</h2>
