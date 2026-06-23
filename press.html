@@ -74,7 +74,7 @@
             position: relative;
             z-index: 1010; 
         }
-/* !!!!!!!!!!!!!!!!!!!!!!!!여기 수정해야됨!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
         .char-p, .char-r, .char-e, .char-s, .char-s {
             font-size: 115px;
             color: transparent;
@@ -139,23 +139,16 @@
             margin-top: 0;
         }
 
-        /* 대분류 년도 타이틀 기본 크기 */
+        /* 대분류 타이틀 및 년도 스타일 (스크롤 기능 제거 및 px 축소 완료) */
         .section-title {
-            font-size: 20px; 
+            font-size: 15px; /* 크기를 단정하게 줄임 */
+            font-weight: bold;
             color: #654321;
-            padding-bottom: 10px;
-            margin-top: 60px;
-            letter-spacing: -1px;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            transform-origin: left center;
+            padding-bottom: 5px;
+            margin-top: 50px;
+            letter-spacing: -0.5px;
         }
         .section-title:first-of-type { margin-top: 0; }
-        
-        /* 활성화(스크롤 강조) 크기 */
-        .section-title.active {
-            font-size: 26px;
-            font-weight: 900;
-        }
 
         /* 기사 개별 블록 마진 */
         .press-item-block {
@@ -209,6 +202,9 @@
             
             <!-- 이력 본문 내용 시작 -->
             
+            <!-- 대분류: Press의 영문 번역 적용 -->
+            <h2 class="section-title">Press</h2>
+          
             <!-- 2026년 대분류 -->
             <h2 class="section-title">2026</h2>
 
@@ -257,20 +253,78 @@
                 </p>
                 <div class="press-meta-info">Heussen Las Firm</div>
             </div>
+            
+<           <!-- 대분류: Publications -->
+            <h2 class="section-title">Publications</h2>
 
-
-            <!-- 2024년 대분류 -->
-            <h2 class="section-title">2024</h2>
-
+             <!-- 2026년 대분류 -->
+            <h2 class="section-title">2026</h2>
+            
             <!-- 기사 5 -->
             <div class="press-item-block">
-                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
-                    Wesen weißer Garten: 743Hz Experimental Collaboration ↗
+                    Kinder.Bilder
                 </a>
                 <p class="press-text">
-                    Written by Sarah Schmidt
+                    Written by Regina Ziegelerstein
                 </p>
-                <div class="press-meta-info">Karlsruhe Kunstblatt</div>
+                <div class="press-meta-info">Raum 004 Munich </div>
+            </div>
+
+             <!-- 기사 6 -->
+            <div class="press-item-block">
+                    Do you clean your mirror, everyday? - Ein Atelierbesuch bei den koreanischen Hyein Kim
+                </a>
+                <p class="press-text">
+                    Written by Claudie Fenkart-Nije
+                </p>
+                <div class="press-meta-info">ARS Mondo Art Magazine </div>
+            </div>
+
+          <!-- 기사 7 -->
+            <div class="press-item-block">
+                   Versprochen
+                </a>
+                <p class="press-text">
+                
+                </p>
+                <div class="press-meta-info"> Publication from Group Exhibition of Class Boller</div>
+            </div>
+
+
+             <!-- 2024년 대분류 -->
+            <h2 class="section-title">2024</h2>
+           
+        <!-- 기사 8 -->
+            <div class="press-item-block">
+                   Wessen Weißer Garten?
+                </a>
+                <p class="press-text">
+                
+                </p>
+                <div class="press-meta-info"> Publication from Group Exhibition <en>Wessen Weißer Garten</en></div>
+            </div>
+
+           <!-- 기사 9 -->
+            <div class="press-item-block">
+                   743 Hz
+                </a>
+                <p class="press-text">
+                
+                </p>
+                <div class="press-meta-info"> Publication from Group Exhibition of Class Boller<en>743Hz</en></div>
+            </div>
+
+    <!-- 2021년 대분류 -->
+            <h2 class="section-title">2021</h2>
+           
+        <!-- 기사 8 -->
+            <div class="press-item-block">
+                   MUTE
+                </a>
+                <p class="press-text">
+                
+                </p>
+                <div class="press-meta-info"> Publication from Group Exhibition <en>MUTE</en></div>
             </div>
             
             <!-- 스크롤 활성화를 위한 여백 박스 -->
@@ -281,7 +335,7 @@
 
     <!-- 스크롤 센서 종합 자바스크립트 -->
     <script>
-        // 우측 고정 로고 축소 및 서브메뉴 활성화 시스템
+        // 우측 고정 로고 축소 및 서브메뉴 활성화 시스템 (연도 추적 센서 삭제 완료)
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
             if (window.scrollY > 20) {
@@ -289,29 +343,6 @@
             } else {
                 menuBlock.classList.remove('scrolled');
             }
-        });
-
-        // 현재 스크롤 위치에 맞춰 연도 크기가 변하는 지능형 센서 시스템
-        const sections = document.querySelectorAll('.section-title');
-        
-        const observerOptions = {
-            root: null,
-            rootMargin: '-15% 0px -65% 0px',
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
         });
     </script>
 
