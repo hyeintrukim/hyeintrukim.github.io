@@ -12,19 +12,46 @@
             color: #654321;
         }
 
-        /* 💡 레이아웃을 왼쪽 시작 기준으로 정렬하고, 원하시는 40px 마진을 확보 */
         .cv-main-container {
             max-width: 1200px;
-            margin: 0;
-            padding: 100px 40px; /* 왼쪽 여백 40px 고정 */
+            margin: 0 auto;
+            padding: 100px 40px;
+            display: flex;
+            /* 💡 gap을 줄이고 info-zone 마진을 조정하여 전체적으로 왼쪽 배치 */
+            gap: 40px; 
             position: relative;
         }
 
-        /* 💡 기사 텍스트 공간이 왼쪽에 편안히 밀착되도록 재조정 */
+        /* 왼쪽 타이틀 구역 */
+        .photo-zone {
+            width: 450px;
+            flex-shrink: 0;
+            margin-top: 43px;
+        }
+
+        .press-main-logo {
+            font-size: 85px;
+            font-weight: 1100;
+            letter-spacing: -3px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .press-sub-subtitle {
+            font-size: 13px;
+            color: #a38f7d;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* 오른쪽 기사 텍스트 공간 (💡 왼쪽으로 붙이되 정확히 40px 여백 확보) */
         .info-zone {
-            width: 100%;
-            max-width: 800px;
-            padding-top: 40px; 
+            flex-grow: 1;
+            padding-top: 140px; 
+            padding-left: 0;
         }
 
         /* 우측 상단 고정 스마트 메뉴 블록 */
@@ -38,6 +65,7 @@
             z-index: 1000;
         }
 
+        /* PRESS 타이포그래피 상단 기본 스타일 */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
@@ -49,19 +77,15 @@
             z-index: 1010; 
         }
 
-        /* 💡 우측 대형 115px 타이포 로고 속성 정의 */
-        .char-p, .char-r, .char-e, .char-s1, .char-s2 {
+        .char-p, .char-r, .char-e, .char-s, .char-s {
             font-size: 115px;
             color: transparent;
             -webkit-text-stroke: 1.7px #654321;
             transition: all 0.4s ease-in-out;
-            display: inline-block;
         }
         .char-p { letter-spacing: -4px; }
-        .char-r { position: relative; top: 35px; left: -15px; }
-        .char-e { position: relative; top: 60px; left: -25px; }
-        .char-s1 { position: relative; top: 85px; left: -35px; }
-        .char-s2 { position: relative; top: 110px; left: -45px; }
+        .char-r { position: relative; top: 52px; left: -15px; }
+        .char-e { position: relative; top: 60px; left: -15px; }
 
         /* 세로로 나열되는 서브 메뉴 저장소 */
         .sub-menu-container {
@@ -76,4 +100,156 @@
             margin-top: 15px; 
         }
 
-        /* 서브
+        /* 서브 메뉴 개별 글씨 스타일 */
+        .sub-menu-link {
+            font-size: 23px; 
+            text-decoration: none;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px #654321; 
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        /* 스크롤 변신(.scrolled) 모드 */
+        .header-menu-block.scrolled .cv-logo-link {
+            margin-bottom: 30px; 
+        }
+
+        .header-menu-block.scrolled .char-p,
+        .header-menu-block.scrolled .char-r {
+            font-size: 60px;
+            -webkit-text-stroke: 1.2px #654321; 
+        }
+        .header-menu-block.scrolled .char-r { top: 27px; left: -8px; }
+
+        .header-menu-block.scrolled .sub-menu-container {
+            opacity: 1;
+            transform: translateX(0); 
+            pointer-events: auto; 
+            margin-top: 0;
+        }
+
+        /* 대분류 타이틀 스타일 (크기 축소 및 고정) */
+        .section-title {
+            font-size: 15px; 
+            font-weight: bold;
+            color: #654321;
+            padding-bottom: 5px;
+            margin-top: 50px;
+            letter-spacing: -0.5px;
+        }
+        .section-title:first-of-type { margin-top: 0; }
+
+        /* 기사 개별 블록 마진 */
+        .press-item-block {
+            margin-bottom: 35px;
+        }
+
+        /* 💡 기사 제목 링크 스타일 (기존 17px에서 2px 줄인 15px로 세팅) */
+        .press-article-link {
+            font-size: 15px; 
+            font-weight: bold; 
+            color: #654321; 
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 8px;
+            transition: opacity 0.2s ease;
+        }
+        .press-article-link:hover {
+            opacity: 0.7;
+        }
+
+        .press-text { font-size: 16px; line-height: 1.9; color: #654321; margin: 0; }
+        .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="cv-main-container">
+        
+        <div class="photo-zone">
+            <h1 class="press-main-logo">PRESS</h1>
+            <div class="press-sub-subtitle">SELECTED BIBLIOGRAPHY</div>
+        </div>
+
+        <div class="info-zone">
+            
+            <div class="header-menu-block" id="menuBlock">
+                <a href="index.html" class="cv-logo-link">
+                    <span class="char-p">P</span><span class="char-r">R</span>
+                </a>
+                
+                <div class="sub-menu-container">
+                    <a href="work.html" class="sub-menu-link">WORKS</a>
+                    <a href="index.html" class="sub-menu-link">HOME</a>
+                    <a href="press.html" class="sub-menu-link">PRESS</a>
+                    <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Publications</h2>
+
+            <div class="press-item-block">
+                <a href="https://www.staatsgalerie.de/de/programm/tourismus/blick-hinter-kulissen/hyein-kim" target="_blank" class="press-article-link">
+                    Ein zufälliges Treffen mit der Künstlerin Hyein Kim ↗
+                </a>
+                <p class="press-text">Written by Sheela-Maria Koblitz</p>
+                <div class="press-meta-info">Staatsgalerie Stuttgart</div>
+            </div>
+
+            <div class="press-item-block">
+                <a href="https://www.lkz.de/lokales/kultur-lokal_artikel,-hyein-kim-zeigt-spiegelbilder-des-inneren-_arid,854435.html" target="_blank" class="press-article-link">
+                    Hyein Kim zeigt Spiegelbiler der Inneren ↗
+                </a>
+                <p class="press-text">Written by Isabel Skokan</p>
+                <div class="press-meta-info">LKZ Ludwigsburger Kreis</div>
+            </div>
+
+            <h2 class="section-title">2025</h2>
+
+            <div class="press-item-block">
+                <a href="https://www.abk-stuttgart.de/news/hyein-kim-aus-der-klasse-boller-gewinnt-heussen-perspectives-young-artist-prize/" target="_blank" class="press-article-link">
+                    Hyein im aus der Klasse Boller gewinnt HEUSSEN Perspectives Young Artist Prize ↗
+                </a>
+                <p class="press-text"></p>
+                <div class="press-meta-info">Staatliche Akademie der Bildenden Künste Stuttgart</div>
+            </div>
+
+            <div class="press-item-block">
+                <a href="https://www.heussen-law.de/en/news/news/view/675" target="_blank" class="press-article-link">
+                    HEUSSEN PERSPECTIVES Kunstpries 2025 : Die Preisträger ↗
+                </a>
+                <p class="press-text"></p>
+                <div class="press-meta-info">Heussen Law Firm</div>
+            </div>
+
+            <h2 class="section-title">2024</h2>
+
+            <div class="press-item-block">
+                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
+                    Wesen weißer Garten: 743Hz Experimental Collaboration ↗
+                </a>
+                <p class="press-text">Written by Sarah Schmidt</p>
+                <div class="press-meta-info">Karlsruhe Kunstblatt</div>
+            </div>
+            
+            <div style="height: 500px;"></div>
+            
+        </div>
+    </div>
+
+    <script>
+        // 우측 고정 로고 제어 시스템
+        window.addEventListener('scroll', function() {
+            const menuBlock = document.getElementById('menuBlock');
+            if (window.scrollY > 20) {
+                menuBlock.classList.add('scrolled');
+            } else {
+                menuBlock.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+</html>
