@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Impressum</title>
+    <style>
+        body {
+            font-family: 'Euphemia UCAS', sans-serif;
+            background-color: #ffffff;
+            color: #654321; /* CV와 같은 갈색 톤 */
+            padding: 80px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        h1 { font-size: 26px; margin-bottom: 40px; font-weight: 900; }
+        h2 { font-size: 16px; margin-top: 30px; border-bottom: 1px solid #a38f7d; padding-bottom: 5px; }
+        p { font-size: 14px; }
+        .back-btn { display: inline-block; margin-bottom: 40px; color: #a38f7d; text-decoration: none; font-size: 13px; font-weight: bold; }
+        .back-btn:hover { color: #654321; }
+    </style>
+</head>
+<body>
+
+    <!-- 클릭하면 다시 CV로 돌아가는 링크 -->
+    <a href="cv.html" class="back-btn">← BACK TO CV</a>
+
+    <h1>Impressum</h1>
+
+    <h2>Angaben gemäß § 5 TMG</h2>
+    <p>
+        [혜인님 영문 본명 입력]<br>
+        [독일 혹은 거주 중인 실제 주소 - 거리명 및 건물번호]<br>
+        [우편번호, 도시 이름, 국가 (예: 70174 Stuttgart, Germany)]
+    </p>
+
+    <h2>Kontakt</h2>
+    <p>
+        E-Mail: [이메일 주소 입력]<br>
+        Internetadresse: [내 웹사이트 주소 입력 (예: https://유저네임.github.io)]
+    </p>
+
+    <h2>Redaktionell verantwortlich</h2>
+    <p>
+        [혜인님 영문 본명 입력]<br>
+        [도시 이름, 국가]
+    </p>
+
+    <h2>Haftungsausschluss (Disclaimer)</h2>
+    <p><strong>Haftung für Inhalte</strong><br>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich...</p>
+
+</body>
+</html>
