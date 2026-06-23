@@ -11,7 +11,7 @@
             font-family: 'Euphemia UCAS';
         }
 
-        /* [1구역: 💡 고정을 풀어서 본문과 함께 위로 올라가는 메인 화면] */
+        /* [1구역: 고정을 풀어서 본문과 함께 위로 올라가는 메인 화면] */
         .intro-section {
             position: relative;
             width: 100%;
@@ -20,12 +20,9 @@
             background-size: cover;    
             background-position: center; 
             background-repeat: no-repeat;
-            /* background-attachment: fixed를 완전히 빼서 일반 스크롤로 작동하게 했습니다. */
         }
 
-        /* -------------------------------------------------------------
-           [💡 스크롤하면 따라 움직이고 작아지는 상단 메뉴 바 레이아웃] 
-        ---------------------------------------------------------------- */
+        /* [💡 스크롤하면 따라 움직이고 작아지는 상단 메뉴 바 레이아웃] */
         .menu-container {
             width: 100%;
             padding: 35px 0;
@@ -33,7 +30,6 @@
             top: 0;
             left: 0;
             z-index: 100;
-            /* 여백과 배경색이 변할 때 0.3초 동안 스무스하게 변하도록 마법의 문장 추가 */
             transition: all 0.3s ease-in-out; 
         }
 
@@ -44,30 +40,27 @@
             letter-spacing: -2px; 
             font-weight: 900; 
             color: transparent; 
-            -webkit-text-stroke: 1.7px #654321; /* 원하시는 대로 선 두께를 1.7px로 도톰하게 맞췄습니다 */
-            /* 글씨 크기가 줄어들 때도 뚝 끊기지 않고 부드럽게 변하도록 설정 */
+            -webkit-text-stroke: 1.7px #654321; /* 선 두께 1.7px */
             transition: all 0.3s ease-in-out; 
         }
-
 
         /* ⭐ 메뉴바가 변신(.shrink)하면 글씨 크기도 25px로 자동 축소 */
         .menu-container.shrink .menu-link {
             font-size: 25px;
-            -webkit-text-stroke: 1.5px #654321; /* 글씨가 작아진 만큼 선 두께도 센스있게 1.5px로 살짝 얇아지게 조절 */
+            -webkit-text-stroke: 1.5px #654321; /* 글씨가 작아진 만큼 선 두께 조절 */
         }
 
-
-        /* [2구역: 스크롤 내리면 나오는 본문 공간 - 기존 효과 유지] */
+        /* [2구역: 스크롤 내리면 나오는 본문 공간] */
         .content-section {
             width: 100%;
             min-height: 100vh;
             background-image: url('images/Eden2.JPG'); 
-            background-attachment: fixed; /* 이 본문 배경은 묵직하게 고정되는 효과 유지 */
+            background-attachment: fixed; /* 본문 배경 고정 효과 */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             box-sizing: border-box;
-            padding: 160px 35px 120px 35px; /* 메뉴바가 항상 위에 고정되므로 본문 글씨가 가려지지 않게 위쪽 여백(160px) 확보 */
+            padding: 160px 35px 120px 35px; /* 메뉴바 가림 방지 여백 */
         }
 
         .content-inner {
@@ -84,14 +77,15 @@
 
     <!-- [1구역] 메인 화면 -->
     <div class="intro-section">
-        <!-- 상단 메뉴 바 (아이디 menuBar 추가) -->
+        <!-- 상단 메뉴 바 -->
         <div class="menu-container" id="menuBar">
             <div style="width: 100%; padding: 0 35px; box-sizing: border-box; display: flex; justify-content: space-between; gap: 35px;">
                 <div><a href="cv.html" class="menu-link">CV</a></div>
                 <div><a href="work.html" class="menu-link">WORKS</a></div>
                 <div><a href="index.html" class="menu-link">HOME</a></div>
                 <div><a href="press.html" class="menu-link">PRESS</a></div>
-                <div><a href="teller tiger.html" class="menu-link">TELLER TIGER</a></div>
+                <!-- 💡 파일명 공백을 하이픈(-)으로 수정한 안전한 링크 설정 -->
+                <div><a href="teller-tiger.html" class="menu-link">TELLER TIGER</a></div>
             </div>
         </div>
     </div>
@@ -103,24 +97,20 @@
             <p style="font-size: 18px; line-height: 1.9; color: #333;">
                 여기에 김혜인님의 소개글이나 프로필을 채워 넣으시면 됩니다.<br><br>
                 이제 스크롤을 내리면 첫 번째 Eden 사진은 일반 사진처럼 마우스를 따라 위로 올라갑니다. 
-                그리고 화면 높이의 절반(0.5)을 지나가는 순간, 상단의 큰 메뉴 글씨들이 스르륵 움직이며 28px의 아담한 크기로 줄어들고 화면 상단에 찰떡처럼 고정되어 따라오게 됩니다!
+                그리고 화면 높이의 절반(0.5)을 지나가는 순간, 상단의 큰 메뉴 글씨들이 스르륵 움직이며 크기가 줄어들고 화면 상단에 고정되어 따라오게 됩니다!
             </p>
         </div>
     </div>
 
-    <!-- 💡 스크롤 위치를 실시간으로 감시하는 자바스크립트 센서 추가 -->
+    <!-- 스크롤 위치를 실시간으로 감시하는 자바스크립트 센서 -->
     <script>
         window.addEventListener('scroll', function() {
             const menuBar = document.getElementById('menuBar');
-            
-            // window.innerHeight * 0.5 = 현재 내 모니터 화면 높이의 정확히 절반(반 정도 내려갔을 때)
             const halfScreen = window.innerHeight * 0.5;
 
             if (window.scrollY > halfScreen) {
-                // 스크롤이 화면 반 이상 내려가면 shrink(수축) 스타일 적용!
                 menuBar.classList.add('shrink');
             } else {
-                // 다시 위로 올라가면 원래의 듬직한 35px 스타일로 복구!
                 menuBar.classList.remove('shrink');
             }
         });
