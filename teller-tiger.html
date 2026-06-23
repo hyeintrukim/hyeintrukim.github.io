@@ -1,1 +1,257 @@
 <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TELLER TIGER</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Euphemia UCAS', sans-serif;
+            background-color: #ffffff;
+            color: #654321;
+        }
+
+        /* 상단 타이틀 공간 */
+        .shop-header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+
+        .shop-header h1 {
+            font-size: 45px;
+            font-weight: 1100;
+            letter-spacing: -2px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            margin: 0 0 10px 0;
+        }
+
+        .shop-header p {
+            font-size: 15px;
+            letter-spacing: 1px;
+            color: #a38f7d;
+            margin: 0;
+        }
+
+        /* 💡 인스타그램 스타일 3열 액자 레이아웃 */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 100px 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 정확히 3열 배치 */
+            gap: 30px; /* 액자 사이 간격 */
+        }
+
+        /* 개별 아이템 액자 */
+        .grid-item {
+            position: relative;
+            background-color: #fcfbfa;
+            cursor: pointer;
+            overflow: hidden;
+            aspect-ratio: 1 / 1; /* 사진을 인스타처럼 완벽한 정사각형으로 고정 */
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 정사각형 틀에 맞춰 예쁘게 잘라줌 */
+            transition: transform 0.4s ease;
+        }
+
+        /* 마우스 올렸을 때 슬쩍 커지는 효과 */
+        .grid-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 마우스 올렸을 때 나타나는 투명 오버레이 */
+        .grid-item .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(101, 67, 33, 0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* -------------------------------------------------------------
+           💡 디테일 컷 및 주문 팝업창 (모달 SYSTEM)
+        ---------------------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); /* 아티스트 감성의 하얀 배경 팝업 */
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-wrapper {
+            display: flex;
+            max-width: 950px;
+            width: 90%;
+            background: #ffffff;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 팝업 내부 큰 이미지 크기 */
+        .modal-img-zone {
+            flex: 1;
+            aspect-ratio: 1 / 1;
+        }
+
+        .modal-img-zone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 팝업 내부 우측 정보 구역 */
+        .modal-info-zone {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .modal-title { font-size: 26px; font-weight: bold; margin-bottom: 10px; }
+        .modal-price { font-size: 20px; color: #a38f7d; font-weight: bold; margin-bottom: 20px; }
+        .modal-desc { font-size: 15px; line-height: 1.8; color: #555; margin-bottom: 30px; }
+
+        /* 💡 페이팔 연동 주문 버튼 */
+        .order-btn {
+            display: inline-block;
+            background-color: #654321;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 35px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.2s;
+        }
+
+        .order-btn:hover {
+            background-color: #a38f7d;
+        }
+
+        /* 닫기 버튼 */
+        .close-btn {
+            position: absolute;
+            top: -40px; right: 0;
+            font-size: 30px;
+            color: #654321;
+            cursor: pointer;
+            font-weight: 300;
+        }
+
+        /* 하단 홈으로 돌아가기 버튼 */
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #a38f7d;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .back-home:hover { color: #654321; }
+
+        /* 반응형 모바일 조절 (화면 작아지면 1열로) */
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: repeat(1, 1fr); padding: 0 20px 60px 20px; }
+            .modal-wrapper { flex-direction: column; height: 80vh; overflow-y: auto; padding-top: 40px; }
+            .close-btn { top: 0; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shop-header">
+        <h1>TELLER TIGER</h1>
+        <p>Ceramics Portfolio & Shop</p>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="grid-item" onclick="openModal('Tiger Plate No.1', '55,00 EUR', 'Handcrafted ceramic plate with dynamic iron glaze strokes. High-fired stoneware perfect for daily rituals.', 'images/Eden.JPG', 'https://paypal.me/hyeinkim/55eur')">
+            <img src="images/Eden.JPG" alt="Ceramic 1">
+            <div class="overlay">VIEW DETAILS</div>
+        </div>
+
+        <div class="grid-item" onclick="openModal('White Tiger Bowl', '48,00 EUR', 'Minimalist white bowl inspired by traditional Korean porcelain forms with a textured raw rim.', 'images/Eden2.JPG', 'https://paypal.me/hyeinkim/48eur')">
+            <img src="images/Eden2.JPG" alt="Ceramic 2">
+            <div class="overlay">VIEW DETAILS</div>
+        </div>
+
+        <div class="grid-item" onclick="openModal('Stoneware Cup', '32,00 EUR', 'Comfortable matte finish cup designed for espresso or tea time.', 'images/Eden.JPG', 'https://paypal.me/hyeinkim/32eur')">
+            <img src="images/Eden.JPG" alt="Ceramic 3">
+            <div class="overlay">VIEW DETAILS</div>
+        </div>
+
+    </div>
+
+    <a href="index.html" class="back-home">← BACK TO HOME</a>
+
+    <div class="modal-overlay" id="detailModal" onclick="closeModalOutside(event)">
+        <div class="modal-wrapper">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            
+            <div class="modal-img-zone">
+                <img src="" id="modalImg" alt="Detail Cut">
+            </div>
+            
+            <div class="modal-info-zone">
+                <div class="modal-title" id="modalTitle">Product Title</div>
+                <div class="modal-price" id="modalPrice">00,00 EUR</div>
+                <div class="modal-desc" id="modalDesc">Product description text goes here...</div>
+                <a href="" id="modalOrderLink" target="_blank" class="order-btn">ORDER VIA PAYPAL</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, price, desc, imgSrc, orderLink) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalOrderLink').href = orderLink;
+            
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // 바깥 여백 누르면 닫히는 기능
+        function closeModalOutside(event) {
+            if(event.target.id === 'detailModal') {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
