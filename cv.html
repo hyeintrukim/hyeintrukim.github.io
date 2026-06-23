@@ -9,7 +9,7 @@
             padding: 0;
             font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
-            color: #333333;
+            color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
 
         .cv-main-container {
@@ -117,32 +117,56 @@
             pointer-events: auto; 
         }
 
-        /* 이력 본문 디자인 구조 */
+        /* 💡 대분류 타이틀 스타일 (밑줄 삭제, 트랜지션 추가) */
         .section-title {
             font-size: 22px; 
             color: #654321;
-            border-bottom: 1px solid #ccc; 
             padding-bottom: 10px;
-            margin-top: 50px;
+            margin-top: 60px;
             letter-spacing: -1px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* 크기 변할 때 부드러운 효과 */
+            transform-origin: left center;
         }
         .section-title:first-of-type { margin-top: 0; }
+        
+        /* 💡 활성화되었을 때 강조 스타일 */
+        .section-title.active {
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        /* 💡 강조 서브 텍스트 크기 통일화 (22px) */
+        .highlight-title {
+            font-size: 22px; 
+            font-weight: bold; 
+            color: #654321; 
+            margin-bottom: 8px;
+        }
+
         .cv-text { font-size: 16px; line-height: 1.9; color: #654321; }
+
+        /* 💡 하이퍼링크 스타일 커스텀 */
+        .contact-link {
+            color: #654321;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.2s ease;
+        }
+        .contact-link:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
 
     <div class="cv-main-container">
         
-        <!-- 왼쪽 아티스트 사진 구역 -->
         <div class="photo-zone">
             <img src="images/artist photo.jpg" alt="Hyein Kim" class="artist-photo">
         </div>
 
-        <!-- 오른쪽 이력 정보 구역 -->
         <div class="info-zone">
             
-            <!-- 우측 고정 메뉴 시스템 -->
             <div class="header-menu-block" id="menuBlock">
                 <a href="index.html" class="cv-logo-link">
                     <span class="char-c">C</span><span class="char-v">V</span>
@@ -156,53 +180,44 @@
                 </div>
             </div>
             
-            <!-- 이력 본문 내용 -->
-          <!-- 첫 번째 학교 (슈투트가르트) -->
-<div style="margin-bottom: 29px;">
-    <div style="font-size: 23px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-        Staatliche Akademie der Bildenden Künste Stuttgart
-    </div>
-    <p class="cv-text" style="margin: 0;">
-        Diplom (M.F.A. Equivalent)
-        2019 - 2025 &nbsp;Prof. Reto Boller<br>
-        2018 - 2019 &nbsp;Prof. Volker Lehnert
-    </p>
-</div>
+            <h2 class="section-title">Education</h2>
 
-<!-- 두 번째 학교 (바이센제) -->
-<div style="margin-bottom: 29px;">
-    <div style="font-size: 23px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-        Kunsthochschule Weißensee Berlin
-    </div>
-    <p class="cv-text" style="margin: 0;">
-        <!-- 💡 연도 옆에 방문/교환 학생 명시 -->
-        Guest Student
-        2022 - 2023 &nbsp; Prof. Pia Linz
-    </p>
-</div>
-
-            </p>
-
-           <h2 class="section-title">Exhibitions</h2>
-
-            <!-- 2026년 전시 -->
             <div style="margin-bottom: 35px;">
-                <div style="font-size: 19px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-                    2026
+                <div class="highlight-title">
+                    Staatliche Akademie der Bildenden Künste Stuttgart
                 </div>
                 <p class="cv-text" style="margin: 0;">
-                    <em>Do you clean your mirror, everyday?</em> Städtische Galerie am Laien, Ditzingen <span style="color: #888888; font-size: 14px; margin-left: 4px;">Solo</span><br>
+                    Diplom (M.F.A. Equivalent)<br>
+                    2019 - 2025 &nbsp;Prof. Reto Boller<br>
+                    2018 - 2019 &nbsp;Prof. Volker Lehnert
+                </p>
+            </div>
+
+            <div style="margin-bottom: 35px;">
+                <div class="highlight-title">
+                    Kunsthochschule Weißensee Berlin
+                </div>
+                <p class="cv-text" style="margin: 0;">
+                    Guest Student<br>
+                    2022 - 2023 &nbsp;Prof. Pia Linz
+                </p>
+            </div>
+
+
+            <h2 class="section-title">Exhibitions</h2>
+
+            <div style="margin-bottom: 35px;">
+                <div class="highlight-title">2026</div>
+                <p class="cv-text" style="margin: 0;">
+                    <em>Do you clean your mirror, everyday?</em> Städtische Galerie am Laien, Ditzingen <span style="color: #a38f7d; font-size: 14px; margin-left: 4px;">Solo</span><br>
                     <em>Heussen Perspectives Awards Winner Exhibition</em> Heussen Law firm, Berlin<br>
                     <em>Versprochen</em> Galerie der Stadt Backnang, Backnang<br>
                     <em>JUSTMAD</em> Madrid Art fair, Madrid
                 </p>
             </div>
 
-            <!-- 2025년 전시 -->
             <div style="margin-bottom: 35px;">
-                <div style="font-size: 19px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-                    2025
-                </div>
+                <div class="highlight-title">2025</div>
                 <p class="cv-text" style="margin: 0;">
                     <em>The Vertigo of Appearing</em> Brispa Gallery, Madrid<br>
                     <em>A-Z Mapping the Future</em> Staatsgalerie Stuttgart, Stuttgart<br>
@@ -212,64 +227,64 @@
                 </p>
             </div>
 
-            <!-- 2024년 전시 -->
             <div style="margin-bottom: 35px;">
-                <div style="font-size: 19px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-                    2024
-                </div>
+                <div class="highlight-title">2024</div>
                 <p class="cv-text" style="margin: 0;">
                     <em>Wesen weißer Garten?</em> Die Orgelfabrik-Kunstzentrum, Karlsruhe<br>
                     <em>743Hz</em> V8 Plattform für neue Kunst, Karlsruhe
                 </p>
             </div>
 
-            <!-- 2021년 전시 -->
             <div style="margin-bottom: 35px;">
-                <div style="font-size: 19px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-                    2021
-                </div>
+                <div class="highlight-title">2021</div>
                 <p class="cv-text" style="margin: 0;">
                     <em>MUTE</em> Neckarstraße Stuttgart, Stuttgart
                 </p>
             </div>
 
-            <!-- 2020년 전시 -->
             <div style="margin-bottom: 35px;">
-                <div style="font-size: 19px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-                    2020
-                </div>
+                <div class="highlight-title">2020</div>
                 <p class="cv-text" style="margin: 0;">
                     <em>FREE FRANKLIN&BARACANTAINE</em> Barac Kunsthaus, Mannheim
                 </p>
             </div>
 
-            <!-- 2019년 전시 -->
             <div style="margin-bottom: 35px;">
-                <div style="font-size: 19px; font-weight: bold; color: #333333; margin-bottom: 8px;">
-                    2019
-                </div>
+                <div class="highlight-title">2019</div>
                 <p class="cv-text" style="margin: 0;">
                     <em>Zeichnungs Live!</em> Performance at Galerie Stihl, Waiblingen
                 </p>
             </div>
             
-            <!-- 이어서 Contact 구역 -->
+            
+            <h2 class="section-title">Prizes & Scholarships</h2>
+            <div style="margin-bottom: 35px;">
+                <div class="highlight-title">2026</div>
+                <p class="cv-text" style="margin: 0;">
+                    Heussen Perspectives Award Winner
+                </p>
+            </div>
+            <div style="margin-bottom: 35px;">
+                <div class="highlight-title">2022</div>
+                <p class="cv-text" style="margin: 0;">
+                    [장학금 혹은 수상내역 명칭을 이곳에 기재해 주세요]
+                </p>
+            </div>
+            
+            
             <h2 class="section-title">Contact</h2>
             <p class="cv-text">
-                Email: hyein@example.com<br>
-                Instagram: @hyein_tru_kim
-            </p>
-      
-        
-                    
-            <!-- 스크롤 테스트용 하단 여백 -->
-            <div style="height: 800px;"></div>
+                Email: <a href="mailto:hyein@example.com" class="contact-link">hyein@example.com ↗</a><br>
+                Instagram: <a href="https://www.instagram.com/hyein_tru_kim" target="_blank" class="contact-link">@hyein_tru_kim ↗</a>
+            </p> 
+            
+            <div style="height: 500px;"></div>
             
         </div>
     </div>
 
-    <!-- 스크롤 감지 센서 자바스크립트 -->
     <script>
+        // 1. 기존 우측 고정 로고 축소 시스템
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
             if (window.scrollY > 20) {
@@ -277,6 +292,31 @@
             } else {
                 menuBlock.classList.remove('scrolled');
             }
+        });
+
+        // 2. 💡 현재 스크롤 위치에 맞춰 제목 크기가 변하는 지능형 센서 시스템
+        const sections = document.querySelectorAll('.section-title');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '-15% 0px -65% 0px', // 화면의 상단 영역에 진입했을 때 민감하게 포커싱되도록 계측 설정
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 화면 중심 영역에 들어온 타이틀은 active 상태 부여
+                    entry.target.classList.add('active');
+                } else {
+                    // 화면에서 벗어나면 다시 일반 모드로 변경
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
         });
     </script>
 
