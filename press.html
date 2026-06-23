@@ -7,13 +7,12 @@
         body {
             margin: 0;
             padding: 0;
-            /* 💡 명조체 및 서양 고급 세리프(Times) 서체 매칭 */
-            font-family: 'Apple Times', 'Times New Roman', 'AppleMyungjo', 'ChosunMyeongjo', 'Batang', serif;
+            font-family: 'Euphemia UCAS', sans-serif; /* 원래 폰트로 복구 완료 */
             background-color: #ffffff;
-            color: #654321; /* 특유의 고풍스러운 갈색 톤 유지 */
+            color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
 
-        .press-main-container {
+        .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 100px 40px;
@@ -22,8 +21,8 @@
             position: relative;
         }
 
-        /* 왼쪽 타이틀 공간 (CV 페이지의 사진 영역과 대칭) */
-        .title-zone {
+        /* 왼쪽 타이틀 구역 (CV 페이지의 사진 구역과 정확히 일치하는 450px 공간 배치) */
+        .photo-zone {
             width: 450px;
             flex-shrink: 0;
             margin-top: 43px;
@@ -31,20 +30,20 @@
 
         .press-main-logo {
             font-size: 85px;
-            font-weight: 800;
-            letter-spacing: -2px;
+            font-weight: 1100;
+            letter-spacing: -3px;
             color: transparent;
-            -webkit-text-stroke: 1.5px #654321;
+            -webkit-text-stroke: 1.7px #654321;
             line-height: 1;
             margin: 0;
         }
 
         .press-sub-subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: #a38f7d;
             letter-spacing: 2px;
             margin-top: 15px;
-            font-weight: normal;
+            font-weight: bold;
         }
 
         /* 오른쪽 기사 텍스트 공간 */
@@ -53,85 +52,157 @@
             padding-top: 140px; 
         }
 
-        /* 💡 CV 페이지에서 가져온 지능형 년도 대분류 타이틀 스타일 */
+        /* 우측 상단 고정 스마트 메뉴 블록 (CV 시스템 완벽 탑재) */
+        .header-menu-block {
+            position: fixed; 
+            top: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-end;  
+            z-index: 1000;
+        }
+
+        /* PRESS 타이포그래피 상단 기본 스타일 (115px 스케일) */
+        .cv-logo-link {
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 1100;
+            line-height: 1;
+            margin-bottom: 20px;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+            z-index: 1010; 
+        }
+
+        .char-p, .char-r {
+            font-size: 115px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            transition: all 0.4s ease-in-out;
+        }
+        .char-p { letter-spacing: -4px; }
+        .char-r {
+            position: relative;
+            top: 52px;      
+            left: -15px;    
+        }
+
+        /* 세로로 나열되는 서브 메뉴 저장소 */
+        .sub-menu-container {
+            display: flex;
+            flex-direction: column; 
+            gap: 30px; /* 메뉴들끼리의 정밀 격차 규격: 30px */
+            align-items: flex-end; 
+            opacity: 0;
+            transform: translateX(50px); 
+            transition: all 0.5s ease-in-out;
+            pointer-events: none; 
+            margin-top: 15px; 
+        }
+
+        /* 서브 메뉴 개별 글씨 스타일 (23px) */
+        .sub-menu-link {
+            font-size: 23px; 
+            text-decoration: none;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px #654321; 
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        /* 스크롤 변신(.scrolled) 모드 시 서브 메뉴 간격 균일화 세팅 */
+        .header-menu-block.scrolled .cv-logo-link {
+            margin-bottom: 30px; /* 로고와 첫 서브메뉴의 위아래 텀을 30px로 정확히 매칭 */
+        }
+
+        .header-menu-block.scrolled .char-p,
+        .header-menu-block.scrolled .char-r {
+            font-size: 60px;
+            -webkit-text-stroke: 1.2px #654321; 
+        }
+        .header-menu-block.scrolled .char-r {
+            top: 27px;
+            left: -8px;
+        }
+
+        .header-menu-block.scrolled .sub-menu-container {
+            opacity: 1;
+            transform: translateX(0); 
+            pointer-events: auto; 
+            margin-top: 0;
+        }
+
+        /* 대분류 년도 타이틀 기본 크기 */
         .section-title {
-            font-size: 24px; 
+            font-size: 20px; 
             color: #654321;
             padding-bottom: 10px;
-            margin-top: 70px;
+            margin-top: 60px;
             letter-spacing: -1px;
-            font-weight: normal;
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             transform-origin: left center;
-            border-bottom: 1px solid rgba(163, 143, 125, 0.3);
         }
         .section-title:first-of-type { margin-top: 0; }
         
-        /* 스크롤 시 해당 년도가 강조되는 active 효과 */
+        /* 활성화(스크롤 강조) 크기 */
         .section-title.active {
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 900;
         }
 
-        /* 기사 개별 블록 */
+        /* 기사 개별 블록 마진 */
         .press-item-block {
-            margin-top: 30px;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
         }
 
-        /* 💡 클릭 시 해당 기사로 바로 이동하는 하이퍼링크 제목 */
+        /* 💡 클릭 시 해당 기사로 바로 새창 이동하는 하이퍼링크 제목 (원래 서체 적용) */
         .press-article-link {
-            font-size: 20px;
-            font-weight: bold;
-            color: #654321;
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #654321; 
             text-decoration: none;
-            line-height: 1.5;
             display: inline-block;
-            transition: opacity 0.2s ease;
             margin-bottom: 8px;
+            transition: opacity 0.2s ease;
         }
         .press-article-link:hover {
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
-        /* 글쓴이 및 발행처 메타 정보 */
-        .press-meta-text {
-            font-size: 15px;
-            line-height: 1.8;
-            color: #a38f7d; /* 차분한 연갈색 */
-            margin: 0;
-            font-style: italic; /* 영문일 때 특히 예쁜 이탤릭 효과 */
-        }
-
-        /* 하단 홈으로 가기 버튼 */
-        .back-home-link {
-            display: inline-block;
-            margin-top: 40px;
-            color: #a38f7d;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-        .back-home-link:hover {
-            color: #654321;
-        }
+        .press-text { font-size: 16px; line-height: 1.9; color: #654321; margin: 0; }
+        .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="press-main-container">
+    <div class="cv-main-container">
         
         <!-- 왼쪽 타이틀 구역 -->
-        <div class="title-zone">
+        <div class="photo-zone">
             <h1 class="press-main-logo">PRESS</h1>
             <div class="press-sub-subtitle">SELECTED BIBLIOGRAPHY</div>
-            
-            <a href="index.html" class="back-home-link">← BACK TO HOME</a>
         </div>
 
         <!-- 오른쪽 뉴스/기사 아카이브 구역 -->
         <div class="info-zone">
+            
+            <!-- 우측 고정 메뉴 시스템 (스크롤 제어 인터페이스) -->
+            <div class="header-menu-block" id="menuBlock">
+                <a href="index.html" class="cv-logo-link">
+                    <span class="char-p">P</span><span class="char-r">R</span>
+                </a>
+                
+                <div class="sub-menu-container">
+                    <a href="work.html" class="sub-menu-link">WORKS</a>
+                    <a href="index.html" class="sub-menu-link">HOME</a>
+                    <a href="press.html" class="sub-menu-link">PRESS</a>
+                    <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
+                </div>
+            </div>
+            
+            <!-- 이력 본문 내용 시작 -->
             
             <!-- 2026년 대분류 -->
             <h2 class="section-title">2026</h2>
@@ -141,9 +212,10 @@
                 <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
                     Hyein Kim: The Poetics of High-Fired Clay and Iron Glaze ↗
                 </a>
-                <p class="press-meta-text">
-                    Written by Clara Müller &nbsp;|&nbsp; Berliner Zeitung
+                <p class="press-text">
+                    Written by Clara Müller
                 </p>
+                <div class="press-meta-info">Berliner Zeitung</div>
             </div>
 
             <!-- 기사 2 -->
@@ -151,9 +223,10 @@
                 <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
                     도자 예술의 새로운 지평을 여는 슈투트가르트의 젊은 시선 ↗
                 </a>
-                <p class="press-meta-text">
-                    홍길동 기자 &nbsp;|&nbsp; 월간 도예 (Monthly Ceramic Art)
+                <p class="press-text">
+                    홍길동 기자
                 </p>
+                <div class="press-meta-info">월간 도예 (Monthly Ceramic Art)</div>
             </div>
 
 
@@ -165,9 +238,10 @@
                 <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
                     The Vertigo of Appearing: A Review on Hyein Kim's Solo Exhibition ↗
                 </a>
-                <p class="press-meta-text">
-                    Written by Javier Gomez &nbsp;|&nbsp; Madrid Art Review
+                <p class="press-text">
+                    Written by Javier Gomez
                 </p>
+                <div class="press-meta-info">Madrid Art Review</div>
             </div>
 
             <!-- 기사 4 -->
@@ -175,9 +249,10 @@
                 <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
                     Happy Accidents in the Space of Library ↗
                 </a>
-                <p class="press-meta-text">
-                    Written by Dr. Thomas Weber &nbsp;|&nbsp; Stuttgart Culture Post
+                <p class="press-text">
+                    Written by Dr. Thomas Weber
                 </p>
+                <div class="press-meta-info">Stuttgart Culture Post</div>
             </div>
 
 
@@ -189,19 +264,31 @@
                 <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
                     Wesen weißer Garten: 743Hz Experimental Collaboration ↗
                 </a>
-                <p class="press-meta-text">
-                    Written by Sarah Schmidt &nbsp;|&nbsp; Karlsruhe Kunstblatt
+                <p class="press-text">
+                    Written by Sarah Schmidt
                 </p>
+                <div class="press-meta-info">Karlsruhe Kunstblatt</div>
             </div>
             
-            <!-- 스크롤 센서 활성화를 위한 여백 박스 -->
-            <div style="height: 600px;"></div>
+            <!-- 스크롤 활성화를 위한 여백 박스 -->
+            <div style="height: 500px;"></div>
             
         </div>
     </div>
 
-    <!-- CV 구조와 동일한 지능형 제목 크기 변환 센서 스크롤 스크립트 -->
+    <!-- 스크롤 센서 종합 자바스크립트 -->
     <script>
+        // 우측 고정 로고 축소 및 서브메뉴 활성화 시스템
+        window.addEventListener('scroll', function() {
+            const menuBlock = document.getElementById('menuBlock');
+            if (window.scrollY > 20) {
+                menuBlock.classList.add('scrolled');
+            } else {
+                menuBlock.classList.remove('scrolled');
+            }
+        });
+
+        // 현재 스크롤 위치에 맞춰 연도 크기가 변하는 지능형 센서 시스템
         const sections = document.querySelectorAll('.section-title');
         
         const observerOptions = {
