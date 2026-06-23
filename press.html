@@ -7,52 +7,27 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Euphemia UCAS', sans-serif; /* 원래 폰트로 복구 완료 */
+            font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
-            color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
+            color: #654321;
         }
 
+        /* 💡 레이아웃을 왼쪽 시작 기준으로 정렬하고, 원하시는 40px 마진을 확보 */
         .cv-main-container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 40px;
-            display: flex;
-            gap: 60px;
+            margin: 0;
+            padding: 100px 40px; /* 왼쪽 여백 40px 고정 */
             position: relative;
         }
 
-        /* 왼쪽 타이틀 구역 (CV 페이지의 사진 구역과 정확히 일치하는 450px 공간 배치) */
-        .photo-zone {
-            width: 450px;
-            flex-shrink: 0;
-            margin-top: 43px;
-        }
-
-        .press-main-logo {
-            font-size: 85px;
-            font-weight: 1100;
-            letter-spacing: -3px;
-            color: transparent;
-            -webkit-text-stroke: 1.7px #654321;
-            line-height: 1;
-            margin: 0;
-        }
-
-        .press-sub-subtitle {
-            font-size: 13px;
-            color: #a38f7d;
-            letter-spacing: 2px;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        /* 오른쪽 기사 텍스트 공간 */
+        /* 💡 기사 텍스트 공간이 왼쪽에 편안히 밀착되도록 재조정 */
         .info-zone {
-            flex-grow: 1;
-            padding-top: 140px; 
+            width: 100%;
+            max-width: 800px;
+            padding-top: 40px; 
         }
 
-        /* 우측 상단 고정 스마트 메뉴 블록 (CV 시스템 완벽 탑재) */
+        /* 우측 상단 고정 스마트 메뉴 블록 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -63,7 +38,6 @@
             z-index: 1000;
         }
 
-        /* PRESS 타이포그래피 상단 기본 스타일 (115px 스케일) */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
@@ -75,29 +49,25 @@
             z-index: 1010; 
         }
 
-        .char-p, .char-r, .char-e, .char-s, .char-s {
+        /* 💡 우측 대형 115px 타이포 로고 속성 정의 */
+        .char-p, .char-r, .char-e, .char-s1, .char-s2 {
             font-size: 115px;
             color: transparent;
             -webkit-text-stroke: 1.7px #654321;
             transition: all 0.4s ease-in-out;
+            display: inline-block;
         }
         .char-p { letter-spacing: -4px; }
-        .char-r {
-            position: relative;
-            top: 52px;      
-            left: -15px;    
-        }
-        .char-e {
-            position: relative;
-            top: 60px;      
-            left: -15px;    
-        }
+        .char-r { position: relative; top: 35px; left: -15px; }
+        .char-e { position: relative; top: 60px; left: -25px; }
+        .char-s1 { position: relative; top: 85px; left: -35px; }
+        .char-s2 { position: relative; top: 110px; left: -45px; }
 
         /* 세로로 나열되는 서브 메뉴 저장소 */
         .sub-menu-container {
             display: flex;
             flex-direction: column; 
-            gap: 30px; /* 메뉴들끼리의 정밀 격차 규격: 30px */
+            gap: 30px; 
             align-items: flex-end; 
             opacity: 0;
             transform: translateX(50px); 
@@ -106,245 +76,4 @@
             margin-top: 15px; 
         }
 
-        /* 서브 메뉴 개별 글씨 스타일 (23px) */
-        .sub-menu-link {
-            font-size: 23px; 
-            text-decoration: none;
-            font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 1px #654321; 
-            letter-spacing: -1px;
-            line-height: 1.2;
-        }
-
-        /* 스크롤 변신(.scrolled) 모드 시 서브 메뉴 간격 균일화 세팅 */
-        .header-menu-block.scrolled .cv-logo-link {
-            margin-bottom: 30px; /* 로고와 첫 서브메뉴의 위아래 텀을 30px로 정확히 매칭 */
-        }
-
-        .header-menu-block.scrolled .char-p,
-        .header-menu-block.scrolled .char-r {
-            font-size: 60px;
-            -webkit-text-stroke: 1.2px #654321; 
-        }
-        .header-menu-block.scrolled .char-r {
-            top: 27px;
-            left: -8px;
-        }
-
-        .header-menu-block.scrolled .sub-menu-container {
-            opacity: 1;
-            transform: translateX(0); 
-            pointer-events: auto; 
-            margin-top: 0;
-        }
-
-        /* 대분류 타이틀 및 년도 스타일 (스크롤 기능 제거 및 px 축소 완료) */
-        .section-title {
-            font-size: 15px; /* 크기를 단정하게 줄임 */
-            font-weight: bold;
-            color: #654321;
-            padding-bottom: 5px;
-            margin-top: 50px;
-            letter-spacing: -0.5px;
-        }
-        .section-title:first-of-type { margin-top: 0; }
-
-        /* 기사 개별 블록 마진 */
-        .press-item-block {
-            margin-bottom: 35px;
-        }
-
-        /* 💡 클릭 시 해당 기사로 바로 새창 이동하는 하이퍼링크 제목 (원래 서체 적용) */
-        .press-article-link {
-            font-size: 17px; 
-            font-weight: bold; 
-            color: #654321; 
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 8px;
-            transition: opacity 0.2s ease;
-        }
-        .press-article-link:hover {
-            opacity: 0.7;
-        }
-
-        .press-text { font-size: 16px; line-height: 1.9; color: #654321; margin: 0; }
-        .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
-    </style>
-</head>
-<body>
-
-    <div class="cv-main-container">
-        
-        <!-- 왼쪽 타이틀 구역 -->
-        <div class="photo-zone">
-            <h1 class="press-main-logo">PRESS</h1>
-            <div class="press-sub-subtitle">SELECTED BIBLIOGRAPHY</div>
-        </div>
-
-        <!-- 오른쪽 뉴스/기사 아카이브 구역 -->
-        <div class="info-zone">
-            
-            <!-- 우측 고정 메뉴 시스템 (스크롤 제어 인터페이스) -->
-            <div class="header-menu-block" id="menuBlock">
-                <a href="index.html" class="cv-logo-link">
-                    <span class="char-p">P</span><span class="char-r">R</span>
-                </a>
-                
-                <div class="sub-menu-container">
-                    <a href="work.html" class="sub-menu-link">WORKS</a>
-                    <a href="index.html" class="sub-menu-link">HOME</a>
-                    <a href="press.html" class="sub-menu-link">PRESS</a>
-                    <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
-                </div>
-            </div>
-            
-            <!-- 이력 본문 내용 시작 -->
-            
-            <!-- 대분류: Press의 영문 번역 적용 -->
-            <h2 class="section-title">Press</h2>
-          
-            <!-- 2026년 대분류 -->
-            <h2 class="section-title">2026</h2>
-
-            <!-- 기사 1 -->
-            <div class="press-item-block">
-                <a href="https://www.staatsgalerie.de/de/programm/tourismus/blick-hinter-kulissen/hyein-kim" target="_blank" class="press-article-link">
-                    Ein zufälliges Treffen mit der Künstlerin Hyein Kim ↗
-                </a>
-                <p class="press-text">
-                    Written by Sheela-Maria Koblitz
-                </p>
-                <div class="press-meta-info">Staatsgalerie Stuttgart</div>
-            </div>
-
-            <!-- 기사 2 -->
-            <div class="press-item-block">
-                <a href="https://www.lkz.de/lokales/kultur-lokal_artikel,-hyein-kim-zeigt-spiegelbilder-des-inneren-_arid,854435.html" target="_blank" class="press-article-link">
-                    Hyein Kim zeigt Spiegelbiler der Inneren ↗
-                </a>
-                <p class="press-text">
-                    Written by Isabel Skokan
-                </p>
-                <div class="press-meta-info">LKZ Ludwigsburger Kreis</div>
-            </div>
-
-
-            <!-- 2025년 대분류 -->
-            <h2 class="section-title">2025</h2>
-
-            <!-- 기사 3 -->
-            <div class="press-item-block">
-                <a href="https://www.abk-stuttgart.de/news/hyein-kim-aus-der-klasse-boller-gewinnt-heussen-perspectives-young-artist-prize/" target="_blank" class="press-article-link">
-                    Hyein im aus der Klasse Boller gewinnt HEUSSEN Perspectives Young Artist Prize ↗
-                </a>
-                <p class="press-text">
-                </p>
-                <div class="press-meta-info">Staatliche Akademie der Bildenden Künste Stuttgart</div>
-            </div>
-
-            <!-- 기사 4 -->
-            <div class="press-item-block">
-                <a href="https://www.heussen-law.de/en/news/news/view/675" target="_blank" class="press-article-link">
-                    HEUSSEN PERSPECTIVES Kunstpries 2025 : Die Preisträger ↗
-                </a>
-                <p class="press-text">
-                </p>
-                <div class="press-meta-info">Heussen Las Firm</div>
-            </div>
-            
-<           <!-- 대분류: Publications -->
-            <h2 class="section-title">Publications</h2>
-
-             <!-- 2026년 대분류 -->
-            <h2 class="section-title">2026</h2>
-            
-            <!-- 기사 5 -->
-            <div class="press-item-block">
-                    Kinder.Bilder
-                </a>
-                <p class="press-text">
-                    Written by Regina Ziegelerstein
-                </p>
-                <div class="press-meta-info">Raum 004 Munich </div>
-            </div>
-
-             <!-- 기사 6 -->
-            <div class="press-item-block">
-                    Do you clean your mirror, everyday? - Ein Atelierbesuch bei den koreanischen Hyein Kim
-                </a>
-                <p class="press-text">
-                    Written by Claudie Fenkart-Nije
-                </p>
-                <div class="press-meta-info">ARS Mondo Art Magazine </div>
-            </div>
-
-          <!-- 기사 7 -->
-            <div class="press-item-block">
-                   Versprochen
-                </a>
-                <p class="press-text">
-                
-                </p>
-                <div class="press-meta-info"> Publication from Group Exhibition of Class Boller</div>
-            </div>
-
-
-             <!-- 2024년 대분류 -->
-            <h2 class="section-title">2024</h2>
-           
-        <!-- 기사 8 -->
-            <div class="press-item-block">
-                   Wessen Weißer Garten?
-                </a>
-                <p class="press-text">
-                
-                </p>
-                <div class="press-meta-info"> Publication from Group Exhibition <en>Wessen Weißer Garten</en></div>
-            </div>
-
-           <!-- 기사 9 -->
-            <div class="press-item-block">
-                   743 Hz
-                </a>
-                <p class="press-text">
-                
-                </p>
-                <div class="press-meta-info"> Publication from Group Exhibition of Class Boller<en>743Hz</en></div>
-            </div>
-
-    <!-- 2021년 대분류 -->
-            <h2 class="section-title">2021</h2>
-           
-        <!-- 기사 8 -->
-            <div class="press-item-block">
-                   MUTE
-                </a>
-                <p class="press-text">
-                
-                </p>
-                <div class="press-meta-info"> Publication from Group Exhibition <en>MUTE</en></div>
-            </div>
-            
-            <!-- 스크롤 활성화를 위한 여백 박스 -->
-            <div style="height: 500px;"></div>
-            
-        </div>
-    </div>
-
-    <!-- 스크롤 센서 종합 자바스크립트 -->
-    <script>
-        // 우측 고정 로고 축소 및 서브메뉴 활성화 시스템 (연도 추적 센서 삭제 완료)
-        window.addEventListener('scroll', function() {
-            const menuBlock = document.getElementById('menuBlock');
-            if (window.scrollY > 20) {
-                menuBlock.classList.add('scrolled');
-            } else {
-                menuBlock.classList.remove('scrolled');
-            }
-        });
-    </script>
-
-</body>
-</html>
+        /* 서브
