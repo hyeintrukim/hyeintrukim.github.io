@@ -21,36 +21,17 @@
             position: relative;
         }
 
-        /* 왼쪽 아티스트 사진 공간 */
+        /* 왼쪽 아티스트 사진 공간 (기존 50px에서 7px 올려서 43px로 수정) */
         .photo-zone {
             width: 450px;
             flex-shrink: 0;
-            margin-top: 50px;
+            margin-top: 43px;
         }
 
         .artist-photo {
             width: 100%;
             height: auto;
             display: block;
-        }
-
-        /* 사진 밑 임프레섬 링크 스타일 */
-        .imprint-link-zone {
-            margin-top: 20px;
-            text-align: left;
-        }
-        
-        .imprint-btn {
-            font-size: 13px;
-            color: #a38f7d; /* 차분한 연갈색 */
-            text-decoration: none;
-            letter-spacing: -1px;
-            font-weight: bold;
-            transition: color 0.2s ease;
-        }
-        
-        .imprint-btn:hover {
-            color: #654321; /* 마우스 올리면 진해짐 */
         }
 
         /* 오른쪽 이력 텍스트 공간 */
@@ -70,7 +51,7 @@
             z-index: 1000;
         }
 
-        /* CV 타이포그래피 기본 스타일 (100px) */
+        /* 💡 CV 타이포그래피 기본 스타일 (기존 100px에서 15px 더 키운 115px 설정) */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
@@ -83,7 +64,7 @@
         }
 
         .char-c, .char-v {
-            font-size: 100px;
+            font-size: 115px; /* 15px 스케일 업 */
             color: transparent;
             -webkit-text-stroke: 1.7px #654321;
             transition: all 0.4s ease-in-out;
@@ -91,7 +72,7 @@
         .char-c { letter-spacing: -4px; }
         .char-v {
             position: relative;
-            top: 45px;      
+            top: 52px; /* 폰트 확대에 맞춰 밸런스 조정 */     
             left: -15px;    
         }
 
@@ -99,7 +80,7 @@
         .sub-menu-container {
             display: flex;
             flex-direction: column; 
-            gap: 30px; 
+            gap: 30px; /* 메뉴들끼리의 격차 규격: 30px */
             align-items: flex-end; 
             opacity: 0;
             transform: translateX(50px); 
@@ -119,7 +100,11 @@
             line-height: 1.2;
         }
 
-        /* 스크롤 변신(.scrolled) 모드 */
+        /* 💡 스크롤 변신(.scrolled) 모드 시 서브 메뉴 간격 균일화 세팅 */
+        .header-menu-block.scrolled .cv-logo-link {
+            margin-bottom: 30px; /* CV와 Works의 위아래 텀을 다른 메뉴 격차(30px)와 동일하게 매칭 */
+        }
+
         .header-menu-block.scrolled .char-c,
         .header-menu-block.scrolled .char-v {
             font-size: 60px;
@@ -134,9 +119,10 @@
             opacity: 1;
             transform: translateX(0); 
             pointer-events: auto; 
+            margin-top: 0; /* 정확한 30px 계산을 위해 탑마진 초기화 */
         }
 
-        /* 💡 대분류 타이틀 기본 크기 22px에서 20px로 2px 축소 */
+        /* 대분류 타이틀 기본 크기 */
         .section-title {
             font-size: 20px; 
             color: #654321;
@@ -148,13 +134,13 @@
         }
         .section-title:first-of-type { margin-top: 0; }
         
-        /* 💡 활성화(스크롤 강조) 크기 기존 28px에서 26px로 2px 축소 */
+        /* 활성화(스크롤 강조) 크기 */
         .section-title.active {
             font-size: 26px;
             font-weight: 900;
         }
 
-        /* 💡 연도 및 학교명 기본 크기 기존 20px에서 18px로 2px 축소 */
+        /* 연도 및 학교명 기본 크기 */
         .highlight-title {
             font-size: 18px; 
             font-weight: bold; 
@@ -180,14 +166,9 @@
 
     <div class="cv-main-container">
         
-        <!-- 왼쪽 아티스트 사진 구역 -->
+        <!-- 왼쪽 아티스트 사진 구역 (사진 밑 imprint 삭제 완료) -->
         <div class="photo-zone">
             <img src="images/artist photo.jpg" alt="Hyein Kim" class="artist-photo">
-            
-            <!-- 사진 밑 임프레섬 링크 -->
-            <div class="imprint-link-zone">
-                <a href="imprint.html" class="imprint-btn">imprint</a>
-            </div>
         </div>
 
         <!-- 오른쪽 이력 정보 구역 -->
@@ -312,11 +293,12 @@ Funded by the Kunst trotz Abstand Program, Ministry of Science, Research and the
             </div>
             
             
-            <!-- 소셜/이메일 자동 아웃링크 탑재된 Contact 구역 -->
+            <!-- 💡 소셜/이메일 정보 및 정비된 Imprint 링크가 탑재된 Contact 구역 -->
             <h2 class="section-title">Contact</h2>
             <p class="cv-text">
-                <a href="mailto:hyein@example.com" class="contact-link">hyein@example.com ↗</a><br>
-                <a href="https://www.instagram.com/hyein_tru_kim" target="_blank" class="contact-link">@hyein_tru_kim ↗</a>
+                Email: <a href="mailto:hyeintr@gmail.com" class="contact-link">hyeintr@gmail.com ↗</a><br>
+                Instagram: <a href="https://www.instagram.com/hyein_tru_kim" target="_blank" class="contact-link">@hyein_tru_kim ↗</a><br>
+                Imprint: <a href="imprint.html" class="contact-link">Imprint ↗</a>
             </p> 
             
             <!-- 스크롤 활성화를 위한 여백 박스 -->
