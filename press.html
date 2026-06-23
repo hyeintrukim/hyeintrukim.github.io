@@ -1,1 +1,229 @@
 <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>PRESS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* 💡 명조체 및 서양 고급 세리프(Times) 서체 매칭 */
+            font-family: 'Apple Times', 'Times New Roman', 'AppleMyungjo', 'ChosunMyeongjo', 'Batang', serif;
+            background-color: #ffffff;
+            color: #654321; /* 특유의 고풍스러운 갈색 톤 유지 */
+        }
+
+        .press-main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 40px;
+            display: flex;
+            gap: 60px;
+            position: relative;
+        }
+
+        /* 왼쪽 타이틀 공간 (CV 페이지의 사진 영역과 대칭) */
+        .title-zone {
+            width: 450px;
+            flex-shrink: 0;
+            margin-top: 43px;
+        }
+
+        .press-main-logo {
+            font-size: 85px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            color: transparent;
+            -webkit-text-stroke: 1.5px #654321;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .press-sub-subtitle {
+            font-size: 14px;
+            color: #a38f7d;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            font-weight: normal;
+        }
+
+        /* 오른쪽 기사 텍스트 공간 */
+        .info-zone {
+            flex-grow: 1;
+            padding-top: 140px; 
+        }
+
+        /* 💡 CV 페이지에서 가져온 지능형 년도 대분류 타이틀 스타일 */
+        .section-title {
+            font-size: 24px; 
+            color: #654321;
+            padding-bottom: 10px;
+            margin-top: 70px;
+            letter-spacing: -1px;
+            font-weight: normal;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: left center;
+            border-bottom: 1px solid rgba(163, 143, 125, 0.3);
+        }
+        .section-title:first-of-type { margin-top: 0; }
+        
+        /* 스크롤 시 해당 년도가 강조되는 active 효과 */
+        .section-title.active {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        /* 기사 개별 블록 */
+        .press-item-block {
+            margin-top: 30px;
+            margin-bottom: 45px;
+        }
+
+        /* 💡 클릭 시 해당 기사로 바로 이동하는 하이퍼링크 제목 */
+        .press-article-link {
+            font-size: 20px;
+            font-weight: bold;
+            color: #654321;
+            text-decoration: none;
+            line-height: 1.5;
+            display: inline-block;
+            transition: opacity 0.2s ease;
+            margin-bottom: 8px;
+        }
+        .press-article-link:hover {
+            opacity: 0.6;
+        }
+
+        /* 글쓴이 및 발행처 메타 정보 */
+        .press-meta-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #a38f7d; /* 차분한 연갈색 */
+            margin: 0;
+            font-style: italic; /* 영문일 때 특히 예쁜 이탤릭 효과 */
+        }
+
+        /* 하단 홈으로 가기 버튼 */
+        .back-home-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #a38f7d;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .back-home-link:hover {
+            color: #654321;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="press-main-container">
+        
+        <!-- 왼쪽 타이틀 구역 -->
+        <div class="title-zone">
+            <h1 class="press-main-logo">PRESS</h1>
+            <div class="press-sub-subtitle">SELECTED BIBLIOGRAPHY</div>
+            
+            <a href="index.html" class="back-home-link">← BACK TO HOME</a>
+        </div>
+
+        <!-- 오른쪽 뉴스/기사 아카이브 구역 -->
+        <div class="info-zone">
+            
+            <!-- 2026년 대분류 -->
+            <h2 class="section-title">2026</h2>
+
+            <!-- 기사 1 -->
+            <div class="press-item-block">
+                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
+                    Hyein Kim: The Poetics of High-Fired Clay and Iron Glaze ↗
+                </a>
+                <p class="press-meta-text">
+                    Written by Clara Müller &nbsp;|&nbsp; Berliner Zeitung
+                </p>
+            </div>
+
+            <!-- 기사 2 -->
+            <div class="press-item-block">
+                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
+                    도자 예술의 새로운 지평을 여는 슈투트가르트의 젊은 시선 ↗
+                </a>
+                <p class="press-meta-text">
+                    홍길동 기자 &nbsp;|&nbsp; 월간 도예 (Monthly Ceramic Art)
+                </p>
+            </div>
+
+
+            <!-- 2025년 대분류 -->
+            <h2 class="section-title">2025</h2>
+
+            <!-- 기사 3 -->
+            <div class="press-item-block">
+                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
+                    The Vertigo of Appearing: A Review on Hyein Kim's Solo Exhibition ↗
+                </a>
+                <p class="press-meta-text">
+                    Written by Javier Gomez &nbsp;|&nbsp; Madrid Art Review
+                </p>
+            </div>
+
+            <!-- 기사 4 -->
+            <div class="press-item-block">
+                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
+                    Happy Accidents in the Space of Library ↗
+                </a>
+                <p class="press-meta-text">
+                    Written by Dr. Thomas Weber &nbsp;|&nbsp; Stuttgart Culture Post
+                </p>
+            </div>
+
+
+            <!-- 2024년 대분류 -->
+            <h2 class="section-title">2024</h2>
+
+            <!-- 기사 5 -->
+            <div class="press-item-block">
+                <a href="https://여기실제기사링크주소넣기.com" target="_blank" class="press-article-link">
+                    Wesen weißer Garten: 743Hz Experimental Collaboration ↗
+                </a>
+                <p class="press-meta-text">
+                    Written by Sarah Schmidt &nbsp;|&nbsp; Karlsruhe Kunstblatt
+                </p>
+            </div>
+            
+            <!-- 스크롤 센서 활성화를 위한 여백 박스 -->
+            <div style="height: 600px;"></div>
+            
+        </div>
+    </div>
+
+    <!-- CV 구조와 동일한 지능형 제목 크기 변환 센서 스크롤 스크립트 -->
+    <script>
+        const sections = document.querySelectorAll('.section-title');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '-15% 0px -65% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+</body>
+</html>
