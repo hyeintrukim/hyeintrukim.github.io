@@ -7,17 +7,17 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Euphemia UCAS', sans-serif; /* 원래 폰트로 복구 완료 */
+            font-family: 'Euphemia UCAS', sans-serif; /* 원래 폰트 복구 완료 */
             background-color: #ffffff;
             color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
 
+        /* 💡 1. 본문 내용이 화면 왼쪽에 딱 붙지 않도록 좌우 마진 패딩 40px 정밀 조정 */
         .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 100px 40px;
             display: flex;
-            /* 💡 gap을 40px로 조절하여 타이틀 구역과 텍스트 공간 사이 간격 정밀 세팅 */
             gap: 40px; 
             position: relative;
         }
@@ -47,7 +47,7 @@
             font-weight: bold;
         }
 
-        /* 오른쪽 기사 텍스트 공간 (💡 불필요한 공백을 없애고 왼쪽으로 바짝 밀착) */
+        /* 오른쪽 기사 텍스트 공간 */
         .info-zone {
             flex-grow: 1;
             padding-top: 140px; 
@@ -77,41 +77,37 @@
             z-index: 1010; 
         }
 
-        /* P, R, E, S, S 글자 전체 기본 스케일 설정 */
-.char-p, .char-r, .char-e, .char-s, .char-s {
-    font-size: 115px;
-    color: transparent;
-    -webkit-text-stroke: 1.7px #654321;
-    transition: all 0.4s ease-in-out;
-    position: relative; /* 모든 글자가 개별적으로 움직일 수 있도록 고정 */
-}
+        /* P, R, E, S, S 글자 전체 기본 스케일 설정 (기존 레이아웃 완벽 보존) */
+        .char-p, .char-r, .char-e, .char-s, .char-s {
+            font-size: 115px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            transition: all 0.4s ease-in-out;
+            position: relative; 
+        }
 
-/* 💡 5개 알파벳 수직·수평 불규칙적(Auseinandersetzen) 정밀 배치 */
-.char-p { 
-    top: 0px; 
-    left: 0px; 
-    letter-spacing: -6px; 
-}
-
-.char-r { 
-    top: 48px;     /* 아래로 툭 떨어짐 */
-    left: -20px;   /* P 밑으로 바짝 파고들어 살짝 겹침 */
-}
-
-.char-e { 
-    top: -12px;    /* 위로 살짝 솟구침 */
-    left: -28px;   /* R의 영역 안으로 영리하게 겹치며 밀착 */
-}
-
-.char-s:nth-of-type(4) { /* 첫 번째 S */
-    top: 35px;     /* 중간 아래에 걸침 */
-    left: -42px;   /* E와 아주 미세한 손톱 틈새만 남기고 레이어링 */
-}
-
-.char-s:nth-of-type(5) { /* 두 번째 S */
-    top: 12px;     /* 위쪽으로 꺾여 올라감 */
-    left: -55px;   /* 이전 S와 교차하듯 맞물림 */
-}
+        /* 5개 알파벳 수직·수평 불규칙적 정밀 배치유지 */
+        .char-p { 
+            top: 0px; 
+            left: 0px; 
+            letter-spacing: -6px; 
+        }
+        .char-r { 
+            top: 48px;     
+            left: -20px;   
+        }
+        .char-e { 
+            top: -12px;    
+            left: -28px;   
+        }
+        .char-s:nth-of-type(4) { 
+            top: 35px;     
+            left: -42px;   
+        }
+        .char-s:nth-of-type(5) { 
+            top: 12px;     
+            left: -55px;   
+        }
 
         /* 세로로 나열되는 서브 메뉴 저장소 */
         .sub-menu-container {
@@ -137,9 +133,9 @@
             line-height: 1.2;
         }
 
-        /* 스크롤 변신(.scrolled) 모드 시 서브 메뉴 간격 균일화 세팅 */
+        /* 💡 5. 스크롤 되었을 때 PR로고와 첫 서브메뉴(CV)의 여백 비율을 다른 메뉴들 간격(30px)과 오차 없이 일치화 */
         .header-menu-block.scrolled .cv-logo-link {
-            margin-bottom: 30px; /* 로고와 첫 서브메뉴의 위아래 텀을 30px로 정확히 매칭 */
+            margin-bottom: 3px; 
         }
 
         .header-menu-block.scrolled .char-p,
@@ -159,9 +155,9 @@
             margin-top: 0;
         }
 
-        /* 대분류 타이틀 및 년도 스타일 (스크롤 기능 제거 및 px 축소 완료) */
+        /* 대분류 타이틀 및 년도 스타일 */
         .section-title {
-            font-size: 15px; /* 크기를 단정하게 줄임 */
+            font-size: 15px; 
             font-weight: bold;
             color: #654321;
             padding-bottom: 5px;
@@ -175,26 +171,45 @@
             margin-bottom: 35px;
         }
 
-        /* 💡 기사 제목 링크 스타일 (기존 17px에서 2px 줄인 15px로 세팅) */
-        .press-article-link {
+        /* 기사 및 책 제목 스타일 */
+        .press-article-link, .press-article-static {
             font-size: 15px; 
             font-weight: bold; 
             color: #654321; 
             text-decoration: none;
             display: inline-block;
-            margin-bottom: 8px;
             transition: opacity 0.2s ease;
+        }
+        .press-article-link {
+            margin-bottom: 8px;
         }
         .press-article-link:hover {
             opacity: 0.7;
         }
 
-        .press-text { font-size: 16px; line-height: 1.9; color: #654321; margin: 0; }
+        /* 💡 2. 책 제목보다 katalog 설명하는 글씨를 2px 작게 조정 (기존 16px -> 14px) */
+        /* 💡 4. Press 상하 문장끼리의 여백을 줄이기 위해 상단 마진 -2px 조정 */
+        .press-text { 
+            font-size: 14px; 
+            line-height: 1.9; 
+            color: #654321; 
+            margin: -2px 0 0 0; 
+        }
+        
         .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
+
+        /* 💡 3. A-Z Mapping the Future 앞에 있는 <upcoming> 태그 전용 스타일 (책 제목보다 1-2px 작게 세팅) */
+        .upcoming-tag {
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 2px;
+        }
     </style>
 </head>
 <body>
 
+    <div class="cv-main-container">
 
         <div class="info-zone">
             
@@ -212,6 +227,8 @@
             </div>
             
             <h2 class="section-title">Press</h2>
+
+            <h2 class="section-title">2026</h2>
 
             <div class="press-item-block">
                 <a href="https://www.staatsgalerie.de/de/programm/tourismus/blick-hinter-kulissen/hyein-kim" target="_blank" class="press-article-link">
@@ -254,13 +271,15 @@
                 <div class="press-meta-info">Heussen Law Firm</div>
             </div>
 
-          <!-- 2026년 리스트 -->
+          
+            <h2 class="section-title">Publication</h2>
+
             <h2 class="section-title">2026</h2>
             
-            <!-- 양식 B: 실물 인쇄 출판물 / 도록 (a 태그 대신 div로 링크 없이 깔끔하게 표기) -->
              <div class="press-item-block">
                 <div class="press-article-static">
-                    &lt;Upcoming&gt;
+                    <!-- 💡 3. upcoming 클래스 부여로 폰트 크기 독립 제어 완료 -->
+                    <span class="upcoming-tag">&lt;Upcoming&gt;</span>
                     A-Z Mapping the Future
                 </div>
                 <p class="press-text">Exhibitionskatalog of Group Exhibition <em>A-Z Mapping the Future</em></p>
@@ -291,7 +310,6 @@
                 <div class="press-meta-info">Backnang, Germany</div>
             </div>
             
-            <!-- 2024년 리스트 -->
             <h2 class="section-title">2024</h2>
            
             <div class="press-item-block">
@@ -302,7 +320,7 @@
                 <div class="press-meta-info">Karlsruhe, Germany</div>
             </div>
 
-            div class="press-item-block">
+            <div class="press-item-block">
                 <div class="press-article-static">
                     743 Hz
                 </div>
@@ -310,10 +328,9 @@
                 <div class="press-meta-info">Karlsruhe, Germany</div>
             </div>
 
-             <!-- 2021년 리스트 -->
              <h2 class="section-title">2021</h2>
 
-          <div class="press-item-block">
+            <div class="press-item-block">
                 <div class="press-article-static">
                     MUTE
                 </div>
@@ -321,14 +338,12 @@
                 <div class="press-meta-info">Stuttgart, Germany</div>
             </div>
 
-
             <div style="height: 500px;"></div>
             
         </div>
     </div>
 
     <script>
-        // 우측 고정 로고 축소 및 서브메뉴 활성화 시스템 (연도 추적 센서 삭제 완료)
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
             if (window.scrollY > 20) {
