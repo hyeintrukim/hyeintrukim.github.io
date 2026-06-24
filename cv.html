@@ -17,11 +17,11 @@
             margin: 0 auto;
             padding: 100px 40px;
             display: flex;
-            gap: 60px;
+            gap: 40px; /* PRESS 페이지의 갭 규격인 40px로 통일 */
             position: relative;
         }
 
-        /* 왼쪽 아티스트 사진 공간 (기존 50px에서 7px 올려서 43px로 수정) */
+        /* 왼쪽 아티스트 사진 공간 */
         .photo-zone {
             width: 450px;
             flex-shrink: 0;
@@ -51,29 +51,33 @@
             z-index: 1000;
         }
 
-        /* 💡 CV 타이포그래피 기본 스타일 (기존 100px에서 15px 더 키운 115px 설정) */
+        /* 💡 [수정] 마지막 V의 위치가 하단 메뉴의 오른쪽 끝선과 일치하도록 마이너스 마진 및 높이 조율 */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
             font-weight: 1100;
             line-height: 1;
             margin-bottom: 20px;
+            margin-right: -12px; /* 마지막 V가 들어간 수치만큼 우측 정렬선 칼같이 일치시킴 */
             transition: all 0.4s ease-in-out;
             position: relative;
             z-index: 1010; 
+            height: 170px; /* PRESS 로고 영역과 동일한 리듬감 공간 확보 */
         }
 
+        /* 글자 스타일 PRESS 속성과 동일하게 동기화 */
         .char-c, .char-v {
-            font-size: 115px; /* 15px 스케일 업 */
+            font-size: 115px; 
             color: transparent;
             -webkit-text-stroke: 1.7px #654321;
             transition: all 0.4s ease-in-out;
-            font-weight: 800;
+            font-weight: 1100;
+            position: relative;
+            display: inline-block;
         }
         .char-c { letter-spacing: -4px; }
         .char-v {
-            position: relative;
-            top: 52px; /* 폰트 확대에 맞춰 밸런스 조정 */     
+            top: 52px;     
             left: -12px;    
         }
 
@@ -81,7 +85,7 @@
         .sub-menu-container {
             display: flex;
             flex-direction: column; 
-            gap: 30px; /* 메뉴들끼리의 격차 규격: 30px */
+            gap: 35px; /* 💡 메뉴들끼리의 간격을 PRESS 페이지와 동일하게 35px로 변경 */
             align-items: flex-end; 
             opacity: 0;
             transform: translateX(50px); 
@@ -101,9 +105,11 @@
             line-height: 1.2;
         }
 
-        /* 💡 스크롤 변신(.scrolled) 모드 시 서브 메뉴 간격 균일화 세팅 */
+        /* 💡 [수정] 스크롤 변신(.scrolled) 모드 시 여백 및 정렬 PRESS 페이지와 100% 매칭 */
         .header-menu-block.scrolled .cv-logo-link {
-            margin-bottom: 30px; /* CV와 Works의 위아래 텀을 다른 메뉴 격차(30px)와 동일하게 매칭 */
+            height: 90px;
+            margin-bottom: 35px; /* 💡 CV로고와 첫 메뉴(WORKS) 간격을 정확히 35px로 매칭 */
+            margin-right: -8px;  /* 축소되었을 때의 마지막 V 오른쪽 끝선 맞춤 정렬 */
         }
 
         .header-menu-block.scrolled .char-c,
@@ -120,7 +126,7 @@
             opacity: 1;
             transform: translateX(0); 
             pointer-events: auto; 
-            margin-top: 0; /* 정확한 30px 계산을 위해 탑마진 초기화 */
+            margin-top: 0; 
         }
 
         /* 대분류 타이틀 기본 크기 */
@@ -167,7 +173,7 @@
 
     <div class="cv-main-container">
         
-        <!-- 왼쪽 아티스트 사진 구역 (사진 밑 imprint 삭제 완료) -->
+        <!-- 왼쪽 아티스트 사진 구역 -->
         <div class="photo-zone">
             <img src="images/artist photo.jpg" alt="Hyein Kim" class="artist-photo">
         </div>
@@ -182,6 +188,7 @@
                 </a>
                 
                 <div class="sub-menu-container">
+                    <!-- 글자 순서는 제공해주신 순서 그대로 완벽 보존 -->
                     <a href="work.html" class="sub-menu-link">WORKS</a>
                     <a href="index.html" class="sub-menu-link">HOME</a>
                     <a href="press.html" class="sub-menu-link">PRESS</a>
@@ -281,20 +288,20 @@
             <div style="margin-bottom: 35px;">
                 <div class="highlight-title">2026</div>
                 <p class="cv-text" style="margin: 0;">
-                    Heussen Perspectives Young Artist Award 2025
+                    Heussen Perspectives Young Artist Award 2025<br>
                     at Academy POSITIONS Berlin Art fair
                 </p>
             </div>
             <div style="margin-bottom: 35px;">
                 <div class="highlight-title">2022</div>
                 <p class="cv-text" style="margin: 0;">
-                    Residency Scholarship, BARAC Kunsthaus, Mannheim, Germany, 2021
-Funded by the Kunst trotz Abstand Program, Ministry of Science, Research and the Arts Baden-Württemberg
+                    Residency Scholarship, BARAC Kunsthaus, Mannheim, Germany, 2021<br>
+                    Funded by the Kunst trotz Abstand Program, Ministry of Science, Research and the Arts Baden-Württemberg
                 </p>
             </div>
             
             
-            <!-- 💡 소셜/이메일 정보 및 정비된 Imprint 링크가 탑재된 Contact 구역 -->
+            <!-- 소셜/이메일 정보 및 정비된 Imprint 링크가 탑재된 Contact 구역 -->
             <h2 class="section-title">Contact</h2>
             <p class="cv-text">
                 <a href="mailto:hyeintr@gmail.com" class="contact-link">hyeintr@gmail.com ↗</a><br>
@@ -302,13 +309,11 @@ Funded by the Kunst trotz Abstand Program, Ministry of Science, Research and the
                 <a href="imprint.html" class="contact-link">Imprint ↗</a>
             </p> 
             
-            
         </div>
     </div>
 
     <!-- 스크롤 센서 종합 자바스크립트 -->
     <script>
-        // 기존 우측 고정 로고 축소 시스템
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
             if (window.scrollY > 20) {
@@ -317,8 +322,6 @@ Funded by the Kunst trotz Abstand Program, Ministry of Science, Research and the
                 menuBlock.classList.remove('scrolled');
             }
         });
-
-        
     </script>
 
 </body>
