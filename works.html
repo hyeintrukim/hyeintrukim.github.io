@@ -1,1 +1,292 @@
 <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>WORKS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Euphemia UCAS', sans-serif;
+            background-color: #ffffff;
+            color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
+        }
+
+        .cv-main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 40px;
+            display: flex;
+            gap: 40px; /* CV/PRESS와 동일한 갭 규격 */
+            position: relative;
+        }
+
+        /* 💡 [왼쪽 구역] 클릭 가능한 대분류 메뉴 공간 */
+        .photo-zone {
+            width: 450px;
+            flex-shrink: 0;
+            margin-top: 43px;
+        }
+
+        /* WORK LIST, EXHIBITIONS 대메뉴 스타일 */
+        .works-main-tab {
+            font-size: 28px;
+            font-weight: 1100;
+            color: #654321;
+            text-decoration: underline;    /* 💡 애초에 밑줄 탑재 */
+            text-underline-offset: 6px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            display: block;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+
+        /* 💡 마우스 올리면 파란색으로 색상만 변경 */
+        .works-main-tab:hover {
+            color: #0022ff;
+        }
+
+        /* [오른쪽 구역] 펼쳐지는 콘텐츠(리스트) 공간 */
+        .info-zone {
+            flex-grow: 1;
+            padding-top: 140px; 
+        }
+
+        /* 기본적으로 모든 콘텐츠 리스트 섹션은 숨겨둠 */
+        .content-section {
+            display: none;
+        }
+
+        /* 활성화된 리스트 섹션만 노출 */
+        .content-section.active {
+            display: block;
+        }
+
+        /* 년도 스타일 지정 */
+        .works-year-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #654321;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        .works-year-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* 개별 작업/전시 제목 스타일 */
+        .works-item-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #654321;
+            margin: 0 0 8px 0;
+        }
+
+        /* 부가 설명 및 메타 정보 텍스트 */
+        .works-item-text {
+            font-size: 14px;
+            line-height: 1.9;
+            color: #a38f7d; /* 서브 정보는 연한 갈색 */
+            margin: 0 0 25px 0;
+        }
+
+
+        /* ---------------------------------------------------- */
+        /* 우측 상단 고정 스마트 메뉴 블록 (CV/PRESS 패밀리룩 유지) */
+        /* ---------------------------------------------------- */
+        .header-menu-block {
+            position: fixed; 
+            top: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-end;  
+            z-index: 1000;
+        }
+
+        .cv-logo-link {
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 1100;
+            line-height: 1;
+            margin-bottom: 20px;
+            margin-right: -45px; /* WORKS 우측 칼정렬 오프셋 */
+            transition: all 0.4s ease-in-out;
+            position: relative;
+            z-index: 1010; 
+            height: 170px; 
+        }
+
+        /* W, O, R, K, S 개별 글자 배치 디자인 */
+        .char-w, .char-o, .char-r, .char-k, .char-s {
+            font-size: 115px; 
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            transition: all 0.4s ease-in-out;
+            font-weight: 1100;
+            position: relative;
+            display: inline-block;
+        }
+        .char-w { top: 0px; left: 0px; letter-spacing: -6px; }
+        .char-o { top: 45px; left: -15px; }
+        .char-r { top: -10px; left: -22px; }
+        .char-k { top: 35px; left: -35px; }
+        .char-s { top: 10px; left: -45px; }
+
+        /* 세로 서브 메뉴 저장소 */
+        .sub-menu-container {
+            display: flex;
+            flex-direction: column; 
+            gap: 35px; 
+            align-items: flex-end; 
+            opacity: 0;
+            transform: translateX(50px); 
+            transition: all 0.5s ease-in-out;
+            pointer-events: none; 
+            margin-top: 15px; 
+        }
+
+        .sub-menu-link {
+            font-size: 23px; 
+            text-decoration: none;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px #654321; 
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        /* 스크롤 시 축소 반응형 디자인 */
+        .header-menu-block.scrolled .cv-logo-link {
+            height: 95px;
+            margin-bottom: 45px; 
+            margin-right: -23px;  
+        }
+
+        .header-menu-block.scrolled .char-w,
+        .header-menu-block.scrolled .char-o,
+        .header-menu-block.scrolled .char-r,
+        .header-menu-block.scrolled .char-k,
+        .header-menu-block.scrolled .char-s {
+            font-size: 60px;
+            -webkit-text-stroke: 1.2px #654321; 
+        }
+        .header-menu-block.scrolled .char-w { top: 0px; left: 0px; }
+        .header-menu-block.scrolled .char-o { top: 23px; left: -8px; }
+        .header-menu-block.scrolled .char-r { top: -5px; left: -11px; }
+        .header-menu-block.scrolled .char-k { top: 18px; left: -18px; }
+        .header-menu-block.scrolled .char-s { top: 5px; left: -23px; }
+
+        .header-menu-block.scrolled .sub-menu-container {
+            opacity: 1;
+            transform: translateX(0); 
+            pointer-events: auto; 
+            margin-top: 0; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-main-container">
+        
+        <!-- 💡 [왼쪽 구역] 탭 메뉴 시스템 -->
+        <div class="photo-zone">
+            <span class="works-main-tab" onclick="switchTab('worklist')">WORK LIST</span>
+            <span class="works-main-tab" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
+        </div>
+
+        <!-- 💡 [오른쪽 구역] 클릭 시 내용이 노출되는 본문 시스템 -->
+        <div class="info-zone">
+            
+            <!-- 우측 스마트 퀵 네비게이션 메인 (경로 설정 완료) -->
+            <div class="header-menu-block" id="menuBlock">
+                <a href="index.html" class="cv-logo-link">
+                    <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
+                </a>
+                <div class="sub-menu-container">
+                    <a href="index.html" class="sub-menu-link">HOME</a>
+                    <a href="cv.html" class="sub-menu-link">CV</a>
+                    <a href="press.html" class="sub-menu-link">PRESS</a>
+                    <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
+                </div>
+            </div>
+            
+            <!-- ========================================== -->
+            <!-- 1. WORK LIST 콘텐츠 (첫 실행 시 기본 노출) -->
+            <!-- ========================================== -->
+            <div id="section-worklist" class="content-section active">
+                
+                <div class="works-year-title">2026</div>
+                <div>
+                    <h3 class="works-item-title">Do you clean your mirror, everyday? #1</h3>
+                    <p class="works-item-text">Oil on canvas, 130 x 130 cm</p>
+                    
+                    <h3 class="works-item-title">Untitled (Vertigo Series)</h3>
+                    <p class="works-item-text">Mixed media on linen, 100 x 80 cm</p>
+                </div>
+
+                <div class="works-year-title">2025</div>
+                <div>
+                    <h3 class="works-item-title">Happy Accident Object</h3>
+                    <p class="works-item-text">Sculpture, Installation dimensions variable</p>
+                </div>
+
+                <div class="works-year-title">2024</div>
+                <div>
+                    <h3 class="works-item-title">White Garden Study</h3>
+                    <p class="works-item-text">Drawing on paper, 42 x 29.7 cm</p>
+                </div>
+                
+            </div>
+
+            <!-- ========================================== -->
+            <!-- 2. EXHIBITIONS 콘텐츠 (클릭 시 노출) -->
+            <!-- ========================================== -->
+            <div id="section-exhibitions" class="content-section">
+                
+                <div class="works-year-title">2026</div>
+                <div>
+                    <h3 class="works-item-title">Do you clean your mirror, everyday?</h3>
+                    <p class="works-item-text">Städtische Galerie am Laien, Ditzingen (Solo)</p>
+
+                    <h3 class="works-item-title">Heussen Perspectives Awards Winner Exhibition</h3>
+                    <p class="works-item-text">Heussen Law firm, Berlin (Group)</p>
+                </div>
+
+                <div class="works-year-title">2025</div>
+                <div>
+                    <h3 class="works-item-title">A-Z Mapping the Future</h3>
+                    <p class="works-item-text">Staatsgalerie Stuttgart, Stuttgart (Group)</p>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 스크립트 엔진 제어 -->
+    <script>
+        // 1. 왼쪽 탭 메뉴 전환 인터랙션 함수
+        function switchTab(tabId) {
+            // 모든 섹션을 숨김 처리
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // 클릭한 대상 타겟 섹션만 활성화 활짝 열기
+            document.getElementById('section-' + tabId).classList.add('active');
+        }
+
+        // 2. 우측 스마트 고정 메뉴 스크롤 이벤트 애니메이션
+        window.addEventListener('scroll', function() {
+            const menuBlock = document.getElementById('menuBlock');
+            if (window.scrollY > 20) {
+                menuBlock.classList.add('scrolled');
+            } else {
+                menuBlock.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+</html>
