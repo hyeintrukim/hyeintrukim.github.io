@@ -20,13 +20,7 @@
             display: flex;
             gap: 40px; 
             position: relative;
-        }
-
-        /* 왼쪽 타이틀 구역 (CV 페이지의 사진 구역과 정확히 일치하는 450px 공간 배치) */
-        .photo-zone {
-            width: 450px;
-            flex-shrink: 0;
-            margin-top: 43px;
+        
         }
 
         .press-main-logo {
@@ -177,20 +171,26 @@
             margin-bottom: 35px;
         }
 
-        /* 기사 및 책 제목 스타일 */
-        .press-article-link, .press-article-static {
-            font-size: 15px; 
-            font-weight: bold; 
-            color: #654321; 
-            text-decoration: none;
-            display: inline-block;
-            transition: opacity 0.2s ease;
-        }
-        .press-article-link {
-            margin-bottom: 8px;
-        }
-        .press-article-link:hover {
-            opacity: 0.7;
+        /* 기사 및 책 제목 스타일 (기본 상태) */
+.press-article-link, .press-article-static {
+    font-size: 15px; 
+    font-weight: bold; 
+    color: #654321; /* 평소에는 기존 갈색 */
+    text-decoration: none; /* 평소에는 둘 다 밑줄 없음 */
+    display: inline-block;
+}
+
+.press-article-link {
+    margin-bottom: 8px;
+    text-underline-offset: 4px; /* 밑줄과 글자 사이 간격 */
+    transition: color 0.2s ease, text-decoration 0.2s ease; /* 부드러운 전환 효과 */
+}
+
+/* 💡 [수정] 하이퍼링크가 걸린 제목에만 마우스를 올렸을 때 파란색 + 밑줄 효과 적용 */
+.press-article-link:hover {
+    color: #0022ff;             /* 마우스 올리면 선명한 파란색 */
+    text-decoration: underline; /* 마우스 올리면 밑줄 생성 */
+
         }
 
         /* 설명 텍스트 상하 여백 정밀 제어 */
@@ -238,7 +238,7 @@
 
             <div class="press-item-block">
                 <a href="https://www.staatsgalerie.de/de/programm/tourismus/blick-hinter-kulissen/hyein-kim" target="_blank" class="press-article-link">
-                    Ein zufälliges Treffen mit der Künstlerin Hyein Kim ↗
+                    Ein zufälliges Treffen mit der Künstlerin Hyein Kim
                 </a>
                 <p class="press-text">
                     Written by Sheela-Maria Koblitz
@@ -248,7 +248,7 @@
 
             <div class="press-item-block">
                 <a href="https://www.lkz.de/lokales/kultur-lokal_artikel,-hyein-kim-zeigt-spiegelbilder-des-inneren-_arid,854435.html" target="_blank" class="press-article-link">
-                    Hyein Kim zeigt Spiegelbiler der Inneren ↗
+                    Hyein Kim zeigt Spiegelbiler der Inneren
                 </a>
                 <p class="press-text">
                     Written by Isabel Skokan
@@ -261,7 +261,7 @@
 
             <div class="press-item-block">
                 <a href="https://www.abk-stuttgart.de/news/hyein-kim-aus-der-klasse-boller-gewinnt-heussen-perspectives-young-artist-prize/" target="_blank" class="press-article-link">
-                    Hyein Kim aus der Klasse Boller gewinnt HEUSSEN Perspectives Young Artist Prize ↗
+                    Hyein Kim aus der Klasse Boller gewinnt HEUSSEN Perspectives Young Artist Prize
                 </a>
                 <p class="press-text">
                 </p>
@@ -270,7 +270,7 @@
 
             <div class="press-item-block">
                 <a href="https://www.heussen-law.de/en/news/news/view/675" target="_blank" class="press-article-link">
-                    HEUSSEN PERSPECTIVES Kunstpries 2025 : Die Preisträger ↗
+                    HEUSSEN PERSPECTIVES Kunstpries 2025 : Die Preisträger
                 </a>
                 <p class="press-text">
                 </p>
