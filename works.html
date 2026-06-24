@@ -23,14 +23,14 @@
 
         /* 💡 [왼쪽 구역] 클릭 가능한 대분류 메뉴 공간 */
         .photo-zone {
-            width: 450px;
+            width: 250px; /* 글씨가 작아졌으므로 너비 최적화 */
             flex-shrink: 0;
             margin-top: 43px;
         }
 
         /* WORK LIST, EXHIBITIONS 대메뉴 스타일 */
         .works-main-tab {
-            font-size: 28px;
+            font-size: 20px; /* 💡 기존 28px -> 20px로 크기 축소 */
             font-weight: 1100;
             color: #654321;
             text-decoration: underline;    /* 💡 애초에 밑줄 탑재 */
@@ -47,13 +47,19 @@
             color: #0022ff;
         }
 
+        /* 활성화된 탭 글자 색상 유지용 클래스 */
+        .works-main-tab.active-tab {
+            color: #0022ff;
+        }
+
         /* [오른쪽 구역] 펼쳐지는 콘텐츠(리스트) 공간 */
         .info-zone {
             flex-grow: 1;
             padding-top: 140px; 
+            max-width: 650px; /* 표가 너무 가로로 퍼지지 않게 제한 */
         }
 
-        /* 기본적으로 모든 콘텐츠 리스트 섹션은 숨겨둠 */
+        /* 기본적으로 모든 콘텐츠 리스트 섹션은 숨겨둠 (초기 공백 상태 유지) */
         .content-section {
             display: none;
         }
@@ -63,34 +69,56 @@
             display: block;
         }
 
-        /* 년도 스타일 지정 */
+        /* 년도 스타일 지정 (표 위에 단독 배치) */
         .works-year-title {
             font-size: 16px;
             font-weight: bold;
             color: #654321;
-            margin-top: 40px;
+            margin-top: 50px;
             margin-bottom: 15px;
         }
-        .works-year-title:first-of-type {
-            margin-top: 0;
+        .content-section > .works-year-title:first-of-type {
+            margin-top: 0; /* 첫 번째 년도는 상단 여백 제거 */
         }
 
-        /* 개별 작업/전시 제목 스타일 */
-        .works-item-title {
+        /* 💡 요청 디자인: 커스텀 테이블 스타일 규칙 */
+        .works-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .works-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0dcd5; /* 정갈한 가로 구분선 */
+            vertical-align: top;
+        }
+
+        .works-table tr:last-child td {
+            border-bottom: none; /* 표의 가장 마지막 줄 선은 제거 */
+        }
+
+        /* 타이틀 칸 */
+        .td-title {
             font-size: 15px;
             font-weight: bold;
             color: #654321;
-            margin: 0 0 8px 0;
+            width: 60%; /* 타이틀 영역 비율 */
+            padding-right: 15px;
         }
 
-        /* 부가 설명 및 메타 정보 텍스트 */
-        .works-item-text {
+        /* 부가 설명 및 메타 정보 칸 */
+        .td-text {
             font-size: 14px;
-            line-height: 1.9;
+            line-height: 1.6;
             color: #a38f7d; /* 서브 정보는 연한 갈색 */
-            margin: 0 0 25px 0;
+            width: 40%;
         }
 
+        /* 💡 스크롤 테스트용 강제 하단 여백 공간 생성 */
+        .scroll-tester-space {
+            height: 100vh;
+        }
 
         /* ---------------------------------------------------- */
         /* 우측 상단 고정 스마트 메뉴 블록 (CV/PRESS 패밀리룩 유지) */
@@ -190,91 +218,101 @@
 
     <div class="cv-main-container">
         
-        <!-- 💡 [왼쪽 구역] 탭 메뉴 시스템 -->
+        <!-- 💡 [왼쪽 구역] 탭 메뉴 시스템 (폰트 크기 축소 완료) -->
         <div class="photo-zone">
-            <span class="works-main-tab" onclick="switchTab('worklist')">WORK LIST</span>
-            <span class="works-main-tab" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
+            <span class="works-main-tab" id="tab-worklist" onclick="switchTab('worklist')">WORK LIST</span>
+            <span class="works-main-tab" id="tab-exhibitions" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
         </div>
 
-        <!-- 💡 [오른쪽 구역] 클릭 시 내용이 노출되는 본문 시스템 -->
+        <!-- 💡 [오른쪽 구역] 본문 콘텐츠 영역 -->
         <div class="info-zone">
             
-            <!-- 우측 스마트 퀵 네비게이션 메인 (경로 설정 완료) -->
-            <div class="header-menu-block" id="menuBlock">
-                <a href="index.html" class="cv-logo-link">
-                    <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
-                </a>
-                <div class="sub-menu-container">
-                    <a href="index.html" class="sub-menu-link">HOME</a>
-                    <a href="cv.html" class="sub-menu-link">CV</a>
-                    <a href="press.html" class="sub-menu-link">PRESS</a>
-                    <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
-                </div>
-            </div>
-            
             <!-- ========================================== -->
-            <!-- 1. WORK LIST 콘텐츠 (첫 실행 시 기본 노출) -->
+            <!-- 1. WORK LIST 콘텐츠 (클릭 시 노출) -->
             <!-- ========================================== -->
-            <div id="section-worklist" class="content-section active">
-                
+            <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
-                <div>
-                    <h3 class="works-item-title">Do you clean your mirror, everyday? #1</h3>
-                    <p class="works-item-text">Oil on canvas, 130 x 130 cm</p>
-                    
-                    <h3 class="works-item-title">Untitled (Vertigo Series)</h3>
-                    <p class="works-item-text">Mixed media on linen, 100 x 80 cm</p>
-                </div>
+                <table class="works-table">
+                    <tr>
+                        <td class="td-title">Selected Painting Project A</td>
+                        <td class="td-text">Oil on canvas, 150 x 150 cm</td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">The Boundary of Silence</td>
+                        <td class="td-text">Mixed media installation</td>
+                    </tr>
+                </table>
 
                 <div class="works-year-title">2025</div>
-                <div>
-                    <h3 class="works-item-title">Happy Accident Object</h3>
-                    <p class="works-item-text">Sculpture, Installation dimensions variable</p>
-                </div>
-
-                <div class="works-year-title">2024</div>
-                <div>
-                    <h3 class="works-item-title">White Garden Study</h3>
-                    <p class="works-item-text">Drawing on paper, 42 x 29.7 cm</p>
-                </div>
-                
+                <table class="works-table">
+                    <tr>
+                        <td class="td-title">Untitled (Traces)</td>
+                        <td class="td-text">Sculpture, Granite and wood</td>
+                    </tr>
+                </table>
             </div>
 
             <!-- ========================================== -->
             <!-- 2. EXHIBITIONS 콘텐츠 (클릭 시 노출) -->
             <!-- ========================================== -->
             <div id="section-exhibitions" class="content-section">
-                
                 <div class="works-year-title">2026</div>
-                <div>
-                    <h3 class="works-item-title">Do you clean your mirror, everyday?</h3>
-                    <p class="works-item-text">Städtische Galerie am Laien, Ditzingen (Solo)</p>
-
-                    <h3 class="works-item-title">Heussen Perspectives Awards Winner Exhibition</h3>
-                    <p class="works-item-text">Heussen Law firm, Berlin (Group)</p>
-                </div>
+                <table class="works-table">
+                    <tr>
+                        <td class="td-title">Do you clean your mirror, everyday?</td>
+                        <td class="td-text">Städtische Galerie am Laien, Ditzingen (Solo)</td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">Heussen Perspectives Awards Winner Exhibition</td>
+                        <td class="td-text">Heussen Law firm, Berlin (Group)</td>
+                    </tr>
+                </table>
 
                 <div class="works-year-title">2025</div>
-                <div>
-                    <h3 class="works-item-title">A-Z Mapping the Future</h3>
-                    <p class="works-item-text">Staatsgalerie Stuttgart, Stuttgart (Group)</p>
-                </div>
-                
+                <table class="works-table">
+                    <tr>
+                        <td class="td-title">A-Z Mapping the Future</td>
+                        <td class="td-text">Staatsgalerie Stuttgart, Stuttgart (Group)</td>
+                    </tr>
+                </table>
             </div>
             
+            <!-- 💡 스크롤 테스트용 여백 빌더 -->
+            <div class="scroll-tester-space"></div>
+            
         </div>
+
+        <!-- 우측 스마트 퀵 네비게이션 메인 고정 블록 -->
+        <div class="header-menu-block" id="menuBlock">
+            <a href="index.html" class="cv-logo-link">
+                <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
+            </a>
+            <div class="sub-menu-container">
+                <a href="index.html" class="sub-menu-link">HOME</a>
+                <a href="cv.html" class="sub-menu-link">CV</a>
+                <a href="press.html" class="sub-menu-link">PRESS</a>
+                <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- 스크립트 엔진 제어 -->
+    <!-- 스크립트 제어 엔진 -->
     <script>
         // 1. 왼쪽 탭 메뉴 전환 인터랙션 함수
         function switchTab(tabId) {
-            // 모든 섹션을 숨김 처리
+            // 모든 본문 섹션을 숨김 처리
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            // 클릭한 대상 타겟 섹션만 활성화 활짝 열기
+            // 모든 탭 메뉴 글자 색상 초기화
+            document.querySelectorAll('.works-main-tab').forEach(tab => {
+                tab.classList.remove('active-tab');
+            });
+
+            // 클릭한 대상 타겟 섹션과 좌측 글자 색상 활성화
             document.getElementById('section-' + tabId).classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active-tab');
         }
 
         // 2. 우측 스마트 고정 메뉴 스크롤 이벤트 애니메이션
