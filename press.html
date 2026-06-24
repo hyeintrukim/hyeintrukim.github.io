@@ -2,42 +2,56 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>CV</title>
+    <title>PRESS</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Euphemia UCAS', sans-serif;
+            font-family: 'Euphemia UCAS', sans-serif; 
             background-color: #ffffff;
             color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
 
+        /* 본문 내용이 화면 왼쪽에 딱 붙지 않도록 좌우 마진 패딩 40px 정밀 조정 */
         .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 100px 40px;
             display: flex;
-            gap: 40px; /* PRESS 페이지 갭 규격과 완벽 통일 */
+            gap: 40px; 
             position: relative;
         }
 
-        /* 왼쪽 아티스트 사진 공간 */
+        /* 왼쪽 타이틀 구역 */
         .photo-zone {
             width: 450px;
             flex-shrink: 0;
             margin-top: 43px;
         }
 
-        .artist-photo {
-            width: 100%;
-            height: auto;
-            display: block;
+        .press-main-logo {
+            font-size: 85px;
+            font-weight: 1100;
+            letter-spacing: -3px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            line-height: 1;
+            margin: 0;
         }
 
-        /* 오른쪽 이력 텍스트 공간 */
+        .press-sub-subtitle {
+            font-size: 13px;
+            color: #a38f7d;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* 오른쪽 기사 텍스트 공간 */
         .info-zone {
             flex-grow: 1;
             padding-top: 140px; 
+            padding-left: 0;
         }
 
         /* 우측 상단 고정 스마트 메뉴 블록 */
@@ -51,41 +65,42 @@
             z-index: 1000;
         }
 
-        /* [수정] PRESS의 기본 높이감(170px) 리듬을 그대로 유지 */
+        /* 마지막 S의 위치가 하단 메뉴의 오른쪽 끝선과 일치하도록 마이너스 마진 조율 */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
             font-weight: 1100;
             line-height: 1;
             margin-bottom: 20px;
-            margin-right: -12px; 
+            margin-right: -55px; 
             transition: all 0.4s ease-in-out;
             position: relative;
             z-index: 1010; 
             height: 170px; 
         }
 
-        /* 글자 스타일 PRESS 속성과 동일하게 100% 동기화 */
-        .char-c, .char-v {
-            font-size: 115px; 
+        /* P, R, E, S, S 글자 전체 기본 스케일 설정 */
+        .char-p, .char-r, .char-e, .char-s, .char-s {
+            font-size: 115px;
             color: transparent;
             -webkit-text-stroke: 1.7px #654321;
             transition: all 0.4s ease-in-out;
-            font-weight: 1100;
-            position: relative;
+            position: relative; 
             display: inline-block;
         }
-        .char-c { letter-spacing: -4px; }
-        .char-v {
-            top: 52px;     
-            left: -12px;    
-        }
+
+        /* 5개 알파벳 수직·수평 불규칙적 배치 */
+        .char-p { top: 0px; left: 0px; letter-spacing: -6px; }
+        .char-r { top: 48px; left: -20px; }
+        .char-e { top: -12px; left: -28px; }
+        .char-s:nth-of-type(4) { top: 35px; left: -42px; }
+        .char-s:nth-of-type(5) { top: 12px; left: -55px; }
 
         /* 세로로 나열되는 서브 메뉴 저장소 */
         .sub-menu-container {
             display: flex;
             flex-direction: column; 
-            gap: 35px; /* PRESS 페이지와 동일한 35px 메뉴 간격 */
+            gap: 35px; 
             align-items: flex-end; 
             opacity: 0;
             transform: translateX(50px); 
@@ -94,7 +109,7 @@
             margin-top: 15px; 
         }
 
-        /* 서브 메뉴 개별 글씨 스타일 (PRESS와 동일한 23px) */
+        /* 서브 메뉴 개별 글씨 스타일 (23px) */
         .sub-menu-link {
             font-size: 23px; 
             text-decoration: none;
@@ -105,198 +120,237 @@
             line-height: 1.2;
         }
 
-        /* 💡 [핵심 수정] 스크롤 시 축소된 CV 로고 영역의 높이와 마진을 조정하여 */
-        /* 하단 서브 메뉴와의 상하 여백 공간을 PRESS 페이지와 시각적으로 완벽히 일치시킴 */
+        /* 스크롤 되었을 때 전체 P, R, E, S, S 비례 제어 및 간격 고정 */
         .header-menu-block.scrolled .cv-logo-link {
-            height: 95px;         /* 90px에서 95px로 살짝 확보하여 상하 답답함 해소 */
-            margin-bottom: 45px;  /* 첫 서브메뉴(WORKS)가 너무 붙지 않도록 아래 여백 가중치 부여 */
-            margin-right: -8px;  
+            height: 90px; 
+            margin-bottom: 35px; 
+            margin-right: -27px; 
         }
 
-        .header-menu-block.scrolled .char-c,
-        .header-menu-block.scrolled .char-v {
+        /* 스크롤 시 5글자 모두 균일하게 축소(60px) */
+        .header-menu-block.scrolled .char-p,
+        .header-menu-block.scrolled .char-r,
+        .header-menu-block.scrolled .char-e,
+        .header-menu-block.scrolled .char-s {
             font-size: 60px;
             -webkit-text-stroke: 1.2px #654321; 
         }
-        .header-menu-block.scrolled .char-v {
-            top: 27px;
-            left: -8px;
-        }
+        
+        /* 스크롤 상태 미세 형태 보존 */
+        .header-menu-block.scrolled .char-p { top: 0px; left: 0px; }
+        .header-menu-block.scrolled .char-r { top: 25px; left: -10px; }
+        .header-menu-block.scrolled .char-e { top: -6px; left: -14px; }
+        .header-menu-block.scrolled .char-s:nth-of-type(4) { top: 18px; left: -21px; }
+        .header-menu-block.scrolled .char-s:nth-of-type(5) { top: 6px; left: -27px; }
 
         .header-menu-block.scrolled .sub-menu-container {
             opacity: 1;
             transform: translateX(0); 
             pointer-events: auto; 
-            margin-top: 0; 
+            margin-top: 0;
         }
 
-        /* 대분류 타이틀 기본 크기 */
+        /* 대분류 타이틀 및 년도 스타일 */
         .section-title {
-            font-size: 22px; 
+            font-size: 15px; 
+            font-weight: bold;
             color: #654321;
-            padding-bottom: 10px;
-            margin-top: 60px;
-            letter-spacing: -1px;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            transform-origin: left center;
+            padding-bottom: 5px;
+            margin-top: 50px;
+            letter-spacing: -0.5px;
         }
         .section-title:first-of-type { margin-top: 0; }
-        
-        /* 활성화 크기 */
-        .section-title.active {
-            font-size: 26px;
-            font-weight: 900;
+
+        /* 큰 문단(Press, Publication) 카테고리 하단 밑줄 공통 디자인 */
+        .main-category {
+            margin-top: 50px;
+            border-bottom: 1px solid #654321;
+            padding-bottom: 8px;
+        }
+        .publication-section {
+            margin-top: 90px;
         }
 
-        /* 연도 및 학교명 기본 크기 */
-        .highlight-title {
-            font-size: 16px; 
+        /* 기사 개별 블록 마진 */
+        .press-item-block {
+            margin-bottom: 35px;
+        }
+
+        /* 💡 [수정] 기사 및 책 제목 스타일 (애초에 밑줄 탑재형) */
+        .press-article-link, .press-article-static {
+            font-size: 15px; 
             font-weight: bold; 
             color: #654321; 
-            margin-bottom: 8px;
-        }
-
-        .cv-text { font-size: 16px; line-height: 1.9; color: #654321; }
-
-        /* 하단 Contact 하이퍼링크 스타일 (애초에 밑줄 탑재형) */
-        .contact-link {
-            color: #654321;
-            text-decoration: underline;    
-            text-underline-offset: 4px; 
             display: inline-block;
-            transition: color 0.2s ease;    
         }
         
-        /* 마우스 올렸을 때 파란색으로 색상만 바뀜 (밑줄 유지) */
-        .contact-link:hover {
+        /* 링크가 걸린 기사 제목 제어 */
+        .press-article-link {
+            text-decoration: underline;    /* 💡 애초에 밑줄을 항상 그어둠 */
+            text-underline-offset: 4px;     
+            margin-bottom: 8px;
+            transition: color 0.2s ease;    /* 색상만 부드럽게 변하도록 처리 */
+        }
+        
+        /* 💡 마우스 올렸을 때 파란색으로 색상만 바뀜 (밑줄 유지) */
+        .press-article-link:hover {
             color: #0022ff; 
+        }
+
+        /* 링크가 없는 일반 책 제목 (밑줄 없음) */
+        .press-article-static {
+            text-decoration: none; 
+        }
+
+        /* 설명 텍스트 상하 여백 정밀 제어 */
+        .press-text { 
+            font-size: 14px; 
+            line-height: 1.9; 
+            color: #654321; 
+            margin: -2px 0 0 0; 
+        }
+        
+        .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
+
+        /* <upcoming> 태그 전용 스타일 */
+        .upcoming-tag {
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 2px;
         }
     </style>
 </head>
 <body>
 
     <div class="cv-main-container">
-        
-        <!-- 왼쪽 아티스트 사진 구역 -->
-        <div class="photo-zone">
-            <img src="images/artist photo.jpg" alt="Hyein Kim" class="artist-photo">
-        </div>
 
-        <!-- 오른쪽 이력 정보 구역 -->
         <div class="info-zone">
             
-            <!-- 우측 고정 메뉴 시스템 (순서 보존, 디자인은 PRESS와 완벽 일치) -->
             <div class="header-menu-block" id="menuBlock">
                 <a href="index.html" class="cv-logo-link">
-                    <span class="char-c">C</span><span class="char-v">V</span>
+                    <span class="char-p">P</span><span class="char-r">R</span><span class="char-e">E</span><span class="char-s">S</span><span class="char-s">S</span>
                 </a>
                 
                 <div class="sub-menu-container">
+                    <a href="cv.html" class="sub-menu-link">CV</a>
                     <a href="work.html" class="sub-menu-link">WORKS</a>
                     <a href="index.html" class="sub-menu-link">HOME</a>
-                    <a href="press.html" class="sub-menu-link">PRESS</a>
                     <a href="teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
                 </div>
             </div>
             
-            <!-- 이력 본문 내용 -->
-            <h2 class="section-title">Education</h2>
+            <h2 class="section-title main-category">Press</h2>
 
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">
-                    Staatliche Akademie der Bildenden Künste Stuttgart
+            <h2 class="section-title">2026</h2>
+
+            <div class="press-item-block">
+                <!-- 화살표 제거 및 깔끔하게 텍스트만 유지 -->
+                <a href="https://www.staatsgalerie.de/de/programm/tourismus/blick-hinter-kulissen/hyein-kim" target="_blank" class="press-article-link">
+                    Ein zufälliges Treffen mit der Künstlerin Hyein Kim
+                </a>
+                <p class="press-text">
+                    Written by Sheela-Maria Koblitz
+                </p>
+                <div class="press-meta-info">Staatsgalerie Stuttgart</div>
+            </div>
+
+            <div class="press-item-block">
+                <a href="https://www.lkz.de/lokales/kultur-lokal_artikel,-hyein-kim-zeigt-spiegelbilder-des-inneren-_arid,854435.html" target="_blank" class="press-article-link">
+                    Hyein Kim zeigt Spiegelbiler der Inneren
+                </a>
+                <p class="press-text">
+                    Written by Isabel Skokan
+                </p>
+                <div class="press-meta-info">LKZ Ludwigsburger Kreis</div>
+            </div>
+
+
+            <h2 class="section-title">2025</h2>
+
+            <div class="press-item-block">
+                <a href="https://www.abk-stuttgart.de/news/hyein-kim-aus-der-klasse-boller-gewinnt-heussen-perspectives-young-artist-prize/" target="_blank" class="press-article-link">
+                    Hyein Kim aus der Klasse Boller gewinnt HEUSSEN Perspectives Young Artist Prize
+                </a>
+                <p class="press-text">
+                </p>
+                <div class="press-meta-info">Staatliche Akademie der Bildenden Künste Stuttgart</div>
+            </div>
+
+            <div class="press-item-block">
+                <a href="https://www.heussen-law.de/en/news/news/view/675" target="_blank" class="press-article-link">
+                    HEUSSEN PERSPECTIVES Kunstpries 2025 : Die Preisträger
+                </a>
+                <p class="press-text">
+                </p>
+                <div class="press-meta-info">Heussen Law Firm</div>
+            </div>
+
+          
+            <h2 class="section-title main-category publication-section">Publication</h2>
+
+            <h2 class="section-title">2026</h2>
+            
+             <div class="press-item-block">
+                <div class="press-article-static">
+                    <span class="upcoming-tag">&lt;Upcoming&gt;</span>
+                    A-Z Mapping the Future
                 </div>
-                <p class="cv-text" style="margin: 0;">
-                    Diplom (M.F.A. Equivalent)<br>
-                    2019 - 2025 &nbsp;Prof. Reto Boller<br>
-                    2018 - 2019 &nbsp;Prof. Volker Lehnert
-                </p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">
-                    Kunsthochschule Weißensee Berlin
-                </div>
-                <p class="cv-text" style="margin: 0;">
-                    Guest Student<br>
-                    2022 - 2023 &nbsp;Prof. Pia Linz
-                </p>
-            </div>
-
-            <h2 class="section-title">Exhibitions</h2>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2026</div>
-                <p class="cv-text" style="margin: 0;">
-                    <em>Do you clean your mirror, everyday?</em> Städtische Galerie am Laien, Ditzingen <span style="color: #a38f7d; font-size: 14px; margin-left: 4px;">Solo</span><br>
-                    <em>Heussen Perspectives Awards Winner Exhibition</em> Heussen Law firm, Berlin<br>
-                    <em>Versprochen</em> Galerie der Stadt Backnang, Backnang<br>
-                    <em>JUSTMAD</em> Madrid Art fair, Madrid
-                </p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2025</div>
-                <p class="cv-text" style="margin: 0;">
-                    <em>The Vertigo of Appearing</em> Brispa Gallery, Madrid<br>
-                    <em>A-Z Mapping the Future</em> Staatsgalerie Stuttgart, Stuttgart<br>
-                    <em>It can be done but only I can do it</em> Gustav-Siegel-Haus Kunstbezirk, Stuttgart<br>
-                    <em>Happy Accidents</em> Stadtbibliothek Stuttgart, Stuttgart<br>
-                    <em>Kinder.Bilder</em> LMU Raum004, Munich
-                </p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2024</div>
-                <p class="cv-text" style="margin: 0;">
-                    <em>Wesen weißer Garten?</em> Die Orgelfabrik-Kunstzentrum, Karlsruhe<br>
-                    <em>743Hz</em> V8 Plattform für neue Kunst, Karlsruhe
-                </p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2021</div>
-                <p class="cv-text" style="margin: 0;">
-                    <em>MUTE</em> Neckarstraße Stuttgart, Stuttgart
-                </p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2020</div>
-                <p class="cv-text" style="margin: 0;">
-                    <em>FREE FRANKLIN&BARACANTAINE</em> Barac Kunsthaus, Mannheim
-                </p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2019</div>
-                <p class="cv-text" style="margin: 0;">
-                    <em>Zeichnungs Live!</em> Performance at Galerie Stihl, Waiblingen
-                </p>
+                <p class="press-text">Exhibitionskatalog of Group Exhibition <em>A-Z Mapping the Future</em></p>
+                <div class="press-meta-info">Staatsgalerie Stuttgart, Germany</div>
             </div>
             
-            <h2 class="section-title">Prizes & Scholarships</h2>
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2026</div>
-                <p class="cv-text" style="margin: 0;">
-                    Heussen Perspectives Young Artist Award 2025<br>
-                    at Academy POSITIONS Berlin Art fair
-                </p>
+            <div class="press-item-block">
+                <div class="press-article-static">
+                    Versprochen
+                </div>
+                <p class="press-text">Exhibitionskatalog of <em>Versprochen</em></p>
+                <div class="press-meta-info">Backnang, Germany</div>
             </div>
-            <div style="margin-bottom: 35px;">
-                <div class="highlight-title">2022</div>
-                <p class="cv-text" style="margin: 0;">
-                    Residency Scholarship, BARAC Kunsthaus, Mannheim, Germany, 2021<br>
-                    Funded by the Kunst trotz Abstand Program, Ministry of Science, Research and the Arts Baden-Württemberg
-                </p>
+
+            <div class="press-item-block">
+                <div class="press-article-static">
+                    Kinder.Bilder
+                </div>
+                <p class="press-text">Exhibitionskatalog of <em>Kinder.Bilder</em></p>
+                <div class="press-meta-info">Raum 004 Munich, Germany</div>
+            </div>
+
+            <div class="press-item-block">
+                <div class="press-article-static">
+                    Do you clean your mirror, everyday? - Ein Atelierbesuch bei den koreanischen Hyein Kim
+                </div>
+                <p class="press-text">Interview with Culture&Art Magazine for Baden-Württemberg <em>Versprochen</em></p>
+                <div class="press-meta-info">ARS Mondo Stuttgart, Germany</div>
             </div>
             
-            <h2 class="section-title">Contact</h2>
-            <p class="cv-text">
-                <a href="mailto:hyeintr@gmail.com" class="contact-link">hyeintr@gmail.com</a><br>
-                <a href="https://www.instagram.com/hyein_tru_kim" target="_blank" class="contact-link">@hyein_tru_kim</a><br>
-                <a href="imprint.html" class="contact-link">Imprint</a>
-            </p> 
+            <h2 class="section-title">2024</h2>
+           
+            <div class="press-item-block">
+                <div class="press-article-static">
+                    Wessen Weißer Garten?
+                </div>
+                <p class="press-text">Exhibitonskatalog of <em>Wessen Weißer Garten?</em></p>
+                <div class="press-meta-info">Karlsruhe, Germany</div>
+            </div>
+
+            <div class="press-item-block">
+                <div class="press-article-static">
+                    743 Hz
+                </div>
+                <p class="press-text">Exhibitonskatalog of <em>743Hz</em></p>
+                <div class="press-meta-info">Karlsruhe, Germany</div>
+            </div>
+
+             <h2 class="section-title">2021</h2>
+
+            <div class="press-item-block">
+                <div class="press-article-static">
+                    MUTE
+                </div>
+                <p class="press-text">Exhibitonskatalog of <em>MUTE</em></p>
+                <div class="press-meta-info">Stuttgart, Germany</div>
+            </div>
             
         </div>
     </div>
