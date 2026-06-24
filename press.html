@@ -20,7 +20,13 @@
             display: flex;
             gap: 40px; 
             position: relative;
-        
+        }
+
+        /* 왼쪽 타이틀 구역 */
+        .photo-zone {
+            width: 450px;
+            flex-shrink: 0;
+            margin-top: 43px;
         }
 
         .press-main-logo {
@@ -59,14 +65,14 @@
             z-index: 1000;
         }
 
-        /* 💡 [수정] 마지막 S의 위치가 하단 메뉴의 오른쪽 끝선과 일치하도록 마이너스 마진 조율 */
+        /* 마지막 S의 위치가 하단 메뉴의 오른쪽 끝선과 일치하도록 마이너스 마진 조율 */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
             font-weight: 1100;
             line-height: 1;
             margin-bottom: 20px;
-            margin-right: -55px; /* 마지막 S가 밀려 들어간 수치만큼 우측으로 당겨 선을 맞춤 */
+            margin-right: -55px; 
             transition: all 0.4s ease-in-out;
             position: relative;
             z-index: 1010; 
@@ -94,7 +100,7 @@
         .sub-menu-container {
             display: flex;
             flex-direction: column; 
-            gap: 35px; /* 오른쪽 메뉴 간격 35px 완벽 고정 */
+            gap: 35px; 
             align-items: flex-end; 
             opacity: 0;
             transform: translateX(50px); 
@@ -117,8 +123,8 @@
         /* 스크롤 되었을 때 전체 P, R, E, S, S 비례 제어 및 간격 고정 */
         .header-menu-block.scrolled .cv-logo-link {
             height: 90px; 
-            margin-bottom: 35px; /* 로고와 첫 메뉴(CV) 간격을 정확히 35px로 세팅 */
-            margin-right: -27px; /* 축소되었을 때의 마지막 S 오른쪽 끝선 맞춤 정렬 */
+            margin-bottom: 35px; 
+            margin-right: -27px; 
         }
 
         /* 스크롤 시 5글자 모두 균일하게 축소(60px) */
@@ -155,13 +161,12 @@
         }
         .section-title:first-of-type { margin-top: 0; }
 
-        /* 💡 큰 문단(Press, Publication) 카테고리 하단 밑줄 공통 디자인 */
+        /* 큰 문단(Press, Publication) 카테고리 하단 밑줄 공통 디자인 */
         .main-category {
             margin-top: 50px;
             border-bottom: 1px solid #654321;
             padding-bottom: 8px;
         }
-        /* Publication은 위쪽 콘텐츠와 구분되도록 여백을 조금 더 확보 */
         .publication-section {
             margin-top: 90px;
         }
@@ -171,26 +176,30 @@
             margin-bottom: 35px;
         }
 
-        /* 기사 및 책 제목 스타일 (기본 상태) */
-.press-article-link, .press-article-static {
-    font-size: 15px; 
-    font-weight: bold; 
-    color: #654321; /* 평소에는 기존 갈색 */
-    text-decoration: none; /* 평소에는 둘 다 밑줄 없음 */
-    display: inline-block;
-}
+        /* 💡 [수정] 기사 및 책 제목 스타일 (애초에 밑줄 탑재형) */
+        .press-article-link, .press-article-static {
+            font-size: 15px; 
+            font-weight: bold; 
+            color: #654321; 
+            display: inline-block;
+        }
+        
+        /* 링크가 걸린 기사 제목 제어 */
+        .press-article-link {
+            text-decoration: underline;    /* 💡 애초에 밑줄을 항상 그어둠 */
+            text-underline-offset: 4px;     
+            margin-bottom: 8px;
+            transition: color 0.2s ease;    /* 색상만 부드럽게 변하도록 처리 */
+        }
+        
+        /* 💡 마우스 올렸을 때 파란색으로 색상만 바뀜 (밑줄 유지) */
+        .press-article-link:hover {
+            color: #0022ff; 
+        }
 
-.press-article-link {
-    margin-bottom: 8px;
-    text-underline-offset: 4px; /* 밑줄과 글자 사이 간격 */
-    transition: color 0.2s ease, text-decoration 0.2s ease; /* 부드러운 전환 효과 */
-}
-
-/* 💡 [수정] 하이퍼링크가 걸린 제목에만 마우스를 올렸을 때 파란색 + 밑줄 효과 적용 */
-.press-article-link:hover {
-    color: #0022ff;             /* 마우스 올리면 선명한 파란색 */
-    text-decoration: underline; /* 마우스 올리면 밑줄 생성 */
-
+        /* 링크가 없는 일반 책 제목 (밑줄 없음) */
+        .press-article-static {
+            text-decoration: none; 
         }
 
         /* 설명 텍스트 상하 여백 정밀 제어 */
@@ -231,12 +240,12 @@
                 </div>
             </div>
             
-            <!-- 💡 [수정] Press 타이틀에도 Publication과 동일하게 하단 밑줄 클래스(main-category) 추가 -->
             <h2 class="section-title main-category">Press</h2>
 
             <h2 class="section-title">2026</h2>
 
             <div class="press-item-block">
+                <!-- 화살표 제거 및 깔끔하게 텍스트만 유지 -->
                 <a href="https://www.staatsgalerie.de/de/programm/tourismus/blick-hinter-kulissen/hyein-kim" target="_blank" class="press-article-link">
                     Ein zufälliges Treffen mit der Künstlerin Hyein Kim
                 </a>
@@ -278,7 +287,6 @@
             </div>
 
           
-            <!-- 💡 문단 밑줄 스타일과 여백 클래스를 동시에 적용하여 레이아웃 최적화 -->
             <h2 class="section-title main-category publication-section">Publication</h2>
 
             <h2 class="section-title">2026</h2>
