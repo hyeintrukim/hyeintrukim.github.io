@@ -158,17 +158,17 @@
         .cv-text { font-size: 16px; line-height: 1.9; color: #654321; }
 
        /* 하이퍼링크 스타일 커스텀: 마우스 올리면 파란색 변환 효과 */
+/* 하이퍼링크 스타일 커스텀: 평소에도 밑줄 탑재, 마우스 올리면 파란색 변환 */
 .contact-link {
-    color: #654321;             /* 평소에는 기존 갈색 */
-    text-decoration: none;      /* 평소에는 밑줄 없음 */
-    text-underline-offset: 4px; /* 밑줄과 글자 사이 간격 */
+    color: #654321;             /* 평소 기본 갈색 텍스트 */
+    text-decoration: underline; /* 💡 평소(디폴트) 상태에도 항상 밑줄 표시 */
+    text-underline-offset: 4px; /* 밑줄과 글자 사이의 정갈한 간격 유지 */
     display: inline-block;
-    transition: color 0.2s ease, text-decoration 0.2s ease; /* 부드럽게 변하는 효과 */
+    transition: color 0.2s ease; /* 색상이 부드럽게 변하는 효과 */
 }
 
 .contact-link:hover {
-    color: #0022ff;             /* 💡 마우스를 올렸을 때 선명하고 깨끗한 파란색으로 변경 */
-    text-decoration: underline; /* 💡 마우스를 올렸을 때 밑줄 생성 */
+    color: #0022ff;             /* 💡 마우스를 올렸을 때 글자와 밑줄 모두 선명한 파란색으로 변경 */
 }
     </style>
 </head>
