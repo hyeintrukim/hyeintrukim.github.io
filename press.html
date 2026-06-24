@@ -7,7 +7,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Euphemia UCAS', sans-serif; /* 원래 폰트 복구 완료 */
+            font-family: 'Euphemia UCAS', sans-serif; 
             background-color: #ffffff;
             color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
@@ -20,14 +20,30 @@
             display: flex;
             gap: 40px; 
             position: relative;
-    
+        }
+
+        /* 왼쪽 타이틀 구역 (CV 페이지의 사진 구역과 정확히 일치하는 450px 공간 배치) */
+        .photo-zone {
+            width: 450px;
+            flex-shrink: 0;
+            margin-top: 43px;
+        }
+
+        .press-main-logo {
+            font-size: 85px;
+            font-weight: 1100;
+            letter-spacing: -3px;
+            color: transparent;
+            -webkit-text-stroke: 1.7px #654321;
+            line-height: 1;
+            margin: 0;
         }
 
         .press-sub-subtitle {
             font-size: 13px;
             color: #a38f7d;
             letter-spacing: 2px;
-            margin-top: 5px;
+            margin-top: 15px;
             font-weight: bold;
         }
 
@@ -38,31 +54,32 @@
             padding-left: 0;
         }
 
-        /* 우측 상단 고정 스마트 메뉴 블록 (CV 시스템 완벽 탑재) */
+        /* 우측 상단 고정 스마트 메뉴 블록 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
-            right: 80px;
+            right: 40px;
             display: flex;
             flex-direction: column; 
             align-items: flex-end;  
             z-index: 1000;
         }
 
-        /* PRESS 타이포그래피 상단 기본 스타일 (115px 스케일) */
+        /* 💡 [수정] 마지막 S의 위치가 하단 메뉴의 오른쪽 끝선과 일치하도록 마이너스 마진 조율 */
         .cv-logo-link {
             text-decoration: none;
             display: inline-block;
             font-weight: 1100;
             line-height: 1;
             margin-bottom: 20px;
+            margin-right: -55px; /* 마지막 S가 밀려 들어간 수치만큼 우측으로 당겨 선을 맞춤 */
             transition: all 0.4s ease-in-out;
             position: relative;
             z-index: 1010; 
-            height: 170px; /* 불규칙 배치된 높이 확보 */
+            height: 170px; 
         }
 
-        /* P, R, E, S, S 글자 전체 기본 스케일 설정 (기존 레이아웃 완벽 보존) */
+        /* P, R, E, S, S 글자 전체 기본 스케일 설정 */
         .char-p, .char-r, .char-e, .char-s, .char-s {
             font-size: 115px;
             color: transparent;
@@ -72,28 +89,12 @@
             display: inline-block;
         }
 
-        /* 5개 알파벳 수직·수평 불규칙적 정밀 배치유지 */
-        .char-p { 
-            top: 0px; 
-            left: 0px; 
-            letter-spacing: -6px; 
-        }
-        .char-r { 
-            top: 48px;     
-            left: -20px;   
-        }
-        .char-e { 
-            top: -12px;    
-            left: -28px;   
-        }
-        .char-s:nth-of-type(4) { 
-            top: 35px;     
-            left: -42px;   
-        }
-        .char-s:nth-of-type(5) { 
-            top: 12px;     
-            left: -55px;   
-        }
+        /* 5개 알파벳 수직·수평 불규칙적 배치 */
+        .char-p { top: 0px; left: 0px; letter-spacing: -6px; }
+        .char-r { top: 48px; left: -20px; }
+        .char-e { top: -12px; left: -28px; }
+        .char-s:nth-of-type(4) { top: 35px; left: -42px; }
+        .char-s:nth-of-type(5) { top: 12px; left: -55px; }
 
         /* 세로로 나열되는 서브 메뉴 저장소 */
         .sub-menu-container {
@@ -119,13 +120,14 @@
             line-height: 1.2;
         }
 
-        /* 💡 [수정] 스크롤 되었을 때 전체 P, R, E, S, S 글자가 온전히 다 보이도록 비율 제어 */
+        /* 스크롤 되었을 때 전체 P, R, E, S, S 비례 제어 및 간격 고정 */
         .header-menu-block.scrolled .cv-logo-link {
-            height: 90px; /* 압축된 높이 */
-            margin-bottom: 35px; /* 💡 PR로고와 첫 메뉴(CV) 간격을 정확히 35px로 세팅 */
+            height: 90px; 
+            margin-bottom: 35px; /* 로고와 첫 메뉴(CV) 간격을 정확히 35px로 세팅 */
+            margin-right: -27px; /* 축소되었을 때의 마지막 S 오른쪽 끝선 맞춤 정렬 */
         }
 
-        /* 💡 [수정] 스크롤 시 특정 글자만 숨겨지지 않고, 5글자 모두 균일하게 축소(60px) 및 조율 */
+        /* 스크롤 시 5글자 모두 균일하게 축소(60px) */
         .header-menu-block.scrolled .char-p,
         .header-menu-block.scrolled .char-r,
         .header-menu-block.scrolled .char-e,
@@ -134,7 +136,7 @@
             -webkit-text-stroke: 1.2px #654321; 
         }
         
-        /* 💡 [수정] 스크롤 상태에서도 특유의 리듬감 있는 불규칙 형태가 찌그러지지 않게 60px 비례 비율로 미세 세팅 */
+        /* 스크롤 상태 미세 형태 보존 */
         .header-menu-block.scrolled .char-p { top: 0px; left: 0px; }
         .header-menu-block.scrolled .char-r { top: 25px; left: -10px; }
         .header-menu-block.scrolled .char-e { top: -6px; left: -14px; }
@@ -159,11 +161,15 @@
         }
         .section-title:first-of-type { margin-top: 0; }
 
-        /* Press와 Publication 큰 문단 사이의 확연한 구분을 위한 여백 분리 클래스 */
+        /* 💡 큰 문단(Press, Publication) 카테고리 하단 밑줄 공통 디자인 */
         .main-category {
-            margin-top: 90px;
+            margin-top: 50px;
             border-bottom: 1px solid #654321;
             padding-bottom: 8px;
+        }
+        /* Publication은 위쪽 콘텐츠와 구분되도록 여백을 조금 더 확보 */
+        .publication-section {
+            margin-top: 90px;
         }
 
         /* 기사 개별 블록 마진 */
@@ -187,8 +193,7 @@
             opacity: 0.7;
         }
 
-        /* 책 제목보다 katalog 설명하는 글씨를 2px 작게 조정 (기존 16px -> 14px) */
-        /* Press 상하 문장끼리의 여백을 줄이기 위해 상단 마진 -2px 조정 */
+        /* 설명 텍스트 상하 여백 정밀 제어 */
         .press-text { 
             font-size: 14px; 
             line-height: 1.9; 
@@ -198,9 +203,9 @@
         
         .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
 
-        /* A-Z Mapping the Future 앞에 있는 <upcoming> 태그 전용 스타일 (책 제목보다 1-2px 작게 세팅) */
+        /* <upcoming> 태그 전용 스타일 */
         .upcoming-tag {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             display: inline-block;
             margin-right: 2px;
@@ -214,7 +219,6 @@
         <div class="info-zone">
             
             <div class="header-menu-block" id="menuBlock">
-                <!-- 💡 우측 상단 로고 링크 공간에 P,R,E,S,S 5글자 완벽 정상 연동 완료 -->
                 <a href="index.html" class="cv-logo-link">
                     <span class="char-p">P</span><span class="char-r">R</span><span class="char-e">E</span><span class="char-s">S</span><span class="char-s">S</span>
                 </a>
@@ -227,7 +231,8 @@
                 </div>
             </div>
             
-            <h2 class="section-title">Press</h2>
+            <!-- 💡 [수정] Press 타이틀에도 Publication과 동일하게 하단 밑줄 클래스(main-category) 추가 -->
+            <h2 class="section-title main-category">Press</h2>
 
             <h2 class="section-title">2026</h2>
 
@@ -273,7 +278,8 @@
             </div>
 
           
-            <h2 class="section-title main-category">Publication</h2>
+            <!-- 💡 문단 밑줄 스타일과 여백 클래스를 동시에 적용하여 레이아웃 최적화 -->
+            <h2 class="section-title main-category publication-section">Publication</h2>
 
             <h2 class="section-title">2026</h2>
             
@@ -337,8 +343,6 @@
                 <p class="press-text">Exhibitonskatalog of <em>MUTE</em></p>
                 <div class="press-meta-info">Stuttgart, Germany</div>
             </div>
-
-            <!-- 하단 여백 태그 완전 삭제 상태 유지 -->
             
         </div>
     </div>
