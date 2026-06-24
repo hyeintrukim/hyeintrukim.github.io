@@ -12,7 +12,7 @@
             color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
 
-        /* 💡 1. 본문 내용이 화면 왼쪽에 딱 붙지 않도록 좌우 마진 패딩 40px 정밀 조정 */
+        /* 본문 내용이 화면 왼쪽에 딱 붙지 않도록 좌우 마진 패딩 40px 정밀 조정 */
         .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -75,6 +75,7 @@
             transition: all 0.4s ease-in-out;
             position: relative;
             z-index: 1010; 
+            height: 170px; /* 불규칙 배치된 높이 확보 */
         }
 
         /* P, R, E, S, S 글자 전체 기본 스케일 설정 (기존 레이아웃 완벽 보존) */
@@ -84,6 +85,7 @@
             -webkit-text-stroke: 1.7px #654321;
             transition: all 0.4s ease-in-out;
             position: relative; 
+            display: inline-block;
         }
 
         /* 5개 알파벳 수직·수평 불규칙적 정밀 배치유지 */
@@ -113,7 +115,7 @@
         .sub-menu-container {
             display: flex;
             flex-direction: column; 
-            gap: 30px; /* 메뉴들끼리의 정밀 격차 규격: 30px */
+            gap: 35px; /* 오른쪽 메뉴 간격 35px 완벽 고정 */
             align-items: flex-end; 
             opacity: 0;
             transform: translateX(50px); 
@@ -133,20 +135,27 @@
             line-height: 1.2;
         }
 
-        /* 💡 5. 스크롤 되었을 때 PR로고와 첫 서브메뉴(CV)의 여백 비율을 다른 메뉴들 간격(30px)과 오차 없이 일치화 */
+        /* 💡 [수정] 스크롤 되었을 때 전체 P, R, E, S, S 글자가 온전히 다 보이도록 비율 제어 */
         .header-menu-block.scrolled .cv-logo-link {
-            margin-bottom: 3px; 
+            height: 90px; /* 압축된 높이 */
+            margin-bottom: 35px; /* 💡 PR로고와 첫 메뉴(CV) 간격을 정확히 35px로 세팅 */
         }
 
+        /* 💡 [수정] 스크롤 시 특정 글자만 숨겨지지 않고, 5글자 모두 균일하게 축소(60px) 및 조율 */
         .header-menu-block.scrolled .char-p,
-        .header-menu-block.scrolled .char-r {
+        .header-menu-block.scrolled .char-r,
+        .header-menu-block.scrolled .char-e,
+        .header-menu-block.scrolled .char-s {
             font-size: 60px;
             -webkit-text-stroke: 1.2px #654321; 
         }
-        .header-menu-block.scrolled .char-r {
-            top: 27px;
-            left: -8px;
-        }
+        
+        /* 💡 [수정] 스크롤 상태에서도 특유의 리듬감 있는 불규칙 형태가 찌그러지지 않게 60px 비례 비율로 미세 세팅 */
+        .header-menu-block.scrolled .char-p { top: 0px; left: 0px; }
+        .header-menu-block.scrolled .char-r { top: 25px; left: -10px; }
+        .header-menu-block.scrolled .char-e { top: -6px; left: -14px; }
+        .header-menu-block.scrolled .char-s:nth-of-type(4) { top: 18px; left: -21px; }
+        .header-menu-block.scrolled .char-s:nth-of-type(5) { top: 6px; left: -27px; }
 
         .header-menu-block.scrolled .sub-menu-container {
             opacity: 1;
@@ -165,6 +174,13 @@
             letter-spacing: -0.5px;
         }
         .section-title:first-of-type { margin-top: 0; }
+
+        /* Press와 Publication 큰 문단 사이의 확연한 구분을 위한 여백 분리 클래스 */
+        .main-category {
+            margin-top: 90px;
+            border-bottom: 1px solid #654321;
+            padding-bottom: 8px;
+        }
 
         /* 기사 개별 블록 마진 */
         .press-item-block {
@@ -187,8 +203,8 @@
             opacity: 0.7;
         }
 
-        /* 💡 2. 책 제목보다 katalog 설명하는 글씨를 2px 작게 조정 (기존 16px -> 14px) */
-        /* 💡 4. Press 상하 문장끼리의 여백을 줄이기 위해 상단 마진 -2px 조정 */
+        /* 책 제목보다 katalog 설명하는 글씨를 2px 작게 조정 (기존 16px -> 14px) */
+        /* Press 상하 문장끼리의 여백을 줄이기 위해 상단 마진 -2px 조정 */
         .press-text { 
             font-size: 14px; 
             line-height: 1.9; 
@@ -198,9 +214,9 @@
         
         .press-meta-info { font-size: 14px; color: #a38f7d; margin-top: 2px; }
 
-        /* 💡 3. A-Z Mapping the Future 앞에 있는 <upcoming> 태그 전용 스타일 (책 제목보다 1-2px 작게 세팅) */
+        /* A-Z Mapping the Future 앞에 있는 <upcoming> 태그 전용 스타일 (책 제목보다 1-2px 작게 세팅) */
         .upcoming-tag {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             display: inline-block;
             margin-right: 2px;
@@ -214,8 +230,9 @@
         <div class="info-zone">
             
             <div class="header-menu-block" id="menuBlock">
+                <!-- 💡 우측 상단 로고 링크 공간에 P,R,E,S,S 5글자 완벽 정상 연동 완료 -->
                 <a href="index.html" class="cv-logo-link">
-                    <span class="char-p">P</span><span class="char-r">R</span>
+                    <span class="char-p">P</span><span class="char-r">R</span><span class="char-e">E</span><span class="char-s">S</span><span class="char-s">S</span>
                 </a>
                 
                 <div class="sub-menu-container">
@@ -272,13 +289,12 @@
             </div>
 
           
-            <h2 class="section-title">Publication</h2>
+            <h2 class="section-title main-category">Publication</h2>
 
             <h2 class="section-title">2026</h2>
             
              <div class="press-item-block">
                 <div class="press-article-static">
-                    <!-- 💡 3. upcoming 클래스 부여로 폰트 크기 독립 제어 완료 -->
                     <span class="upcoming-tag">&lt;Upcoming&gt;</span>
                     A-Z Mapping the Future
                 </div>
@@ -306,7 +322,7 @@
                 <div class="press-article-static">
                     Do you clean your mirror, everyday? - Ein Atelierbesuch bei den koreanischen Hyein Kim
                 </div>
-                <p class="press-text">Interview with Culture&Art Magazine for Baden-Württemberg<em>Versprochen</em></p>
+                <p class="press-text">Interview with Culture&Art Magazine for Baden-Württemberg <em>Versprochen</em></p>
                 <div class="press-meta-info">ARS Mondo Stuttgart, Germany</div>
             </div>
             
@@ -338,7 +354,7 @@
                 <div class="press-meta-info">Stuttgart, Germany</div>
             </div>
 
-            <div style="height: 500px;"></div>
+            <!-- 하단 여백 태그 완전 삭제 상태 유지 -->
             
         </div>
     </div>
