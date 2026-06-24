@@ -157,16 +157,19 @@
 
         .cv-text { font-size: 16px; line-height: 1.9; color: #654321; }
 
-        /* 하이퍼링크 스타일 커스텀 */
-        .contact-link {
-            color: #654321;
-            text-decoration: none;
-            display: inline-block;
-            transition: opacity 0.2s ease;
-        }
-        .contact-link:hover {
-            opacity: 0.7;
-        }
+       /* 하이퍼링크 스타일 커스텀: 마우스 올리면 파란색 변환 효과 */
+.contact-link {
+    color: #654321;             /* 평소에는 기존 갈색 */
+    text-decoration: none;      /* 평소에는 밑줄 없음 */
+    text-underline-offset: 4px; /* 밑줄과 글자 사이 간격 */
+    display: inline-block;
+    transition: color 0.2s ease, text-decoration 0.2s ease; /* 부드럽게 변하는 효과 */
+}
+
+.contact-link:hover {
+    color: #0022ff;             /* 💡 마우스를 올렸을 때 선명하고 깨끗한 파란색으로 변경 */
+    text-decoration: underline; /* 💡 마우스를 올렸을 때 밑줄 생성 */
+}
     </style>
 </head>
 <body>
@@ -304,9 +307,9 @@
             <!-- 소셜/이메일 정보 및 정비된 Imprint 링크가 탑재된 Contact 구역 -->
             <h2 class="section-title">Contact</h2>
             <p class="cv-text">
-                <a href="mailto:hyeintr@gmail.com" class="contact-link">hyeintr@gmail.com ↗</a><br>
-                <a href="https://www.instagram.com/hyein_tru_kim" target="_blank" class="contact-link">@hyein_tru_kim ↗</a><br>
-                <a href="imprint.html" class="contact-link">Imprint ↗</a>
+                <a href="mailto:hyeintr@gmail.com" class="contact-link">hyeintr@gmail.com</a><br>
+                <a href="https://www.instagram.com/hyein_tru_kim" target="_blank" class="contact-link">@hyein_tru_kim</a><br>
+                <a href="imprint.html" class="contact-link">Imprint</a>
             </p> 
             
         </div>
