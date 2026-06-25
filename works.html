@@ -26,30 +26,30 @@
             width: 250px;
             flex-shrink: 0;
             margin-top: 43px;
-            margin-left: -5px; /* 💡 좌측으로 5px 더 붙임 */
+            margin-left: -5px; /* 좌측으로 5px 밀착 */
         }
 
-        /* 💡 [수정] 밑줄 제거 후 단어 밖에 네모 버튼 상자 생성 */
+        /* 💡 [수정 1] 메뉴 네모 상자 크기를 컴팩트하게 축소 */
         .works-main-tab {
             font-size: 18px; 
             font-weight: 1100;
             color: #654321;
-            text-decoration: none; /* 밑줄 해제 */
-            border: 1px solid #654321; /* 단어 밖의 네모칸 */
-            padding: 10px 15px; /* 네모 상자 안쪽 여백 */
-            margin-bottom: 30px; /* 💡 상하여백 5px 더 넓힘 (기존 25px -> 30px) */
-            display: inline-block; /* 박스 크기 유지 */
+            text-decoration: none; 
+            border: 1px solid #654321; 
+            padding: 6px 12px; /* 안쪽 여백을 줄여 상자를 작게 만듦 */
+            margin-bottom: 30px; /* 상하여백 5px 넓힌 상태 유지 */
+            display: inline-block; 
             cursor: pointer;
             transition: color 0.2s ease;
             user-select: none;
         }
 
-        /* 💡 마우스 올릴 때 영어 단어 글자만 파란색으로 변경 */
+        /* 마우스 올릴 때 영어 단어 글자만 파란색으로 변경 */
         .works-main-tab:hover {
             color: #0022ff;
         }
 
-        /* 💡 클릭 시 활성화된 탭 영어 단어 글자 파란색 유지 */
+        /* 클릭 시 활성화된 탭 영어 단어 글자 파란색 유지 */
         .works-main-tab.active-tab {
             color: #0022ff;
         }
@@ -57,10 +57,9 @@
         /* [오른쪽 구역] 펼쳐지는 콘텐츠(리스트) 공간 */
         .info-zone {
             flex-grow: 1;
-            /* 💡 좌측 메뉴 첫 선보다 년도가 3px 밑에 걸치도록 패딩 정밀 제어 (기존 140px -> 56px) */
-            padding-top: 56px; 
-            margin-left: -5px; /* 💡 가운데 메인 텍스트들도 좌측으로 5px 이동 */
-            max-width: 650px; 
+            padding-top: 56px; /* 좌측 메뉴 첫 선보다 년도가 3px 밑에 오도록 세팅 */
+            margin-left: -5px; /* 메인 텍스트들 좌측으로 5px 이동 */
+            max-width: 500px; /* 💡 [수정 2] 본문 상자 크기를 작고 슬림하게 제한 */
         }
 
         /* 기본적으로 모든 콘텐츠 리스트 섹션은 숨겨둠 (초기 공백 상태 유지) */
@@ -73,9 +72,9 @@
             display: block;
         }
 
-        /* 년도 스타일 지정 (표 위에 단독 배치) */
+        /* 💡 [수정 3] 년도 폰트 크기 3px 확대 (16px -> 19px) */
         .works-year-title {
-            font-size: 16px;
+            font-size: 19px;
             font-weight: bold;
             color: #654321;
             margin-top: 40px;
@@ -85,35 +84,21 @@
             margin-top: 0; /* 첫 번째 년도는 기준선 정렬을 위해 상단 여백 제거 */
         }
 
-        /* 💡 [수정] 한 줄(행) 마다 사방이 꽉 막히도록 개별 표 세팅 */
+        /* 💡 [수정 2] 분할선과 배경색을 없앤 단일 텍스트 상자 디자인 */
         .works-table {
             width: 100%;
             border-collapse: collapse;
-            border: 1px solid #654321; /* 사방 테두리선 */
-            margin-bottom: 12px; /* 표와 표 사이의 정갈한 간격 격리 */
+            border: 1px solid #654321; /* 사방이 막힌 외부 테두리만 남김 */
+            margin-bottom: 10px; /* 상자 간의 정갈한 간격 */
         }
 
         .works-table td {
-            padding: 14px 16px;
-            border: 1px solid #654321; /* 내부 세로 분할 격자선 */
-            vertical-align: middle;
-        }
-
-        /* 타이틀 칸 */
-        .td-title {
-            font-size: 15px;
+            padding: 12px 16px; /* 상자 크기는 작아지되 폰트는 작아지지 않게 내부 여백 유지 */
+            font-size: 15px; /* 타이틀 폰트 크기 유지 */
             font-weight: bold;
             color: #654321;
-            width: 55%; 
-            background-color: #faf9f7; /* 표 안쪽을 채우는 고급스러운 연한 톤 */
-        }
-
-        /* 부가 설명 및 메타 정보 칸 */
-        .td-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #a38f7d; 
-            width: 45%;
+            vertical-align: middle;
+            background-color: transparent; /* 다른 색상 사용 금지, 투명하게 통일 */
         }
 
         /* 스크롤 테스트용 강제 하단 여백 공간 생성 */
@@ -233,27 +218,19 @@
             <!-- ========================================== -->
             <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
-                <!-- 💡 년도 밑으로 한 줄씩 사방이 다 막힌 독립형 테이블 구성 -->
-                <table class="works-table">
-                    <tr>
-                        <td class="td-title">Selected Painting Project A</td>
-                        <td class="td-text">Oil on canvas, 150 x 150 cm</td>
-                    </tr>
-                </table>
-                <table class="works-table">
-                    <tr>
-                        <td class="td-title">The Boundary of Silence</td>
-                        <td class="td-text">Mixed media installation</td>
-                    </tr>
-                </table>
+                <!-- 💡 [수정 4] 년도별 5개의 단일 타이틀 상자 구성 -->
+                <table class="works-table"><tr><td>Selected Painting Project A</td></tr></table>
+                <table class="works-table"><tr><td>The Boundary of Silence</td></tr></table>
+                <table class="works-table"><tr><td>Untitled Artwork Title 03</td></tr></table>
+                <table class="works-table"><tr><td>Untitled Artwork Title 04</td></tr></table>
+                <table class="works-table"><tr><td>Untitled Artwork Title 05</td></tr></table>
 
                 <div class="works-year-title">2025</div>
-                <table class="works-table">
-                    <tr>
-                        <td class="td-title">Untitled (Traces)</td>
-                        <td class="td-text">Sculpture, Granite and wood</td>
-                    </tr>
-                </table>
+                <table class="works-table"><tr><td>Untitled (Traces)</td></tr></table>
+                <table class="works-table"><tr><td>The Echo of Structure</td></tr></table>
+                <table class="works-table"><tr><td>Fragments of Time</td></tr></table>
+                <table class="works-table"><tr><td>Invisible Line Project</td></tr></table>
+                <table class="works-table"><tr><td>Material Study 01</td></tr></table>
             </div>
 
             <!-- ========================================== -->
@@ -261,27 +238,19 @@
             <!-- ========================================== -->
             <div id="section-exhibitions" class="content-section">
                 <div class="works-year-title">2026</div>
-                <!-- 💡 년도 밑으로 한 줄씩 사방이 다 막힌 독립형 테이블 구성 -->
-                <table class="works-table">
-                    <tr>
-                        <td class="td-title">Do you clean your mirror, everyday?</td>
-                        <td class="td-text">Städtische Galerie am Laien, Ditzingen (Solo)</td>
-                    </tr>
-                </table>
-                <table class="works-table">
-                    <tr>
-                        <td class="td-title">Heussen Perspectives Awards Winner Exhibition</td>
-                        <td class="td-text">Heussen Law firm, Berlin (Group)</td>
-                    </tr>
-                </table>
+                <!-- 💡 [수정 4] 년도별 5개의 단일 타이틀 상자 구성 -->
+                <table class="works-table"><tr><td>Do you clean your mirror, everyday? (Solo)</td></tr></table>
+                <table class="works-table"><tr><td>Heussen Perspectives Awards Winner Exhibition (Group)</td></tr></table>
+                <table class="works-table"><tr><td>Selected Exhibition Title Sample 03</td></tr></table>
+                <table class="works-table"><tr><td>Selected Exhibition Title Sample 04</td></tr></table>
+                <table class="works-table"><tr><td>Selected Exhibition Title Sample 05</td></tr></table>
 
                 <div class="works-year-title">2025</div>
-                <table class="works-table">
-                    <tr>
-                        <td class="td-title">A-Z Mapping the Future</td>
-                        <td class="td-text">Staatsgalerie Stuttgart, Stuttgart (Group)</td>
-                    </tr>
-                </table>
+                <table class="works-table"><tr><td>A-Z Mapping the Future (Group)</td></tr></table>
+                <table class="works-table"><tr><td>Past Exhibition Title Sample 02</td></tr></table>
+                <table class="works-table"><tr><td>Past Exhibition Title Sample 03</td></tr></table>
+                <table class="works-table"><tr><td>Past Exhibition Title Sample 04</td></tr></table>
+                <table class="works-table"><tr><td>Past Exhibition Title Sample 05</td></tr></table>
             </div>
             
             <!-- 스크롤 테스트용 여백 빌더 -->
