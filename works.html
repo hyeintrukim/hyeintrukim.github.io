@@ -87,7 +87,7 @@
         /* ---------------------------------------------------- */
         /* 순수 텍스트 스타일 링크 (WORK LIST & EXHIBITIONS 공통 적용) */
         /* ---------------------------------------------------- */
-        .works-text-link {
+        .works-text-link, .works-text-disabled {
             display: block;
             font-size: 16px;
             font-weight: 400; /* 일반 폰트 두께 */
@@ -95,14 +95,21 @@
             letter-spacing : 2px;
             text-decoration: none; /* 밑줄 없는 깨끗한 상태 */
             padding: 7px 0; /* 줄간격 유지를 위한 상하 패딩 */
-            transition: color 0.2s ease;
         }
 
         /* 💡 마우스 올렸을 때 텍스트가 파란색으로 변경 */
+        .works-text-link {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
         .works-text-link:hover {
             color: #0022ff;
         }
 
+        /* 아직 링크가 연결되지 않은 텍스트 스타일 */
+        .works-text-disabled {
+            cursor: default;
+        }
 
         /* 스크롤 테스트용 강제 하단 여백 공간 생성 */
         .scroll-tester-space {
@@ -213,13 +220,11 @@
         </div>
 
         <div class="info-zone">
-            <div class="info-zone">
             
             <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
                 
                 <a href="works-detail/bienenstich.html" class="works-text-link">Bienenstich</a>
-                
                 <div class="works-text-disabled">≪The last Island≫</div>
                 <div class="works-text-disabled">≪Bad Mom≫</div>
                 <div class="works-text-disabled">≪권태≫</div>
@@ -233,9 +238,6 @@
                 <div class="works-text-disabled">≪Abdruck≫</div>
                 <div class="works-text-disabled">≪Bienenstich≫</div>
                 <div class="works-text-disabled">≪Wild fire≫</div>
-
-                
-                ≪ ≫
             </div>
 
             <div id="section-exhibitions" class="content-section">
@@ -246,9 +248,7 @@
             
             <div class="scroll-tester-space"></div>
             
-        </div>
-            
-        <div class="header-menu-block" id="menuBlock">
+        </div> <div class="header-menu-block" id="menuBlock">
             <a href="index.html" class="cv-logo-link">
                 <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
             </a>
