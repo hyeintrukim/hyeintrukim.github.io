@@ -9,24 +9,26 @@
             padding: 0;
             font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
-            color: #654321; 
+            color: #654321; /* 전체 기본 텍스트 톤 갈색 통일 */
         }
 
         .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 0px 100px 10px; 
+            padding: 100px 0px 100px 10px; /* 좌측 여백 밀착 */
             display: flex;
             gap: 25px; 
             position: relative;
         }
 
+        /* [왼쪽 구역] 대분류 메뉴 공간 */
         .photo-zone {
             width: 155px; 
             flex-shrink: 0;
             margin-top: 43px;
         }
 
+        /* 메뉴 네모 상자 스타일 */
         .works-main-tab {
             font-size: 18px; 
             font-weight: 1100;
@@ -52,8 +54,10 @@
             color: #0022ff;
         }
 
+        /* [오른쪽 구역] 콘텐츠 공간 */
         .info-zone {
             flex-grow: 1;
+            /* 2026년도와 WORK LIST 버튼 정렬 매칭 */
             padding-top: 43px; 
             max-width: 500px; 
         }
@@ -107,6 +111,7 @@
             height: 100vh;
         }
 
+        /* 우측 상단 고정 메뉴 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -271,6 +276,7 @@
             }
         });
 
+        // 최초 로드 시 worklist 활성화
         switchTab('worklist');
     </script>
 
