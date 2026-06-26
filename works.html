@@ -15,20 +15,19 @@
         .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 0px 100px 10px; /* 좌측 여백 밀착 */
+            padding: 100px 0px 100px 10px; /* 좌측 여백 최소화 */
             display: flex;
-            gap: 25px; 
+            gap: 40px; /* 구역 간의 간격 조정 */
             position: relative;
         }
 
-        /* [왼쪽 구역] 대분류 메뉴 공간 */
+        /* [1구역: 맨 왼쪽] 클릭 가능한 대분류 탭 메뉴 */
         .photo-zone {
             width: 155px; 
             flex-shrink: 0;
             margin-top: 43px;
         }
 
-        /* 메뉴 네모 상자 스타일 */
         .works-main-tab {
             font-size: 18px; 
             font-weight: 1100;
@@ -46,29 +45,39 @@
             text-align: center;
         }
 
-        .works-main-tab:hover {
-            color: #0022ff;
+        .works-main-tab:hover { color: #0022ff; }
+        .works-main-tab.active-tab { color: #0022ff; }
+
+
+        /* 💡 [2구역: 가운데 신설] 제목 클릭 시 사진이 뜨는 메인 뷰 영역 */
+        .artwork-display-zone {
+            width: 500px; /* 사진이 들어갈 넉넉한 너비 설정 */
+            flex-shrink: 0;
+            margin-top: 43px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .works-main-tab.active-tab {
-            color: #0022ff;
+        /* 처음엔 회색 기본 임시 박스, 사진이 로드되면 깔끔하게 노출 */
+        .artwork-viewer {
+            width: 100%;
+            max-height: 600px;
+            object-fit: contain; /* 비율 유지하며 정렬 */
+            border: 1px dashed #654321; /* 이미지가 없을 때 영역 표시용 테두리 */
+            background-color: #f7f7f7;
         }
 
-        /* [오른쪽 구역] 콘텐츠 공간 */
+
+        /* [3구역: 오른쪽] 펼쳐지는 콘텐츠(작품 타이틀 리스트) 공간 */
         .info-zone {
             flex-grow: 1;
-            /* 2026년도와 WORK LIST 버튼 정렬 매칭 */
             padding-top: 43px; 
-            max-width: 500px; 
+            max-width: 400px; 
         }
 
-        .content-section {
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
-        }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
 
         .works-year-title {
             font-size: 19px;
@@ -85,6 +94,7 @@
             padding-top: 2px; 
         }
 
+        /* 링크 태그(a) 대신 클릭 이벤트를 줄 수 있는 span 스타일로 변경 */
         .works-text-link, .works-text-disabled {
             display: block;
             font-size: 16px;
@@ -93,25 +103,22 @@
             letter-spacing: -1px; 
             text-decoration: none; 
             padding: 7px 0; 
+            user-select: none;
         }
 
         .works-text-link {
             cursor: pointer;
             transition: color 0.2s ease;
         }
-        .works-text-link:hover {
-            color: #0022ff;
-        }
+        .works-text-link:hover { color: #0022ff; }
+        
+        /* 현재 좌측에 노출 중인 링크 글자 색상 유지 고정 */
+        .works-text-link.viewing { color: #0022ff; font-weight: bold; }
 
-        .works-text-disabled {
-            cursor: default;
-        }
+        .works-text-disabled { cursor: default; }
+        .scroll-tester-space { height: 50vh; }
 
-        .scroll-tester-space {
-            height: 100vh;
-        }
-
-        /* 우측 상단 고정 메뉴 */
+        /* 우측 상단 고정 스마트 메뉴 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -178,11 +185,7 @@
             margin-right: -23px;  
         }
 
-        .header-menu-block.scrolled .char-w,
-        .header-menu-block.scrolled .char-o,
-        .header-menu-block.scrolled .char-r,
-        .header-menu-block.scrolled .char-k,
-        .header-menu-block.scrolled .char-s {
+        .header-menu-block.scrolled .char-w, .header-menu-block.scrolled .char-o, .header-menu-block.scrolled .char-r, .header-menu-block.scrolled .char-k, .header-menu-block.scrolled .char-s {
             font-size: 60px;
             -webkit-text-stroke: 1.2px #654321; 
         }
@@ -209,35 +212,37 @@
             <span class="works-main-tab" id="tab-exhibitions" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
         </div>
 
+        <div class="artwork-display-zone">
+            <img id="mainViewer" class="artwork-viewer" src="" alt="Select an artwork to view">
+        </div>
+
         <div class="info-zone">
             
             <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
                 
-                <a href="work-the-last-island.html" class="works-text-link">The Last Island</a>
-                <a href="work-bad-mom.html" class="works-text-link">Bad Mom</a>
-                <a href="work-ennui.html" class="works-text-link">Ennui</a>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/the-last-island.jpg')">The Last Island</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/bad-mom.jpg')">Bad Mom</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/ennui.jpg')">Ennui</span>
                 
                 <div class="works-year-title">2025</div>
                 
-                <a href="work-victory-of-lays.html" class="works-text-link">Victory of Lays</a>
-                <a href="work-hope.html" class="works-text-link">Hope</a>
-                <a href="work-horse-racing.html" class="works-text-link">Horse racing</a>
-                <a href="work-baum.html" class="works-text-link">Baum</a>
-                <a href="work-abdruck.html" class="works-text-link">Abdruck</a>
-                <a href="work-bienenstich.html" class="works-text-link">Bienenstich</a>
-                <a href="work-wild-fire.html" class="works-text-link">Wild fire</a>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/victory-of-lays.jpg')">Victory of Lays</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/hope.jpg')">Hope</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/horse-racing.jpg')">Horse racing</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/baum.jpg')">Baum</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/abdruck.jpg')">Abdruck</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/bienenstich.jpg')">Bienenstich</span>
+                <span class="works-text-link" onclick="viewArtwork(this, '../images/wild-fire.jpg')">Wild fire</span>
             </div>
 
             <div id="section-exhibitions" class="content-section">
                 <div class="works-year-title">2026</div>
-                
                 <div class="works-text-disabled">Do you clean your mirror, everyday? Solo</div>
                 <div class="works-text-disabled">여기에 전시 이름을 적으세요 (Solo/Group)</div>
             </div>
             
             <div class="scroll-tester-space"></div>
-            
         </div> 
 
         <div class="header-menu-block" id="menuBlock">
@@ -255,16 +260,27 @@
     </div>
 
     <script>
+        // 대분류 탭(Work List / Exhibitions) 전환 함수
         function switchTab(tabId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.querySelectorAll('.works-main-tab').forEach(tab => {
-                tab.classList.remove('active-tab');
-            });
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
 
             document.getElementById('section-' + tabId).classList.add('active');
             document.getElementById('tab-' + tabId).classList.add('active-tab');
+        }
+
+        // 💡 실시간 이미지 뷰어 교체 및 글자 파란색 유지 스크립트
+        function viewArtwork(element, imagePath) {
+            // 1. 모든 작품 글자에서 강조용 파란색 제거
+            document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
+            
+            // 2. 현재 선택해 클릭한 그림 제목만 파란색 활성화
+            element.classList.add('viewing');
+            
+            // 3. 가운데 이미지 창의 테두리를 실선 스타일로 바꾸고 이미지 교체출력
+            const viewer = document.getElementById('mainViewer');
+            viewer.style.border = "none"; 
+            viewer.src = imagePath;
         }
 
         window.addEventListener('scroll', function() {
@@ -276,8 +292,14 @@
             }
         });
 
-        // 최초 로드 시 worklist 활성화
+        // 처음 진입했을 때 기본값 설정
         switchTab('worklist');
+        
+        // 첫 진입 시 첫 번째 작품(The Last Island) 사진이 자동으로 세팅되도록 호출
+        window.onload = function() {
+            const firstItem = document.querySelector('#section-worklist .works-text-link');
+            if(firstItem) firstItem.click();
+        };
     </script>
 
 </body>
