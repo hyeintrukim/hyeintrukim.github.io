@@ -15,18 +15,18 @@
         .cv-main-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 40px;
+            padding: 100px 20px; /* 좌우 패딩을 40px -> 20px로 줄여 왼쪽 마진 확보 */
             display: flex;
-            gap: 40px; /* CV/PRESS 패밀리룩 갭 규격 */
+            gap: 20px; /* CV/PRESS 패밀리룩 대비 간격을 절반(40px -> 20px)으로 조절 */
             position: relative;
         }
 
         /* [왼쪽 구역] 클릭 가능한 대분류 메뉴 공간 */
         .photo-zone {
-            width: 250px;
+            width: 160px; /* 버튼 크기에 맞게 구역 너비 최적화 */
             flex-shrink: 0;
             margin-top: 43px;
-            margin-left: -5px; /* 좌측으로 5px 밀착 */
+            margin-left: -10px; /* 화면 좌측단으로 더욱 밀착 */
         }
 
         /* 메뉴 네모 상자 스타일 */
@@ -42,6 +42,7 @@
             cursor: pointer;
             transition: color 0.2s ease;
             user-select: none;
+            box-sizing: border-box;
         }
 
         /* 마우스 올릴 때 영어 단어 글자만 파란색으로 변경 */
@@ -58,7 +59,11 @@
         .info-zone {
             flex-grow: 1;
             padding-top: 56px; /* 좌측 메뉴 첫 선보다 년도가 3px 밑에 오도록 세팅 */
-            margin-left: -5px; /* 메인 텍스트들 좌측으로 5px 이동 */
+            /* ★ 핵심 정렬 수정 ★
+               버튼의 테두리 border 두께(1px)와 좌측 padding(12px)을 고려하여 
+               마이너스 마진을 적용해 메인 텍스트 시작점을 'WORK LIST' 버튼의 첫 글자 라인과 칼같이 맞춥니다.
+            */
+            margin-left: -13px; 
             max-width: 500px; /* 본문 텍스트 최대 크기 제한 */
         }
 
@@ -79,6 +84,7 @@
             color: #654321;
             margin-top: 40px;
             margin-bottom: 15px;
+            letter-spacing: -1px; /* 자간 통일 */
         }
         .content-section > .works-year-title:first-of-type {
             margin-top: 0; /* 첫 번째 년도는 기준선 정렬을 위해 상단 여백 제거 */
@@ -92,7 +98,7 @@
             font-size: 16px;
             font-weight: 400; /* 일반 폰트 두께 */
             color: #654321;
-            letter-spacing : 2px;
+            letter-spacing: -1px; /* 요청하신 대로 자간을 기존 2px에서 -1px로 전면 수정 */
             text-decoration: none; /* 밑줄 없는 깨끗한 상태 */
             padding: 7px 0; /* 줄간격 유지를 위한 상하 패딩 */
         }
@@ -125,7 +131,7 @@
             right: 40px;
             display: flex;
             flex-direction: column; 
-            align-items: flex-end;  
+            align-items: flex-end;   
             z-index: 1000;
         }
 
@@ -248,7 +254,9 @@
             
             <div class="scroll-tester-space"></div>
             
-        </div> <div class="header-menu-block" id="menuBlock">
+        </div> 
+
+        <div class="header-menu-block" id="menuBlock">
             <a href="index.html" class="cv-logo-link">
                 <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
             </a>
@@ -285,6 +293,9 @@
                 menuBlock.classList.remove('scrolled');
             }
         });
+
+        // 페이지 로드 시 첫 번째 탭 기본 활성화 기본값 지정
+        switchTab('worklist');
     </script>
 
 </body>
