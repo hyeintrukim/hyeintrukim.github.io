@@ -12,7 +12,7 @@
             font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
             color: #654321;
-            overflow: hidden; /* 전체 페이지 스크롤 방지 */
+            overflow: hidden; 
         }
 
         .cv-main-container {
@@ -32,7 +32,7 @@
             margin-top: 43px;
             position: relative;
             z-index: 100;
-            background-color: transparent; /* 배경 투명 */
+            background-color: transparent;
         }
 
         .works-main-tab {
@@ -50,25 +50,26 @@
             box-sizing: border-box;
             width: 100%; 
             text-align: center;
-            background-color: transparent; /* 배경 투명 */
+            background-color: transparent;
         }
         .works-main-tab:hover { color: #0022ff; }
         .works-main-tab.active-tab { color: #0022ff; }
 
 
-        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (배경 투명 및 정확한 좌측 정렬 변형) */
+        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (초기 상태 숨김 처리) */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
             padding-top: 43px; 
             position: relative;
             z-index: 90;
-            background-color: transparent; /* 배경 투명 */
+            background-color: transparent;
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
-            transform-origin: left top; /* 좌측 상단 기준 고정 */
+            transform-origin: left top;
+            display: none; /* 💡 처음 로드 시 완전히 숨김 */
         }
 
-        .content-section { background-color: transparent; }
+        .content-section { background-color: transparent; display: none; }
         .content-section.active { display: block; }
 
         .works-year-title {
@@ -79,7 +80,6 @@
             margin-bottom: 12px;
             letter-spacing: -1px;
             line-height: 1.5; 
-            background-color: transparent;
         }
         
         .content-section > .works-year-title:first-child {
@@ -96,7 +96,7 @@
             text-decoration: none; 
             padding: 6px 0; 
             user-select: none;
-            background-color: transparent; /* 배경 투명 */
+            background-color: transparent;
         }
 
         .works-text-link {
@@ -108,7 +108,7 @@
         .works-text-disabled { cursor: default; }
 
 
-        /* [3구역] 사진 슬라이드 영역 (마진 없이 화면 끝에서 끝까지 사용) */
+        /* [3구역] 사진 슬라이드 영역 */
         .artwork-display-zone {
             flex-grow: 1;
             margin-top: 43px; 
@@ -117,9 +117,9 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            display: none; /* 💡 처음 로드 시 완전히 숨김 */
         }
 
-        /* 💡 여러 사진 모드: 왼쪽 메뉴들을 완전히 덮으며 화면 왼쪽 끝까지 영역 확장 */
         .artwork-display-zone.multi-mode {
             position: absolute;
             left: 0;
@@ -129,13 +129,11 @@
             margin-top: 43px;
         }
 
-        /* 단독 사진 모드: 기존 레이아웃 유지 */
         .artwork-display-zone.single-mode {
             margin-left: 0px;
             position: relative;
         }
 
-        /* 마우스 드래그 & 스크롤 윈도우 */
         .photo-slider-window {
             width: 100%;
             overflow-x: auto; 
@@ -146,26 +144,24 @@
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
-        /* 다중 이미지일 때만 드래그 커서 적용 및 전체 너비 자유 스크롤 */
         .artwork-display-zone.multi-mode .photo-slider-window {
             cursor: grab;
             justify-content: flex-start;
-            padding-left: 475px; /* 초기 로드시 메뉴 옆에서 정렬 시작 */
+            padding-left: 475px; 
             box-sizing: border-box;
         }
         .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
 
-        /* 💡 단독 이미지일 때는 슬라이딩 기능 차단 및 정중앙 고정 */
         .artwork-display-zone.single-mode .photo-slider-window {
             cursor: default;
-            justify-content: center; /* 한 장일 땐 무조건 중앙에 한 번에 표시 */
+            justify-content: center; 
             padding-left: 0;
         }
 
-        /* 사진 트레인 컨테이너 */
+        /* 💡 사진 트레인 컨테이너 - 간격을 2px로 밀착 */
         .slide-train {
             display: flex;
-            gap: 20px; 
+            gap: 2px; 
             width: max-content; 
         }
         .artwork-display-zone.single-mode .slide-train {
@@ -173,7 +169,6 @@
             justify-content: center;
         }
 
-        /* 개별 사진 슬라이드 칸 */
         .slide-item {
             flex-shrink: 0;
             display: flex;
@@ -181,7 +176,6 @@
             position: relative;
         }
 
-        /* 원본 사진 래퍼 */
         .viewer-frame {
             height: calc(100vh - 260px); 
             min-height: 450px;
@@ -200,7 +194,6 @@
             -webkit-user-drag: none; 
         }
 
-        /* 첫 번째 사진 우측 하단 캡션 정보란 */
         .artwork-meta-info-fixed {
             position: absolute;
             font-size: 14px;
@@ -216,7 +209,6 @@
             z-index: 95;
         }
 
-        /* 하단 슬라이드 바 */
         .custom-scrollbar-container {
             width: 600px;
             height: 3px;
@@ -392,15 +384,18 @@
         const fixedMetaInfo = document.getElementById('fixedMetaInfo');
 
         let currentGroupLength = 0;
+        let isTabClickedOnce = false; // 💡 첫 클릭 분기 제어 태그
 
         function loadArtworkGroup(groupKey, element) {
+            // 초기 로드 후 아무것도 선택 안 된 상태에서 탭만 눌렀을 경우 방어 코드
+            if (!groupKey) return; 
+
             document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
             if(element) element.classList.add('viewing');
 
             slideTrain.innerHTML = '';
             sliderWindow.scrollLeft = 0;
             
-            // 위치 초기화
             infoZone.style.transform = 'translate(0, 0) scale(1)';
             infoZone.style.opacity = '1';
 
@@ -457,10 +452,9 @@
             const leftOffset = (frameRect.width - imgWidth) / 2;
             const topOffset = (frameRect.height - imgHeight) / 2;
 
-            // 절대 영역 대응 트래킹 위치 계산
             let targetLeft = frame.offsetLeft + leftOffset + imgWidth;
             if (currentGroupLength > 1) {
-                targetLeft += 475; // 다중 모드일 때 부여된 padding-left 연동 보정
+                targetLeft += 475; 
             }
             const targetTop = frame.offsetTop + topOffset + imgHeight;
 
@@ -470,27 +464,24 @@
             fixedMetaInfo.style.opacity = '1';
         }
 
-        // 💡 [핵심 레이아웃 수정] 슬라이딩 시 Work list 타이틀이 EXHIBITIONS 바로 밑 왼쪽에 완전 밀착하도록 수정
+        // 💡 [여백 수정] EXHIBITIONS 밑으로 하강할 때 상하 여백 4px 연동 보정
         function handleScrollInteractions() {
             const currentScroll = sliderWindow.scrollLeft;
 
             if (currentGroupLength > 1 && currentScroll > 0) {
                 const factor = Math.min(currentScroll / 300, 1); 
-                const scaleVal = 1 - (factor * 0.22); // 약 78% 크기로 고정 축소
+                const scaleVal = 1 - (factor * 0.22); 
                 
-                // [X축] -195px 이동하여 브라우저 왼쪽 벽(Photo Zone과 일직선상)에 일치시킴
-                // [Y축] +105px 이동하여 EXHIBITIONS 탭 바로 아래에 깨끗하게 매핑시킴
                 const moveX = factor * -195; 
-                const moveY = factor * 105; 
+                const moveY = factor * 109; // 💡 기존 105px에서 4px를 늘려 정확하게 4px 간격을 벌렸습니다.
 
                 infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
-                infoZone.style.opacity = `1`; // 흐려지지 않고 완벽하게 선명하게 유지
+                infoZone.style.opacity = `1`; 
             } else {
                 infoZone.style.transform = 'translate(0, 0) scale(1)';
                 infoZone.style.opacity = '1';
             }
 
-            // 하단 미니 바 트래킹
             if (currentGroupLength <= 1) return;
             const totalTrainWidth = slideTrain.scrollWidth;
             const visibleWidth = sliderWindow.clientWidth;
@@ -518,13 +509,13 @@
         sliderWindow.addEventListener('scroll', handleScrollInteractions);
         window.addEventListener('resize', updateScrollbarThumb);
 
-        /* 마우스 드래그 슬라이딩 스와이프 기능 (여러 장일 때만 작동하도록 락 제어) */
+        /* 마우스 드래그 슬라이딩 */
         let isDown = false;
         let startX;
         let scrollLeftOffset;
 
         sliderWindow.addEventListener('mousedown', (e) => {
-            if (currentGroupLength <= 1) return; // 1장일 땐 작동 금지
+            if (currentGroupLength <= 1) return; 
             isDown = true;
             startX = e.pageX - sliderWindow.offsetLeft;
             scrollLeftOffset = sliderWindow.scrollLeft;
@@ -539,7 +530,19 @@
             sliderWindow.scrollLeft = scrollLeftOffset - walk;
         });
 
+        // 💡 [구조 수정] 최초 탭 버튼 클릭 시 숨겨진 컨테이너가 해제되는 로직 탑재
         function switchTab(tabId) {
+            if (!isTabClickedOnce) {
+                // 최초 임의 호출이 아니라 사용자가 클릭했을 때만 해제
+                if (window.event) { 
+                    isTabClickedOnce = true;
+                    infoZone.style.display = 'block';
+                    displayZone.style.display = 'flex';
+                } else {
+                    return; // 처음 로드 시 자동 실행을 막아 빈 화면 유지
+                }
+            }
+
             document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
             document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
 
@@ -558,9 +561,6 @@
                 if(firstItem) firstItem.click();
             }
         }
-
-        // 초기 시작
-        switchTab('worklist');
     </script>
 
 </body>
