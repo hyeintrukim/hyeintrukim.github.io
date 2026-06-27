@@ -13,10 +13,11 @@
             overflow-x: hidden;
         }
 
+        /* 메인 컨테이너 구조 유연화 (전체 화면 너비 활용) */
         .cv-main-container {
-            max-width: 1500px; 
-            margin: 0 auto;
-            padding: 100px 20px 100px 20px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 100px 0px 100px 40px; /* 오른쪽 패딩을 없애 화면 끝까지 차도록 설정 */
             display: flex;
             gap: 40px; 
             position: relative;
@@ -52,7 +53,7 @@
         .works-main-tab.active-tab { color: #0022ff; }
 
 
-        /* [2구역] 가운데: 작업 타이틀 리스트 구역 */
+        /* [2구역] 가운데: 작업 타이틀 리스트 구역 (EXHIBITIONS 버튼 밑으로 자연스럽게 배치) */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
@@ -60,11 +61,7 @@
             position: relative;
             z-index: 15;
             background-color: transparent;
-            margin-right: -13px; 
-            /* 트랜지션 추가: 슬라이딩 시 통째로 부드럽게 반응 */
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
-            /* 💡 축소 및 이동 기준점을 왼쪽 위(left top)로 교정하여 정확한 물리 좌표 추적 */
-            transform-origin: left top;
+            margin-right: 0px; 
         }
 
         .content-section { display: none; }
@@ -103,19 +100,19 @@
         .works-text-link:hover { color: #0022ff; }
         .works-text-link.viewing { color: #0022ff; font-weight: 400 !important; }
         .works-text-disabled { cursor: default; }
-        .scroll-tester-space { height: 30vh; }
 
 
-        /* [3구역] 사진 슬라이드 영역 */
+        /* [3구역] 사진 슬라이드 영역 (화면 오른쪽 끝까지 확장) */
         .artwork-display-zone {
             flex-grow: 1;
-            max-width: 1050px;
-            margin-top: 110px; 
+            margin-top: 43px; 
             position: relative;
             border: none; 
             background: none; 
-            margin-left: -180px;
             z-index: 5;
+            overflow: hidden; /* 영역 밖으로 나가는 사진 제어 */
+            display: flex;
+            flex-direction: column;
         }
 
         /* 마우스 드래그 윈도우 */
@@ -134,29 +131,27 @@
             display: none; 
         }
 
-        /* 사진 기차 컨테이너 */
+        /* 사진 기차 컨테이너 (여백 2px로 고정) */
         .slide-train {
             display: flex;
-            gap: -3px; 
+            gap: 2px; 
             width: max-content; 
         }
 
-        /* 개별 슬라이드 칸 */
+        /* 개별 사진 슬라이드 칸 */
         .slide-item {
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: center; 
-            width: 1020px; 
+            align-items: flex-start; /* 왼쪽 정렬 */
         }
 
         /* 원본 사진 래퍼 */
         .viewer-frame {
-            width: 100%;
             height: 650px; 
             display: flex;
-            justify-content: center; 
+            justify-content: flex-start; 
             align-items: center;    
             background-color: transparent;
         }
@@ -170,24 +165,27 @@
             -webkit-user-drag: none; 
         }
 
-        /* 사진 하단 캡션 정보란 */
+        /* 💡 사진 하단 고정 캡션 정보란 (슬라이딩 시 움직이지 않고 첫 자리에 고정됨) */
         .artwork-meta-info-fixed {
-            margin-top: 7px; 
+            position: absolute;
+            bottom: 40px;
+            left: 0; /* 첫 번째 사진의 왼쪽 시작선과 정확하게 정렬 일치 */
             font-size: 14px;
             line-height: 1.6;
             color: #654321;
             font-weight: 400;
             letter-spacing: -0.8px;
-            width: 100%;
-            text-align: right; 
+            width: auto;
+            text-align: left; /* 왼쪽 끝 정렬 */
+            pointer-events: none;
         }
 
         /* 하단 슬라이드 바 */
         .custom-scrollbar-container {
-            width: 100%;
+            width: calc(100% - 40px);
             height: 3px;
             background-color: #eaeaea;
-            margin-top: 25px;
+            margin-top: 105px; /* 정보 텍스트 공간 확보를 위해 간격 조정 */
             position: relative;
             display: none; 
         }
@@ -319,13 +317,15 @@
                 <div class="works-text-disabled">Do you clean your mirror, everyday? Solo</div>
                 <div class="works-text-disabled">여기에 전시 이름을 적으세요 (Solo/Group)</div>
             </div>
-            <div class="scroll-tester-space"></div>
         </div> 
 
         <div class="artwork-display-zone">
             <div class="photo-slider-window" id="sliderWindow">
                 <div class="slide-train" id="slideTrain"></div>
             </div>
+
+            <!-- 💡 정보 구역이 사진 무리와 분리되어 슬라이딩 시 고정 배정됩니다 -->
+            <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
 
             <div class="custom-scrollbar-container" id="customScrollbar">
                 <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
@@ -347,46 +347,47 @@
     </div>
 
     <script>
+        // 💡 모든 정보 구조를 [title, material, maß, year] 순으로 정리하고 detail 문구들을 제거했습니다.
         const dbRepository = {
             "the-last-island": [
-                { src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "220 x 170 cm, Oil on canvas, 2026" }
+                { src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }
             ],
             "bad-mom": [
-                { src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "250 × 170 cm (diptych, two canvases, each 125 × 170 cm), Oil on canvas, 2026" }
+                { src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm (diptych, two canvases, each 125 × 170 cm), 2026" }
             ],
             "ennui": [
-                { src: "../images/ennui.jpg", alt: "Ennui", meta: "100 x 150 cm, Oil on canvas, 2026" }
+                { src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }
             ],
             "victory-of-lays": [
-                { src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "220 x 60 cm, Oil on canvas, 2025" }
+                { src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }
             ],
             "hope": [
-                { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "214 x 60 x 46 cm, Drawing on Installation, Polyester, 2025" },
-                { src: "../images/hope/hope-1.jpg", alt: "Hope Detail 1", meta: "Hope Detail, Drawing on Installation, 2025" },
-                { src: "../images/hope/hope-2.jpg", alt: "Hope Detail 2", meta: "Hope Detail, Drawing on Installation, 2025" },
-                { src: "../images/hope/hope-3.jpg", alt: "Hope Detail 3", meta: "Hope Detail, Drawing on Installation, 2025" },
-                { src: "../images/hope/hope-4.jpg", alt: "Hope Detail 4", meta: "Hope Detail, Drawing on Installation, 2025" }
+                { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
             ],
             "horse-racing": [
-                { src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "180 x 135 cm, Oil on canvas, Air spray, coloured pencil, 2025" }
+                { src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }
             ],
             "baum": [
-                { src: "../images/baum.jpg", alt: "Baum", meta: "186 x 115 cm, Oil on canvas, 2025" }
+                { src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }
             ],
             "abdruck": [
-                { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck Detail 1", meta: "Abdruck detail, Installation with drawing on fabric, 2025" },
-                { src: "../images/abdruck/abdruck-2.jpg", alt: "Abdruck Detail 2", meta: "Abdruck detail, Installation with drawing on fabric, 2025" },
-                { src: "../images/abdruck/abdruck-3.jpg", alt: "Abdruck Detail 3", meta: "Abdruck detail, Installation with drawing on fabric, 2025" },
-                { src: "../images/abdruck/abdruck-4.jpg", alt: "Abdruck Detail 4", meta: "Abdruck detail, Installation with drawing on fabric, 2025" },
-                { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck Detail 5", meta: "Abdruck detail, Installation with drawing on fabric, 2025" },
-                { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck Detail 6", meta: "Abdruck detail, Installation with drawing on fabric, 2025" }
+                { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
             ],
             "bienenstich": [
-                { src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "130 x 95 cm, Oil on canvas, 2025" }
+                { src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }
             ],
             "wild-fire": [
-                { src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "38 x 64 cm, Lithography, 2025" }
+                { src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }
             ]
         };
 
@@ -395,9 +396,9 @@
         const customScrollbar = document.getElementById('customScrollbar');
         const scrollThumb = document.getElementById('scrollThumb');
         const infoZone = document.getElementById('infoZone');
+        const fixedMetaInfo = document.getElementById('fixedMetaInfo');
 
         let currentGroupLength = 0;
-        const itemWidth = 1021; 
 
         function loadArtworkGroup(groupKey, element) {
             document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
@@ -405,12 +406,16 @@
 
             slideTrain.innerHTML = '';
             sliderWindow.scrollLeft = 0;
-            
-            infoZone.style.transform = 'translate(0, 0) scale(1)';
-            infoZone.style.opacity = '1';
 
             const items = dbRepository[groupKey] || [];
             currentGroupLength = items.length;
+
+            // 첫 번째 사진 정보로 고정 정보란 세팅
+            if(items.length > 0) {
+                fixedMetaInfo.innerText = items[0].meta;
+            } else {
+                fixedMetaInfo.innerText = '';
+            }
 
             items.forEach(data => {
                 const slideItem = document.createElement('div');
@@ -419,66 +424,52 @@
                     <div class="viewer-frame">
                         <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
                     </div>
-                    <div class="artwork-meta-info-fixed">${data.meta}</div>
                 `;
                 slideTrain.appendChild(slideItem);
             });
 
             if (currentGroupLength > 1) {
                 customScrollbar.style.display = 'block';
-                updateScrollbarThumb();
+                setTimeout(updateScrollbarThumb, 50); // 레이아웃 렌더링 후 스크롤바 갱신
             } else {
                 customScrollbar.style.display = 'none';
             }
         }
 
-        // 💡 실시간 스크롤 시 정교한 좌표 추적 및 정확한 하단 이동 로직
+        // 스크롤 시 하단 미니 스크롤 바 트래킹용 로직 (infoZone 변형 차단 완료)
         function handleScrollInteractions() {
             if (currentGroupLength <= 1) return;
 
             const currentScroll = sliderWindow.scrollLeft;
-            const maxScrollLeft = (currentGroupLength - 1) * itemWidth;
-
-            // 1. 하단 미니 슬라이드 바 동기화 계산
+            const totalTrainWidth = slideTrain.scrollWidth;
             const visibleWidth = sliderWindow.clientWidth;
-            const totalTrainWidth = currentGroupLength * itemWidth - 1;
+            const maxScrollLeft = totalTrainWidth - visibleWidth;
+
+            if(maxScrollLeft <= 0) return;
+            
             const thumbWidthRatio = visibleWidth / totalTrainWidth;
             const thumbWidth = Math.max(visibleWidth * thumbWidthRatio, 40);
             
-            const progress = maxScrollLeft > 0 ? currentScroll / maxScrollLeft : 0;
+            const progress = currentScroll / maxScrollLeft;
             const maxThumbLeft = visibleWidth - thumbWidth;
             const thumbLeft = progress * maxThumbLeft;
 
             scrollThumb.style.width = `${thumbWidth}px`;
             scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
-
-            // 2. 💡 [수정 완료] 수평을 고정하고 EXHIBITIONS 버튼 바로 밑 영역으로 정밀 낙하 연동
-            if (currentScroll > 5) {
-                const factor = Math.min(currentScroll / 300, 1);   // 300px 스크롤 시 최종 도달
-                const scaleVal = 1 - (factor * 0.25);            // 75% 크기로 축소
-                
-                // 💡 수평(X)은 어긋나지 않게 0 고정, 수직(Y) 값만 정확하게 드롭시켜 EXHIBITIONS 밑에 수직 정렬
-                const moveX = 0;                                 
-                const moveY = factor * 62;                       
-
-                infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
-                infoZone.style.opacity = `${1 - (factor * 0.2)}`; 
-            } else {
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-            }
         }
 
         function updateScrollbarThumb() {
             if (currentGroupLength <= 1) return;
             const visibleWidth = sliderWindow.clientWidth;
-            const totalTrainWidth = currentGroupLength * itemWidth - 1;
+            const totalTrainWidth = slideTrain.scrollWidth;
+            if(totalTrainWidth === 0) return;
             const thumbWidthRatio = visibleWidth / totalTrainWidth;
             const thumbWidth = Math.max(visibleWidth * thumbWidthRatio, 40);
             scrollThumb.style.width = `${thumbWidth}px`;
         }
 
         sliderWindow.addEventListener('scroll', handleScrollInteractions);
+        window.addEventListener('resize', updateScrollbarThumb);
 
         /* 마우스 드래그 스와이프 로직 */
         let isDown = false;
@@ -510,9 +501,8 @@
             
             if(tabId !== 'worklist') {
                 slideTrain.innerHTML = '';
+                fixedMetaInfo.innerText = '';
                 customScrollbar.style.display = 'none';
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
             } else {
                 const firstItem = document.querySelector('#section-worklist .works-text-link');
                 if(firstItem) firstItem.click();
