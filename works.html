@@ -56,7 +56,7 @@
         .works-main-tab.active-tab { color: #0022ff; }
 
 
-        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (초기 상태 숨김 처리) */
+        /* [2구역] 가운데: 세부 작업 타이틀 리스트 */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
@@ -66,7 +66,7 @@
             background-color: transparent;
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
             transform-origin: left top;
-            display: none; /* 💡 처음 로드 시 완전히 숨김 */
+            display: none; 
         }
 
         .content-section { background-color: transparent; display: none; }
@@ -117,7 +117,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            display: none; /* 💡 처음 로드 시 완전히 숨김 */
+            display: none; 
         }
 
         .artwork-display-zone.multi-mode {
@@ -158,7 +158,7 @@
             padding-left: 0;
         }
 
-        /* 💡 사진 트레인 컨테이너 - 간격을 2px로 밀착 */
+        /* 사진 트레인 컨테이너 */
         .slide-train {
             display: flex;
             gap: 2px; 
@@ -348,14 +348,15 @@
     </div>
 
     <script>
+        // 💡 수정 완료: marginLeft의 값을 반드시 따옴표 안에 문자로 적어주셔야 에러가 안 납니다!
         const dbRepository = {
             "the-last-island": [{ src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
-            "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: -90px }],
+            "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-90px" }],
             "ennui": [{ src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
             "victory-of-lays": [{ src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
             "hope": [
                 { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginLeft: "20px" },
                 { src: "../images/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
                 { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
                 { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
@@ -384,10 +385,9 @@
         const fixedMetaInfo = document.getElementById('fixedMetaInfo');
 
         let currentGroupLength = 0;
-        let isTabClickedOnce = false; // 💡 첫 클릭 분기 제어 태그
+        let isTabClickedOnce = false; 
 
         function loadArtworkGroup(groupKey, element) {
-            // 초기 로드 후 아무것도 선택 안 된 상태에서 탭만 눌렀을 경우 방어 코드
             if (!groupKey) return; 
 
             document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
@@ -420,6 +420,10 @@
             items.forEach((data, index) => {
                 const slideItem = document.createElement('div');
                 slideItem.className = 'slide-item';
+                
+                // 💡 추가된 로직: 데이터에 입력된 개별 marginLeft 스타일값을 적용 (없으면 0px)
+                slideItem.style.marginLeft = data.marginLeft ? data.marginLeft : "0px";
+
                 slideItem.innerHTML = `
                     <div class="viewer-frame">
                         <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
@@ -464,7 +468,6 @@
             fixedMetaInfo.style.opacity = '1';
         }
 
-        // 💡 [여백 수정] EXHIBITIONS 밑으로 하강할 때 상하 여백 4px 연동 보정
         function handleScrollInteractions() {
             const currentScroll = sliderWindow.scrollLeft;
 
@@ -473,7 +476,7 @@
                 const scaleVal = 1 - (factor * 0.22); 
                 
                 const moveX = factor * -195; 
-                const moveY = factor * 120; // 💡 기존 105px에서 4px를 늘려 정확하게 4px 간격을 벌렸습니다.
+                const moveY = factor * 120; 
 
                 infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
                 infoZone.style.opacity = `1`; 
@@ -509,7 +512,6 @@
         sliderWindow.addEventListener('scroll', handleScrollInteractions);
         window.addEventListener('resize', updateScrollbarThumb);
 
-        /* 마우스 드래그 슬라이딩 */
         let isDown = false;
         let startX;
         let scrollLeftOffset;
@@ -530,16 +532,14 @@
             sliderWindow.scrollLeft = scrollLeftOffset - walk;
         });
 
-        // 💡 [구조 수정] 최초 탭 버튼 클릭 시 숨겨진 컨테이너가 해제되는 로직 탑재
         function switchTab(tabId) {
             if (!isTabClickedOnce) {
-                // 최초 임의 호출이 아니라 사용자가 클릭했을 때만 해제
                 if (window.event) { 
                     isTabClickedOnce = true;
                     infoZone.style.display = 'block';
                     displayZone.style.display = 'flex';
                 } else {
-                    return; // 처음 로드 시 자동 실행을 막아 빈 화면 유지
+                    return; 
                 }
             }
 
