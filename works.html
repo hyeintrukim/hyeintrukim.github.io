@@ -104,23 +104,33 @@
         .scroll-tester-space { height: 30vh; }
 
 
-        /* 💡 [3구역] 타이틀 바로 옆(3px)에 붙고, 스케일이 대폭 커진 이미지 슬라이드 구역 */
+        /* 💡 [3구역] 오직 사진만 슬라이드되고 하단 정보란은 완전히 얼어붙는 구역 */
         .artwork-display-zone {
-            width: 900px; /* 💡 기존 550px에서 750px로 사진 크기를 대폭 확대 */
-            height: 1200px; /* 사진이 커진 만큼 전체 세로 높이도 넉넉하게 확장 */
-            margin-top: 90px; /* 💡 로고는 손대지 않고 원래 스크립트대로 43px 유지 */
-            overflow: hidden;
+            width: 900px; 
+            height: 1200px; 
+            margin-top: 90px; 
             position: relative;
             border: none; 
             background: none; 
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column; /* 사진 상단, 정보창 하단 수직 배치 */
+        }
+
+        /* 💡 사진 기차만 안전하게 통과하는 차단 윈도우 */
+        .photo-slider-window {
+            width: 100%;
+            height: 900px; /* 사진 최대 높이 고정 */
+            overflow: hidden;
+            position: relative;
         }
 
         /* 사진 기차 컨테이너 */
         .slide-train {
             display: flex;
             height: 100%;
-            width: 100%;
+            /* 💡 사진들끼리의 간격을 정확히 1px로 세팅 */
+            gap: 1px; 
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             transform: translateX(0);
         }
@@ -131,16 +141,15 @@
             height: 100%;
             flex-shrink: 0;
             display: flex;
-            flex-direction: column; 
             justify-content: flex-start;
-            align-items: flex-start; /* 타이틀 바로 옆 좌측 정렬 */
+            align-items: flex-start;
         }
 
         /* 원본 사진 래퍼 */
         .viewer-frame {
             width: 100%;
             height: auto; 
-            max-height: 900px; /* 💡 커진 비율에 맞춰 최대 높이도 750px로 웅장하게 상향 조정 */
+            max-height: 900px; 
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
@@ -149,19 +158,21 @@
         /* 오직 원본 사진만 크게 출력되는 스타일 */
         .artwork-viewer {
             max-width: 100%;
-            max-height: 900px; /* 💡 최대 높이 제한을 맞춰 원본 비율 유지 */
+            max-height: 900px; 
             object-fit: contain;
             display: block; 
         }
 
-        /* 작업 정보 (사진 바로 밑에 완벽하게 밀착되는 캡션) */
-        .artwork-meta-info {
+        /* 💡 철저하게 사진과 분리되어 글자가 왼쪽으로 밀리지 않는 고정형 정보란 */
+        .artwork-meta-info-fixed {
             margin-top: 12px; 
             font-size: 14px;
             line-height: 1.6;
             color: #654321;
             font-weight: 400;
             letter-spacing: -0.5px;
+            background-color: #ffffff;
+            width: 100%;
         }
 
 
@@ -256,13 +267,11 @@
 
     <div class="cv-main-container">
         
-        <!-- [1구역] 맨 왼쪽: 대분류 탭 메뉴 -->
         <div class="photo-zone">
             <span class="works-main-tab" id="tab-worklist" onclick="switchTab('worklist')">WORK LIST</span><br>
             <span class="works-main-tab" id="tab-exhibitions" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
         </div>
 
-        <!-- [2구역] 가운데: 작업 타이틀 리스트 구역 -->
         <div class="info-zone">
             <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
@@ -275,9 +284,10 @@
                 <span class="works-text-link" onclick="slideArtwork(this, 4)">Hope</span>
                 <span class="works-text-link" onclick="slideArtwork(this, 5)">Horse racing</span>
                 <span class="works-text-link" onclick="slideArtwork(this, 6)">Baum</span>
+                
                 <span class="works-text-link" onclick="slideArtwork(this, 7)">Abdruck</span>
-                <span class="works-text-link" onclick="slideArtwork(this, 8)">Bienenstich</span>
-                <span class="works-text-link" onclick="slideArtwork(this, 9)">Wild fire</span>
+                <span class="works-text-link" onclick="slideArtwork(this, 14)">Bienenstich</span>
+                <span class="works-text-link" onclick="slideArtwork(this, 15)">Wild fire</span>
             </div>
 
             <div id="section-exhibitions" class="content-section">
@@ -288,64 +298,82 @@
             <div class="scroll-tester-space"></div>
         </div> 
 
-        <!-- [3구역] 맨 오른쪽: 타이틀 리스트에 3px 밀착된 대형 이미지 슬라이드 뷰어 -->
         <div class="artwork-display-zone">
-            <div class="slide-train" id="slideTrain">
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/the-last-island.jpg" alt="The Last Island"></div>
-                    <div class="artwork-meta-info">162.2 x 130.3 cm, Oil on canvas, 2026</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/bad-mom.jpg" alt="Bad Mom"></div>
-                    <div class="artwork-meta-info">116.8 x 91.0 cm, Mixed media on linen, 2026</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/ennui.jpg" alt="Ennui"></div>
-                    <div class="artwork-meta-info">90.9 x 72.7 cm, Acrylic on canvas, 2026</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/victory-of-lays.jpg" alt="Victory of Lays"></div>
-                    <div class="artwork-meta-info">작품 크기 정보, 재료 정보 입력, 2025</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope.jpg" alt="Hope"></div>
-                    <div class="artwork-meta-info">작품 크기 정보, 재료 정보 입력, 2025</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/horse-racing.jpg" alt="Horse racing"></div>
-                    <div class="artwork-meta-info">작품 크기 정보, 재료 정보 입력, 2025</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/baum.jpg" alt="Baum"></div>
-                    <div class="artwork-meta-info">작품 크기 정보, 재료 정보 입력, 2025</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-main.jpg" alt="Abdruck"></div>
-                    <div class="artwork-meta-info"> Installation with drwaing on fabric,126 x 172 x 70 cm 2025</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/bienenstich.jpg" alt="Bienenstich"></div>
-                    <div class="artwork-meta-info">작품 크기 정보, 재료 정보 입력, 2025</div>
-                </div>
-                
-                <div class="slide-item">
-                    <div class="viewer-frame"><img class="artwork-viewer" src="../images/wild-fire.jpg" alt="Wild fire"></div>
-                    <div class="artwork-meta-info">작품 크기 정보, 재료 정보 입력, 2025</div>
-                </div>
+            
+            <div class="photo-slider-window">
+                <div class="slide-train" id="slideTrain">
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/the-last-island.jpg" alt="The Last Island"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/bad-mom.jpg" alt="Bad Mom"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/ennui.jpg" alt="Ennui"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/victory-of-lays.jpg" alt="Victory of Lays"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope.jpg" alt="Hope"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/horse-racing.jpg" alt="Horse racing"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/baum.jpg" alt="Baum"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-main.jpg" alt="Abdruck"></div>
+                    </div>
 
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-1.jpg" alt="Abdruck Detail"></div>
+                    </div>
+
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-2.jpg" alt="Abdruck Detail"></div>
+                    </div>
+
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-3.jpg" alt="Abdruck Detail"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-4.jpg" alt="Abdruck Detail"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-5.jpg" alt="Abdruck Detail"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-6.jpg" alt="Abdruck Detail"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/bienenstich.jpg" alt="Bienenstich"></div>
+                    </div>
+                    
+                    <div class="slide-item">
+                        <div class="viewer-frame"><img class="artwork-viewer" src="../images/wild-fire.jpg" alt="Wild fire"></div>
+                    </div>
+
+                </div>
             </div>
+
+            <div class="artwork-meta-info-fixed" id="fixedInfoBox"></div>
+
         </div>
 
-        <!-- 우측 고정 헤더 메뉴 -->
         <div class="header-menu-block" id="menuBlock">
             <a href="../index.html" class="cv-logo-link">
                 <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
@@ -360,7 +388,32 @@
 
     </div>
 
-    <script {Stricly_Avoid_JSON}>
+    <script>
+        // 💡 [매칭 테이블] 인덱스 칸마다 출력할 텍스트 캡션 매핑
+        const artworkData = {
+            0: "162.2 x 130.3 cm, Oil on canvas, 2026",
+            1: "116.8 x 91.0 cm, Mixed media on linen, 2026",
+            2: "90.9 x 72.7 cm, Acrylic on canvas, 2026",
+            3: "작품 크기 정보, 재료 정보 입력, 2025",
+            4: "작품 크기 정보, 재료 정보 입력, 2025",
+            5: "작품 크기 정보, 재료 정보 입력, 2025",
+            6: "작품 크기 정보, 재료 정보 입력, 2025",
+            
+            // 💡 Abdruck 메인 사진 (한번 노출)
+            7: "Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            
+            // 💡 Abdruck 모든 디테일 샷 (8번부터 13번까지 사진이 움직여도 텍스트는 흔들림 없이 고정 적용)
+            8: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            9: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            10: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            11: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            12: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            13: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
+            
+            14: "작품 크기 정보, 재료 정보 입력, 2025",
+            15: "작품 크기 정보, 재료 정보 입력, 2025"
+        };
+
         function switchTab(tabId) {
             document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
             document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
@@ -369,17 +422,23 @@
             document.getElementById('tab-' + tabId).classList.add('active-tab');
             
             if(tabId !== 'worklist') {
-                document.getElementById('slideTrain').style.transform = `translateX(0)`;
+                const train = document.getElementById('slideTrain');
+                train.style.transform = `translateX(0)`;
+                document.getElementById('fixedInfoBox').innerHTML = "";
             }
         }
 
         function slideArtwork(element, index) {
             document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
-            element.classList.add('viewing');
+            if(element) element.classList.add('viewing');
             
-            const movePercentage = index * 100;
             const train = document.getElementById('slideTrain');
-            train.style.transform = `translateX(-${movePercentage}%)`;
+            // 💡 간격이 1px 고정이므로 정확히 (100% + 1px) 만큼 곱해서 기차를 이동시킵니다.
+            train.style.transform = `translateX(calc(-${index} * (100% + 1px)))`;
+
+            // 💡 하단 움직이지 않는 완전 고정창 영역에 글자 업데이트
+            const infoBox = document.getElementById('fixedInfoBox');
+            infoBox.innerHTML = artworkData[index] || "";
         }
 
         window.addEventListener('scroll', function() {
