@@ -12,14 +12,14 @@
             font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
             color: #654321;
-            overflow: hidden; /* 페이지 자체의 아래/옆 스크롤 여백 원천 차단 */
+            overflow: hidden; /* 전체 페이지 스크롤 방지 */
         }
 
         .cv-main-container {
             width: 100%;
             height: 100%;
             box-sizing: border-box;
-            padding: 60px 40px 20px 40px; /* 하단 여백 축소 */
+            padding: 60px 40px 20px 40px;
             display: flex;
             gap: 40px; 
             position: relative;
@@ -32,7 +32,7 @@
             margin-top: 43px;
             position: relative;
             z-index: 100;
-            background-color: #ffffff;
+            background-color: transparent; /* 배경 투명 */
         }
 
         .works-main-tab {
@@ -50,25 +50,25 @@
             box-sizing: border-box;
             width: 100%; 
             text-align: center;
-            background-color: #ffffff;
+            background-color: transparent; /* 배경 투명 */
         }
         .works-main-tab:hover { color: #0022ff; }
         .works-main-tab.active-tab { color: #0022ff; }
 
 
-        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (기준축 고정 및 애니메이션 최적화) */
+        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (배경 투명 및 정확한 좌측 정렬 변형) */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
             padding-top: 43px; 
             position: relative;
             z-index: 90;
-            background-color: transparent;
+            background-color: transparent; /* 배경 투명 */
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
-            transform-origin: left top; /* 좌측 상단 기준으로 축소 변형 */
+            transform-origin: left top; /* 좌측 상단 기준 고정 */
         }
 
-        .content-section { display: none; }
+        .content-section { background-color: transparent; }
         .content-section.active { display: block; }
 
         .works-year-title {
@@ -79,6 +79,7 @@
             margin-bottom: 12px;
             letter-spacing: -1px;
             line-height: 1.5; 
+            background-color: transparent;
         }
         
         .content-section > .works-year-title:first-child {
@@ -95,7 +96,7 @@
             text-decoration: none; 
             padding: 6px 0; 
             user-select: none;
-            background-color: #ffffff;
+            background-color: transparent; /* 배경 투명 */
         }
 
         .works-text-link {
@@ -107,7 +108,7 @@
         .works-text-disabled { cursor: default; }
 
 
-        /* [3구역] 사진 슬라이드 영역 */
+        /* [3구역] 사진 슬라이드 영역 (마진 없이 화면 끝에서 끝까지 사용) */
         .artwork-display-zone {
             flex-grow: 1;
             margin-top: 43px; 
@@ -118,14 +119,20 @@
             overflow: hidden;
         }
 
-        /* 여러 사진 모드 */
+        /* 💡 여러 사진 모드: 왼쪽 메뉴들을 완전히 덮으며 화면 왼쪽 끝까지 영역 확장 */
         .artwork-display-zone.multi-mode {
-            margin-left: -220px; /* 메뉴 글자가 겹치며 지나가도록 당김 */
+            position: absolute;
+            left: 0;
+            top: 60px;
+            width: 100%;
+            height: calc(100% - 80px);
+            margin-top: 43px;
         }
 
-        /* 단독 사진 모드 */
+        /* 단독 사진 모드: 기존 레이아웃 유지 */
         .artwork-display-zone.single-mode {
             margin-left: 0px;
+            position: relative;
         }
 
         /* 마우스 드래그 & 스크롤 윈도우 */
@@ -135,18 +142,23 @@
             overflow-y: hidden;
             position: relative;
             scrollbar-width: none; 
-            cursor: grab; 
             display: flex;
         }
-        .photo-slider-window:active { cursor: grabbing; }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
+        /* 다중 이미지일 때만 드래그 커서 적용 및 전체 너비 자유 스크롤 */
         .artwork-display-zone.multi-mode .photo-slider-window {
+            cursor: grab;
             justify-content: flex-start;
-            padding-left: 20%; /* 초기 배치를 가운데 느낌으로 밀어줌 */
+            padding-left: 475px; /* 초기 로드시 메뉴 옆에서 정렬 시작 */
+            box-sizing: border-box;
         }
+        .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
+
+        /* 💡 단독 이미지일 때는 슬라이딩 기능 차단 및 정중앙 고정 */
         .artwork-display-zone.single-mode .photo-slider-window {
-            justify-content: flex-start;
+            cursor: default;
+            justify-content: center; /* 한 장일 땐 무조건 중앙에 한 번에 표시 */
             padding-left: 0;
         }
 
@@ -155,6 +167,10 @@
             display: flex;
             gap: 20px; 
             width: max-content; 
+        }
+        .artwork-display-zone.single-mode .slide-train {
+            width: 100%;
+            justify-content: center;
         }
 
         /* 개별 사진 슬라이드 칸 */
@@ -165,9 +181,9 @@
             position: relative;
         }
 
-        /* 원본 사진 래퍼 (화면 높이에 맞춰 조절하여 하단 여백 제거) */
+        /* 원본 사진 래퍼 */
         .viewer-frame {
-            height: calc(100vh - 260px); /* 뷰포트 높이에 반응하여 여백 제거 */
+            height: calc(100vh - 260px); 
             min-height: 450px;
             display: flex;
             align-items: center;    
@@ -200,7 +216,7 @@
             z-index: 95;
         }
 
-        /* 하단 슬라이드 바 여백 최적화 */
+        /* 하단 슬라이드 바 */
         .custom-scrollbar-container {
             width: 600px;
             height: 3px;
@@ -384,7 +400,7 @@
             slideTrain.innerHTML = '';
             sliderWindow.scrollLeft = 0;
             
-            // 초기 위치 원복
+            // 위치 초기화
             infoZone.style.transform = 'translate(0, 0) scale(1)';
             infoZone.style.opacity = '1';
 
@@ -441,7 +457,11 @@
             const leftOffset = (frameRect.width - imgWidth) / 2;
             const topOffset = (frameRect.height - imgHeight) / 2;
 
-            const targetLeft = frame.offsetLeft + leftOffset + imgWidth;
+            // 절대 영역 대응 트래킹 위치 계산
+            let targetLeft = frame.offsetLeft + leftOffset + imgWidth;
+            if (currentGroupLength > 1) {
+                targetLeft += 475; // 다중 모드일 때 부여된 padding-left 연동 보정
+            }
             const targetTop = frame.offsetTop + topOffset + imgHeight;
 
             fixedMetaInfo.style.left = `${targetLeft}px`;
@@ -450,21 +470,21 @@
             fixedMetaInfo.style.opacity = '1';
         }
 
-        // 💡 [핵심 수정 완료] 슬라이더 가로 스크롤 시 왼쪽 메뉴 전체가 EXHIBITIONS 밑으로 축소 하강하는 로직 완벽 연동
+        // 💡 [핵심 레이아웃 수정] 슬라이딩 시 Work list 타이틀이 EXHIBITIONS 바로 밑 왼쪽에 완전 밀착하도록 수정
         function handleScrollInteractions() {
             const currentScroll = sliderWindow.scrollLeft;
 
             if (currentGroupLength > 1 && currentScroll > 0) {
-                // 최대 300px 스크롤을 기준으로 수치 변환 극대화
                 const factor = Math.min(currentScroll / 300, 1); 
-                const scaleVal = 1 - (factor * 0.22); // 기존 크기의 78% 수준으로 축소
+                const scaleVal = 1 - (factor * 0.22); // 약 78% 크기로 고정 축소
                 
-                // 가로 정렬 미세 보정 및 EXHIBITIONS 탭 바로 아래 라인으로 떨어지도록 Y축 이동값 계산
-                const moveX = factor * -35; 
+                // [X축] -195px 이동하여 브라우저 왼쪽 벽(Photo Zone과 일직선상)에 일치시킴
+                // [Y축] +105px 이동하여 EXHIBITIONS 탭 바로 아래에 깨끗하게 매핑시킴
+                const moveX = factor * -195; 
                 const moveY = factor * 105; 
 
                 infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
-                infoZone.style.opacity = `${1 - (factor * 0.1)}`;
+                infoZone.style.opacity = `1`; // 흐려지지 않고 완벽하게 선명하게 유지
             } else {
                 infoZone.style.transform = 'translate(0, 0) scale(1)';
                 infoZone.style.opacity = '1';
@@ -474,7 +494,7 @@
             if (currentGroupLength <= 1) return;
             const totalTrainWidth = slideTrain.scrollWidth;
             const visibleWidth = sliderWindow.clientWidth;
-            const maxScrollLeft = totalTrainWidth - visibleWidth;
+            const maxScrollLeft = totalTrainWidth - (visibleWidth - 475);
 
             if(maxScrollLeft <= 0) return;
             
@@ -482,7 +502,7 @@
             const barContainerWidth = customScrollbar.clientWidth;
             const thumbWidth = 60; 
             const maxThumbLeft = barContainerWidth - thumbWidth;
-            const thumbLeft = progress * maxThumbLeft;
+            const thumbLeft = Math.min(progress * maxThumbLeft, maxThumbLeft);
 
             scrollThumb.style.width = `${thumbWidth}px`;
             scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
@@ -498,13 +518,13 @@
         sliderWindow.addEventListener('scroll', handleScrollInteractions);
         window.addEventListener('resize', updateScrollbarThumb);
 
-        /* 마우스 드래그 슬라이딩 스와이프 기능 */
+        /* 마우스 드래그 슬라이딩 스와이프 기능 (여러 장일 때만 작동하도록 락 제어) */
         let isDown = false;
         let startX;
         let scrollLeftOffset;
 
         sliderWindow.addEventListener('mousedown', (e) => {
-            if (currentGroupLength <= 1) return;
+            if (currentGroupLength <= 1) return; // 1장일 땐 작동 금지
             isDown = true;
             startX = e.pageX - sliderWindow.offsetLeft;
             scrollLeftOffset = sliderWindow.scrollLeft;
@@ -515,7 +535,7 @@
             if(!isDown) return;
             e.preventDefault();
             const x = e.pageX - sliderWindow.offsetLeft;
-            const walk = (x - startX) * 2.2; // 드래그 감도
+            const walk = (x - startX) * 2.2; 
             sliderWindow.scrollLeft = scrollLeftOffset - walk;
         });
 
@@ -532,6 +552,7 @@
                 customScrollbar.style.display = 'none';
                 infoZone.style.transform = 'translate(0, 0) scale(1)';
                 infoZone.style.opacity = '1';
+                displayZone.className = "artwork-display-zone single-mode";
             } else {
                 const firstItem = document.querySelector('#section-worklist .works-text-link');
                 if(firstItem) firstItem.click();
