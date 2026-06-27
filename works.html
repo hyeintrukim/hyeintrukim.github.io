@@ -4,36 +4,35 @@
     <meta charset="UTF-8">
     <title>WORKS</title>
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
             font-family: 'Euphemia UCAS', sans-serif;
             background-color: #ffffff;
             color: #654321;
-            /* 💡 페이지 세로 스크롤이 가능하도록 기본 최소 높이 확보 */
-            min-height: 150vh; 
+            overflow: hidden; /* 페이지 자체의 아래/옆 스크롤 여백 원천 차단 */
         }
 
         .cv-main-container {
             width: 100%;
+            height: 100%;
             box-sizing: border-box;
-            padding: 100px 40px;
+            padding: 60px 40px 20px 40px; /* 하단 여백 축소 */
             display: flex;
             gap: 40px; 
             position: relative;
         }
 
-        /* [1구역] 맨 왼쪽: 대분류 탭 메뉴 (스크롤 시에도 좌측 상단 고정 고수) */
+        /* [1구역] 맨 왼쪽: 대분류 탭 메뉴 */
         .photo-zone {
             width: 155px; 
             flex-shrink: 0;
             margin-top: 43px;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 143px;
+            position: relative;
             z-index: 100;
             background-color: #ffffff;
-            height: fit-content;
         }
 
         .works-main-tab {
@@ -57,20 +56,16 @@
         .works-main-tab.active-tab { color: #0022ff; }
 
 
-        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (★ 세로 스크롤 시 이 구역 전체가 움직임) */
+        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (기준축 고정 및 애니메이션 최적화) */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
             padding-top: 43px; 
-            position: -webkit-sticky;
-            position: sticky;
-            top: 143px;
+            position: relative;
             z-index: 90;
             background-color: transparent;
-            /* 💡 변형 축 기준점을 왼쪽 상단으로 잡아 밀림 방지 */
-            transform-origin: left top;
-            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s ease;
-            height: fit-content;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+            transform-origin: left top; /* 좌측 상단 기준으로 축소 변형 */
         }
 
         .content-section { display: none; }
@@ -80,10 +75,10 @@
             font-size: 19px;
             font-weight: bold;
             color: #654321;
-            margin-top: 40px;
-            margin-bottom: 15px;
+            margin-top: 35px;
+            margin-bottom: 12px;
             letter-spacing: -1px;
-            line-height: 1.8; 
+            line-height: 1.5; 
         }
         
         .content-section > .works-year-title:first-child {
@@ -98,7 +93,7 @@
             color: #654321;
             letter-spacing: -1px; 
             text-decoration: none; 
-            padding: 7px 0; 
+            padding: 6px 0; 
             user-select: none;
             background-color: #ffffff;
         }
@@ -112,7 +107,7 @@
         .works-text-disabled { cursor: default; }
 
 
-        /* [3구역] 우측 사진 디스플레이 구역 */
+        /* [3구역] 사진 슬라이드 영역 */
         .artwork-display-zone {
             flex-grow: 1;
             margin-top: 43px; 
@@ -120,12 +115,12 @@
             z-index: 5;
             display: flex;
             flex-direction: column;
-            overflow: hidden; 
+            overflow: hidden;
         }
 
         /* 여러 사진 모드 */
         .artwork-display-zone.multi-mode {
-            margin-left: -200px; 
+            margin-left: -220px; /* 메뉴 글자가 겹치며 지나가도록 당김 */
         }
 
         /* 단독 사진 모드 */
@@ -133,6 +128,7 @@
             margin-left: 0px;
         }
 
+        /* 마우스 드래그 & 스크롤 윈도우 */
         .photo-slider-window {
             width: 100%;
             overflow-x: auto; 
@@ -143,23 +139,25 @@
             display: flex;
         }
         .photo-slider-window:active { cursor: grabbing; }
-        .photo-slider-window::-webkit-scrollbar { display: none; } 
+        .photo-slider-window::-webkit-scrollbar { display: none; }
 
         .artwork-display-zone.multi-mode .photo-slider-window {
             justify-content: flex-start;
-            padding-left: 15%; 
+            padding-left: 20%; /* 초기 배치를 가운데 느낌으로 밀어줌 */
         }
         .artwork-display-zone.single-mode .photo-slider-window {
             justify-content: flex-start;
             padding-left: 0;
         }
 
+        /* 사진 트레인 컨테이너 */
         .slide-train {
             display: flex;
             gap: 20px; 
             width: max-content; 
         }
 
+        /* 개별 사진 슬라이드 칸 */
         .slide-item {
             flex-shrink: 0;
             display: flex;
@@ -167,8 +165,10 @@
             position: relative;
         }
 
+        /* 원본 사진 래퍼 (화면 높이에 맞춰 조절하여 하단 여백 제거) */
         .viewer-frame {
-            height: 650px; 
+            height: calc(100vh - 260px); /* 뷰포트 높이에 반응하여 여백 제거 */
+            min-height: 450px;
             display: flex;
             align-items: center;    
             justify-content: center;
@@ -184,7 +184,7 @@
             -webkit-user-drag: none; 
         }
 
-        /* 이미지 정밀 트래킹 캡션 정보란 */
+        /* 첫 번째 사진 우측 하단 캡션 정보란 */
         .artwork-meta-info-fixed {
             position: absolute;
             font-size: 14px;
@@ -200,12 +200,12 @@
             z-index: 95;
         }
 
-        /* 하단 미니 스크롤 바 */
+        /* 하단 슬라이드 바 여백 최적화 */
         .custom-scrollbar-container {
             width: 600px;
             height: 3px;
             background-color: #eaeaea;
-            margin: 40px auto 0 auto;
+            margin: 25px auto 0 auto;
             position: relative;
             display: none; 
         }
@@ -277,29 +277,6 @@
             -webkit-text-stroke: 1px #654321; 
             letter-spacing: -1px;
             line-height: 1.2;
-        }
-
-        .header-menu-block.scrolled .cv-logo-link {
-            height: 95px;
-            margin-bottom: 45px; 
-            margin-right: -23px;    
-        }
-
-        .header-menu-block.scrolled .char-w, .header-menu-block.scrolled .char-o, .header-menu-block.scrolled .char-r, .header-menu-block.scrolled .char-k, .header-menu-block.scrolled .char-s {
-            font-size: 60px;
-            -webkit-text-stroke: 1.2px #654321; 
-        }
-        .header-menu-block.scrolled .char-w { top: 0px; left: 0px; }
-        .header-menu-block.scrolled .char-o { top: 23px; left: -8px; }
-        .header-menu-block.scrolled .char-r { top: -5px; left: -11px; }
-        .header-menu-block.scrolled .char-k { top: 18px; left: -18px; }
-        .header-menu-block.scrolled .char-s { top: 5px; left: -23px; }
-
-        .header-menu-block.scrolled .sub-menu-container {
-            opacity: 1;
-            transform: translateX(0); 
-            pointer-events: auto; 
-            margin-top: 0; 
         }
     </style>
 </head>
@@ -407,8 +384,9 @@
             slideTrain.innerHTML = '';
             sliderWindow.scrollLeft = 0;
             
-            // 초기 위치 리셋
-            resetInfoZoneLayout();
+            // 초기 위치 원복
+            infoZone.style.transform = 'translate(0, 0) scale(1)';
+            infoZone.style.opacity = '1';
 
             const items = dbRepository[groupKey] || [];
             currentGroupLength = items.length;
@@ -472,42 +450,28 @@
             fixedMetaInfo.style.opacity = '1';
         }
 
-        // 💡 [핵심 수정]: 마우스 휠 및 세로 스크롤 시 세부 카테고리가 EXHIBITIONS 밑으로 이동 및 축소
-        function handlePageScroll() {
-            const scrollY = window.scrollY;
-            const menuBlock = document.getElementById('menuBlock');
+        // 💡 [핵심 수정 완료] 슬라이더 가로 스크롤 시 왼쪽 메뉴 전체가 EXHIBITIONS 밑으로 축소 하강하는 로직 완벽 연동
+        function handleScrollInteractions() {
+            const currentScroll = sliderWindow.scrollLeft;
 
-            // 1. 우측 상단 로고 변환 애니메이션
-            if (scrollY > 20) {
-                menuBlock.classList.add('scrolled');
-            } else {
-                menuBlock.classList.remove('scrolled');
-            }
-
-            // 2. 세로 스크롤에 따른 info-zone 축소 및 EXHIBITIONS 버튼 밑 낙하 로직 연동
-            if (scrollY > 10) {
-                const factor = Math.min(scrollY / 180, 1); // 변환 민감도 조절
-                const scaleVal = 1 - (factor * 0.22);      // 최대 22% 축소
+            if (currentGroupLength > 1 && currentScroll > 0) {
+                // 최대 300px 스크롤을 기준으로 수치 변환 극대화
+                const factor = Math.min(currentScroll / 300, 1); 
+                const scaleVal = 1 - (factor * 0.22); // 기존 크기의 78% 수준으로 축소
                 
-                const moveX = factor * -15; // 왼쪽으로 소폭 이동
-                const moveY = factor * 70;  // 💡 EXHIBITIONS 단어 밑자락 시작 라인으로 정밀 수직 낙하
+                // 가로 정렬 미세 보정 및 EXHIBITIONS 탭 바로 아래 라인으로 떨어지도록 Y축 이동값 계산
+                const moveX = factor * -35; 
+                const moveY = factor * 105; 
 
                 infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
                 infoZone.style.opacity = `${1 - (factor * 0.1)}`;
             } else {
-                resetInfoZoneLayout();
+                infoZone.style.transform = 'translate(0, 0) scale(1)';
+                infoZone.style.opacity = '1';
             }
-        }
 
-        function resetInfoZoneLayout() {
-            infoZone.style.transform = 'translate(0, 0) scale(1)';
-            infoZone.style.opacity = '1';
-        }
-
-        // 가로 슬라이더 전용 트래킹 (하단 스크롤바 바만 계산)
-        function handleSliderScroll() {
+            // 하단 미니 바 트래킹
             if (currentGroupLength <= 1) return;
-            const currentScroll = sliderWindow.scrollLeft;
             const totalTrainWidth = slideTrain.scrollWidth;
             const visibleWidth = sliderWindow.clientWidth;
             const maxScrollLeft = totalTrainWidth - visibleWidth;
@@ -526,19 +490,15 @@
 
         function updateScrollbarThumb() {
             if (currentGroupLength <= 1) return;
-            scrollThumb.style.width = `60px`;
-            scrollThumb.style.transform = `translateX(0px)`;
-            
             const firstImg = slideTrain.querySelector('.artwork-viewer');
             if(firstImg) alignMetaText(firstImg);
+            handleScrollInteractions();
         }
 
-        // 윈도우(페이지 세로) 스크롤 리스너 연동
-        window.addEventListener('scroll', handlePageScroll);
-        sliderWindow.addEventListener('scroll', handleSliderScroll);
+        sliderWindow.addEventListener('scroll', handleScrollInteractions);
         window.addEventListener('resize', updateScrollbarThumb);
 
-        /* 마우스 드래그 스와이프 구현 */
+        /* 마우스 드래그 슬라이딩 스와이프 기능 */
         let isDown = false;
         let startX;
         let scrollLeftOffset;
@@ -555,7 +515,7 @@
             if(!isDown) return;
             e.preventDefault();
             const x = e.pageX - sliderWindow.offsetLeft;
-            const walk = (x - startX) * 2.0; 
+            const walk = (x - startX) * 2.2; // 드래그 감도
             sliderWindow.scrollLeft = scrollLeftOffset - walk;
         });
 
@@ -570,13 +530,15 @@
                 slideTrain.innerHTML = '';
                 fixedMetaInfo.innerText = '';
                 customScrollbar.style.display = 'none';
-                resetInfoZoneLayout();
+                infoZone.style.transform = 'translate(0, 0) scale(1)';
+                infoZone.style.opacity = '1';
             } else {
                 const firstItem = document.querySelector('#section-worklist .works-text-link');
                 if(firstItem) firstItem.click();
             }
         }
 
+        // 초기 시작
         switchTab('worklist');
     </script>
 
