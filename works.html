@@ -13,23 +13,23 @@
             overflow-x: hidden;
         }
 
-        /* 메인 컨테이너 구조 유연화 (전체 화면 너비 활용) */
         .cv-main-container {
             width: 100%;
             box-sizing: border-box;
-            padding: 100px 0px 100px 40px; /* 오른쪽 패딩을 없애 화면 끝까지 차도록 설정 */
+            padding: 100px 40px;
             display: flex;
             gap: 40px; 
             position: relative;
         }
 
-        /* [1구역] 맨 왼쪽: 대분류 탭 메뉴 */
+        /* [1구역] 맨 왼쪽: 대분류 탭 메뉴 (항상 최상단 위) */
         .photo-zone {
             width: 155px; 
             flex-shrink: 0;
             margin-top: 43px;
             position: relative;
-            z-index: 20;
+            z-index: 100;
+            background-color: #ffffff;
         }
 
         .works-main-tab {
@@ -53,15 +53,16 @@
         .works-main-tab.active-tab { color: #0022ff; }
 
 
-        /* [2구역] 가운데: 작업 타이틀 리스트 구역 (EXHIBITIONS 버튼 밑으로 자연스럽게 배치) */
+        /* [2구역] 가운데: 세부 작업 타이틀 리스트 (z-index 설정으로 사진이 밑으로 지나감) */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
             padding-top: 43px; 
             position: relative;
-            z-index: 15;
+            z-index: 90;
             background-color: transparent;
-            margin-right: 0px; 
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+            transform-origin: left top;
         }
 
         .content-section { display: none; }
@@ -91,6 +92,7 @@
             text-decoration: none; 
             padding: 7px 0; 
             user-select: none;
+            background-color: #ffffff;
         }
 
         .works-text-link {
@@ -102,17 +104,29 @@
         .works-text-disabled { cursor: default; }
 
 
-        /* [3구역] 사진 슬라이드 영역 (화면 오른쪽 끝까지 확장) */
+        /* [3구역] 사진 슬라이드 영역 (동적 클래스로 단독/다중 정렬 분리) */
         .artwork-display-zone {
             flex-grow: 1;
             margin-top: 43px; 
             position: relative;
-            border: none; 
-            background: none; 
             z-index: 5;
-            overflow: hidden; /* 영역 밖으로 나가는 사진 제어 */
             display: flex;
             flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        /* 💡 사진이 여러 개일 때: 화면 중앙 배치 및 왼쪽 오버플로우 허용 */
+        .artwork-display-zone.multi-mode {
+            align-items: center;
+            justify-content: center;
+            margin-left: -435px; /* 왼쪽 메뉴 영역 위로 지나가도록 마진 확장 */
+        }
+
+        /* 💡 사진이 1개일 때: 왼쪽 메뉴 바로 옆에 밀착 배치 */
+        .artwork-display-zone.single-mode {
+            align-items: flex-start;
+            justify-content: flex-start;
+            margin-left: 0px;
         }
 
         /* 마우스 드래그 윈도우 */
@@ -123,15 +137,19 @@
             position: relative;
             scrollbar-width: none; 
             cursor: grab; 
+            display: flex;
         }
-        .photo-slider-window:active {
-            cursor: grabbing; 
+        .artwork-display-zone.multi-mode .photo-slider-window {
+            justify-content: center;
         }
-        .photo-slider-window::-webkit-scrollbar {
-            display: none; 
+        .artwork-display-zone.single-mode .photo-slider-window {
+            justify-content: flex-start;
         }
 
-        /* 사진 기차 컨테이너 (여백 2px로 고정) */
+        .photo-slider-window:active { cursor: grabbing; }
+        .photo-slider-window::-webkit-scrollbar { display: none; }
+
+        /* 사진 트레인 컨테이너 (여백 2px 고정) */
         .slide-train {
             display: flex;
             gap: 2px; 
@@ -143,17 +161,16 @@
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start; /* 왼쪽 정렬 */
+            position: relative;
         }
 
         /* 원본 사진 래퍼 */
         .viewer-frame {
             height: 650px; 
             display: flex;
-            justify-content: flex-start; 
             align-items: center;    
-            background-color: transparent;
+            justify-content: center;
+            position: relative;
         }
 
         .artwork-viewer {
@@ -165,27 +182,27 @@
             -webkit-user-drag: none; 
         }
 
-        /* 💡 사진 하단 고정 캡션 정보란 (슬라이딩 시 움직이지 않고 첫 자리에 고정됨) */
+        /* 💡 [수정 완료] 첫 번째 사진 우측 하단에 정교하게 배치될 캡션 정보란 */
         .artwork-meta-info-fixed {
             position: absolute;
-            bottom: 40px;
-            left: 0; /* 첫 번째 사진의 왼쪽 시작선과 정확하게 정렬 일치 */
             font-size: 14px;
             line-height: 1.6;
             color: #654321;
             font-weight: 400;
             letter-spacing: -0.8px;
-            width: auto;
-            text-align: left; /* 왼쪽 끝 정렬 */
+            white-space: nowrap;
             pointer-events: none;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
         /* 하단 슬라이드 바 */
         .custom-scrollbar-container {
-            width: calc(100% - 40px);
+            width: 600px;
             height: 3px;
             background-color: #eaeaea;
-            margin-top: 105px; /* 정보 텍스트 공간 확보를 위해 간격 조정 */
+            margin: 80px auto 0 auto;
             position: relative;
             display: none; 
         }
@@ -196,11 +213,10 @@
             height: 100%;
             width: 0px; 
             background-color: #654321;
-            transition: transform 0.1s linear;
         }
 
 
-        /* 우측 상단 고정 WORKS 로고 블록 */
+        /* 우측 상단 고정 WORKS 로고 블록 (항상 최상단 위) */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -319,12 +335,10 @@
             </div>
         </div> 
 
-        <div class="artwork-display-zone">
+        <div class="artwork-display-zone" id="displayZone">
             <div class="photo-slider-window" id="sliderWindow">
                 <div class="slide-train" id="slideTrain"></div>
             </div>
-
-            <!-- 💡 정보 구역이 사진 무리와 분리되어 슬라이딩 시 고정 배정됩니다 -->
             <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
 
             <div class="custom-scrollbar-container" id="customScrollbar">
@@ -347,20 +361,11 @@
     </div>
 
     <script>
-        // 💡 모든 정보 구조를 [title, material, maß, year] 순으로 정리하고 detail 문구들을 제거했습니다.
         const dbRepository = {
-            "the-last-island": [
-                { src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }
-            ],
-            "bad-mom": [
-                { src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm (diptych, two canvases, each 125 × 170 cm), 2026" }
-            ],
-            "ennui": [
-                { src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }
-            ],
-            "victory-of-lays": [
-                { src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }
-            ],
+            "the-last-island": [{ src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
+            "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026" }],
+            "ennui": [{ src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
+            "victory-of-lays": [{ src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
             "hope": [
                 { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
                 { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
@@ -368,12 +373,8 @@
                 { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
                 { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
             ],
-            "horse-racing": [
-                { src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }
-            ],
-            "baum": [
-                { src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }
-            ],
+            "horse-racing": [{ src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
+            "baum": [{ src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
             "abdruck": [
                 { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
                 { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
@@ -383,16 +384,13 @@
                 { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
                 { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
             ],
-            "bienenstich": [
-                { src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }
-            ],
-            "wild-fire": [
-                { src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }
-            ]
+            "bienenstich": [{ src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
+            "wild-fire": [{ src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }]
         };
 
         const sliderWindow = document.getElementById('sliderWindow');
         const slideTrain = document.getElementById('slideTrain');
+        const displayZone = document.getElementById('displayZone');
         const customScrollbar = document.getElementById('customScrollbar');
         const scrollThumb = document.getElementById('scrollThumb');
         const infoZone = document.getElementById('infoZone');
@@ -406,52 +404,113 @@
 
             slideTrain.innerHTML = '';
             sliderWindow.scrollLeft = 0;
+            
+            // 왼쪽 메뉴 초기화
+            infoZone.style.transform = 'translate(0, 0) scale(1)';
+            infoZone.style.opacity = '1';
 
             const items = dbRepository[groupKey] || [];
             currentGroupLength = items.length;
 
-            // 첫 번째 사진 정보로 고정 정보란 세팅
-            if(items.length > 0) {
+            if(currentGroupLength > 0) {
                 fixedMetaInfo.innerText = items[0].meta;
+                fixedMetaInfo.style.opacity = '0'; // 배치 정렬 전까지 숨김
             } else {
                 fixedMetaInfo.innerText = '';
             }
 
-            items.forEach(data => {
+            // 💡 단독 사진과 여러 사진의 정렬 모드 스위칭
+            if(currentGroupLength > 1) {
+                displayZone.className = "artwork-display-zone multi-mode";
+                customScrollbar.style.display = 'block';
+            } else {
+                displayZone.className = "artwork-display-zone single-mode";
+                customScrollbar.style.display = 'none';
+            }
+
+            items.forEach((data, index) => {
                 const slideItem = document.createElement('div');
                 slideItem.className = 'slide-item';
                 slideItem.innerHTML = `
                     <div class="viewer-frame">
-                        <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
+                        <img class="artwork-viewer" src="${data.src}" alt="${data.alt}" id="img-${groupKey}-${index}">
                     </div>
                 `;
                 slideTrain.appendChild(slideItem);
+
+                // 첫 번째 이미지 로드 완료 시 우측 하단 캡션 위치 자동 트래킹 계산
+                if(index === 0) {
+                    const targetImg = slideItem.querySelector('.artwork-viewer');
+                    if (targetImg.complete) {
+                        alignMetaText(targetImg);
+                    } else {
+                        targetImg.addEventListener('load', () => alignMetaText(targetImg));
+                    }
+                }
             });
 
             if (currentGroupLength > 1) {
-                customScrollbar.style.display = 'block';
-                setTimeout(updateScrollbarThumb, 50); // 레이아웃 렌더링 후 스크롤바 갱신
-            } else {
-                customScrollbar.style.display = 'none';
+                setTimeout(updateScrollbarThumb, 100);
             }
         }
 
-        // 스크롤 시 하단 미니 스크롤 바 트래킹용 로직 (infoZone 변형 차단 완료)
-        function handleScrollInteractions() {
-            if (currentGroupLength <= 1) return;
+        // 💡 [사진 크기 맞춤형 우측 하단 정렬 기능]
+        function alignMetaText(imgElement) {
+            const frame = imgElement.parentElement;
+            const frameRect = frame.getBoundingClientRect();
+            const windowRect = sliderWindow.getBoundingClientRect();
 
+            // 이미지의 실제 렌더링된 너비와 높이 구하기
+            const imgWidth = imgElement.clientWidth;
+            const imgHeight = imgElement.clientHeight;
+
+            // 프레임 안에서 이미지가 중앙 정렬되어 있으므로 남는 여백 계산
+            const leftOffset = (frameRect.width - imgWidth) / 2;
+            const topOffset = (frameRect.height - imgHeight) / 2;
+
+            // 최종 우측 하단 좌표 추출
+            const targetLeft = frame.offsetLeft + leftOffset + imgWidth;
+            const targetTop = frame.offsetTop + topOffset + imgHeight;
+
+            // 정렬 적용 및 텍스트 정렬 방향을 우측 끝 정렬로 변경
+            fixedMetaInfo.style.left = `${targetLeft}px`;
+            fixedMetaInfo.style.top = `${targetTop}px`;
+            fixedMetaInfo.style.transform = 'translateX(-100%)'; 
+            fixedMetaInfo.style.opacity = '1';
+        }
+
+        // 💡 [스크롤 시 EXHIBITIONS 버튼 밑으로 정확히 압축 이동하는 로직]
+        function handleScrollInteractions() {
             const currentScroll = sliderWindow.scrollLeft;
+
+            // 1. 왼쪽 세부 카테고리 메뉴 축소 및 정확히 하단 낙하 연동
+            if (currentGroupLength > 1 && currentScroll > 5) {
+                const factor = Math.min(currentScroll / 400, 1); 
+                const scaleVal = 1 - (factor * 0.22); // 부드럽게 축소
+                
+                // EXHIBITIONS 버튼 높이 밑으로 낙하 정렬을 유도하는 정밀 변환 수치
+                const moveX = factor * -3; 
+                const moveY = factor * 165; 
+
+                infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
+                infoZone.style.opacity = `${1 - (factor * 0.15)}`;
+            } else {
+                infoZone.style.transform = 'translate(0, 0) scale(1)';
+                infoZone.style.opacity = '1';
+            }
+
+            // 2. 하단 미니 스크롤 바 트래킹
+            if (currentGroupLength <= 1) return;
             const totalTrainWidth = slideTrain.scrollWidth;
             const visibleWidth = sliderWindow.clientWidth;
             const maxScrollLeft = totalTrainWidth - visibleWidth;
 
             if(maxScrollLeft <= 0) return;
             
-            const thumbWidthRatio = visibleWidth / totalTrainWidth;
-            const thumbWidth = Math.max(visibleWidth * thumbWidthRatio, 40);
-            
             const progress = currentScroll / maxScrollLeft;
-            const maxThumbLeft = visibleWidth - thumbWidth;
+            const barContainerWidth = customScrollbar.clientWidth;
+            const thumbWidth = 60; 
+            const maxThumbLeft = barContainerWidth - thumbWidth;
             const thumbLeft = progress * maxThumbLeft;
 
             scrollThumb.style.width = `${thumbWidth}px`;
@@ -460,23 +519,24 @@
 
         function updateScrollbarThumb() {
             if (currentGroupLength <= 1) return;
-            const visibleWidth = sliderWindow.clientWidth;
-            const totalTrainWidth = slideTrain.scrollWidth;
-            if(totalTrainWidth === 0) return;
-            const thumbWidthRatio = visibleWidth / totalTrainWidth;
-            const thumbWidth = Math.max(visibleWidth * thumbWidthRatio, 40);
-            scrollThumb.style.width = `${thumbWidth}px`;
+            scrollThumb.style.width = `60px`;
+            scrollThumb.style.transform = `translateX(0px)`;
+            
+            // 윈도우 창 크기가 바뀌면 캡션 텍스트 위치도 재정렬 추적
+            const firstImg = slideTrain.querySelector('.artwork-viewer');
+            if(firstImg) alignMetaText(firstImg);
         }
 
         sliderWindow.addEventListener('scroll', handleScrollInteractions);
         window.addEventListener('resize', updateScrollbarThumb);
 
-        /* 마우스 드래그 스와이프 로직 */
+        /* 마우스 드래그 스와이프 구현 */
         let isDown = false;
         let startX;
         let scrollLeftOffset;
 
         sliderWindow.addEventListener('mousedown', (e) => {
+            if (currentGroupLength <= 1) return;
             isDown = true;
             startX = e.pageX - sliderWindow.offsetLeft;
             scrollLeftOffset = sliderWindow.scrollLeft;
@@ -491,7 +551,6 @@
             sliderWindow.scrollLeft = scrollLeftOffset - walk;
         });
 
-        // 탭 메뉴 대분류 변환
         function switchTab(tabId) {
             document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
             document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
@@ -503,13 +562,14 @@
                 slideTrain.innerHTML = '';
                 fixedMetaInfo.innerText = '';
                 customScrollbar.style.display = 'none';
+                infoZone.style.transform = 'translate(0, 0) scale(1)';
+                infoZone.style.opacity = '1';
             } else {
                 const firstItem = document.querySelector('#section-worklist .works-text-link');
                 if(firstItem) firstItem.click();
             }
         }
 
-        // 우측 고정 메뉴 스크롤 변형 효과 
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
             if (window.scrollY > 20) {
