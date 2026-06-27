@@ -60,7 +60,7 @@
             position: relative;
             z-index: 10;
             background-color: #ffffff;
-            margin-right: -80px; 
+            margin-right: -3px; 
         }
 
         .content-section { display: none; }
@@ -113,29 +113,38 @@
             flex-shrink: 0;
         }
 
-        /* 사진 기차가 통과하는 윈도우 */
+        /* 💡 마우스 드래그 및 터치 스와이프가 작동하는 윈도우 */
         .photo-slider-window {
             width: 100%;
-            overflow: hidden;
+            overflow-x: auto; /* 마우스 드래그 스크롤 및 휠 허용 */
+            overflow-y: hidden;
             position: relative;
+            scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
+            cursor: grab; /* 잡을 수 있는 손모양 아이콘 */
+        }
+        .photo-slider-window:active {
+            cursor: grabbing; /* 드래그 중인 손모양 아이콘 */
+        }
+        .photo-slider-window::-webkit-scrollbar {
+            display: none; /* 크롬, 사파리 기본 스크롤바 완전히 숨김 */
         }
 
-        /* 사진 기차 컨테이너 */
+        /* 사진 기차 컨테이너 (메뉴 클릭 시의 애니메이션은 제거) */
         .slide-train {
             display: flex;
             gap: 1px; 
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: translateX(0);
+            width: max-content; /* 내부 사진들 너비만큼 알아서 늘어나 대기하도록 설정 */
         }
 
-        /* 개별 슬라이드 칸 - 세로 정렬로 변경하여 캡션이 아래에 붙도록 설정 */
+        /* 개별 슬라이드 칸 */
         .slide-item {
-            width: 100%; 
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+            /* 기본 메인 뷰어 영역 폭 유지 */
+            width: 900px; 
         }
 
         /* 원본 사진 래퍼 */
@@ -154,9 +163,11 @@
             max-height: 900px; 
             object-fit: contain;
             display: block; 
+            user-select: none;
+            -webkit-user-drag: none; /* 이미지 드래그 왜곡 방지 */
         }
 
-        /* 💡 사진 하단에 딱 붙어서 위아래로 같이 움직이는 고정형 정보란 */
+        /* 사진 하단에 딱 붙어서 위아래로 같이 움직이는 고정형 정보란 */
         .artwork-meta-info-fixed {
             margin-top: 12px; 
             font-size: 14px;
@@ -166,6 +177,24 @@
             letter-spacing: -0.5px;
             background-color: #ffffff;
             width: 100%;
+        }
+
+        /* 💡 디테일 작업 밑에 생기는 제작된 커스텀 슬라이드 바(스크롤바) 구역 */
+        .custom-scrollbar-container {
+            width: 100%;
+            height: 3px;
+            background-color: #eaeaea;
+            margin-top: 15px;
+            position: relative;
+            display: none; /* 기본적으로 숨김, 디테일 샷이 있을 때만 JS로 활성화 */
+        }
+        .custom-scrollbar-thumb {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0px; /* JS에서 비율에 맞춰 자동 계산 */
+            background-color: #654321;
         }
 
 
@@ -188,7 +217,7 @@
             font-weight: 1100;
             line-height: 1;
             margin-bottom: 20px;
-            margin-right: -110px; 
+            margin-right: -110px; /* 로고가 잘리지 않도록 기존 -150px에서 -110px로 안쪽 이동 조절 */
             transition: all 0.4s ease-in-out;
             position: relative;
             z-index: 1010; 
@@ -293,105 +322,95 @@
 
         <div class="artwork-display-zone">
             
-            <div class="photo-slider-window">
+            <div class="photo-slider-window" id="sliderWindow">
                 <div class="slide-train" id="slideTrain">
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/the-last-island.jpg" alt="The Last Island"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/bad-mom.jpg" alt="Bad Mom"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/ennui.jpg" alt="Ennui"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/victory-of-lays.jpg" alt="Victory of Lays"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="hope">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope/hope-main.jpg" alt="Hope"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="hope">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope/hope-1.jpg" alt="Hope Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="hope">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope/hope-2.jpg" alt="Hope Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="hope">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope/hope-3.jpg" alt="Hope Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-                    
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="hope">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/hope/hope-4.jpg" alt="Hope Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/horse-racing.jpg" alt="Horse racing"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/baum.jpg" alt="Baum"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-main.jpg" alt="Abdruck"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-1.jpg" alt="Abdruck Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-2.jpg" alt="Abdruck Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-3.jpg" alt="Abdruck Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-                    
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-4.jpg" alt="Abdruck Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-                    
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-5.jpg" alt="Abdruck Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
-                    
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="abdruck">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/abdruck/abdruck-6.jpg" alt="Abdruck Detail"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/bienenstich.jpg" alt="Bienenstich"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
                     
-                    <div class="slide-item">
+                    <div class="slide-item" data-group="single">
                         <div class="viewer-frame"><img class="artwork-viewer" src="../images/wild-fire.jpg" alt="Wild fire"></div>
                         <div class="artwork-meta-info-fixed"></div>
                     </div>
@@ -399,11 +418,15 @@
                 </div>
             </div>
 
+            <div class="custom-scrollbar-container" id="customScrollbar">
+                <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
+            </div>
+
         </div>
 
         <div class="header-menu-block" id="menuBlock">
             <a href="../index.html" class="cv-logo-link">
-                <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
+                <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">S</span><span class="char-s">S</span>
             </a>
             <div class="sub-menu-container">
                 <a href="../index.html" class="sub-menu-link">HOME</a>
@@ -416,14 +439,12 @@
     </div>
 
     <script>
-        // 💡 작성해주신 원본 정보를 정렬된 실제 인덱스 순서에 맞춰 완벽히 매칭했습니다. (내용 절대 수정 없음)
         const artworkData = {
             0: "220 x 170 cm, Oil on canvas, 2026", 
             1: "250 × 170 cm (diptych, two canvases, each 125 × 170 cm), Oil on canvas, 2026", 
             2: "100 x 150 cm, Oil on canvas, 2026", 
             3: "220 x 60 cm, Oil on canvas, 2025", 
             
-            // Hope 메인 및 디테일 구간 고정
             4: "214 x 60 x 46 cm, Drawing on Installation, Polyester, 2025", 
             5: "214 x 60 x 46 cm, Drawing on Installation, Polyester, 2025",
             6: "214 x 60 x 46 cm, Drawing on Installation, Polyester, 2025",
@@ -433,7 +454,6 @@
             9: "180 x 135 cm, Oil on canvas, Air spray, coloured pencil,  2025", 
             10: "186 x 115 cm, Oil on canvas, 2025", 
             
-            // Abdruck 메인 및 디테일 구간 고정
             11: "Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
             12: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
             13: "Abdruck detail, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025",
@@ -446,6 +466,17 @@
             19: "38 x 64 cm, Lithography, 2025"
         };
 
+        const sliderWindow = document.getElementById('sliderWindow');
+        const customScrollbar = document.getElementById('customScrollbar');
+        const scrollThumb = document.getElementById('scrollThumb');
+        let currentActiveGroup = 'single';
+
+        // 💡 모든 정보창에 일단 텍스트 세팅
+        document.querySelectorAll('.slide-item').forEach((item, index) => {
+            const box = item.querySelector('.artwork-meta-info-fixed');
+            if(box) box.innerHTML = artworkData[index] || "";
+        });
+
         function switchTab(tabId) {
             document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
             document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
@@ -454,28 +485,85 @@
             document.getElementById('tab-' + tabId).classList.add('active-tab');
             
             if(tabId !== 'worklist') {
-                const train = document.getElementById('slideTrain');
-                train.style.transform = `translateX(0)`;
-                document.querySelectorAll('.artwork-meta-info-fixed').forEach(box => box.innerHTML = "");
+                sliderWindow.scrollLeft = 0;
+                customScrollbar.style.display = 'none';
             }
         }
 
+        // 💡 작업 리스트 메뉴 클릭 시 즉시(슬라이드 없이) 순간 이동 및 레이아웃 제어
         function slideArtwork(element, index) {
             document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
             if(element) element.classList.add('viewing');
             
-            const train = document.getElementById('slideTrain');
-            train.style.transform = `translateX(calc(-${index} * (100% + 1px)))`;
+            const items = document.querySelectorAll('.slide-item');
+            const targetItem = items[index];
+            currentActiveGroup = targetItem.getAttribute('data-group');
 
-            // 💡 해당 인덱스의 slide-item 내부에 있는 정보창에만 데이터를 쏙 넣어줍니다.
-            const slideItems = document.querySelectorAll('.slide-item');
-            if(slideItems[index]) {
-                const infoBox = slideItems[index].querySelector('.artwork-meta-info-fixed');
-                if(infoBox) {
-                    infoBox.innerHTML = artworkData[index] || "";
-                }
+            // 1. 해당 사진 위치로 즉시 강제 스크롤 이동 (애니메이션 제거)
+            // 각 슬라이드 아이템의 간격(1px)까지 고려하여 계산
+            sliderWindow.scrollLeft = index * (900 + 1);
+
+            // 2. 디테일이 묶여있는 그룹인지 판별하여 슬라이드 바 노출 여부 결정
+            if (currentActiveGroup !== 'single') {
+                customScrollbar.style.display = 'block';
+                updateScrollbarThumb();
+            } else {
+                customScrollbar.style.display = 'none';
             }
         }
+
+        // 💡 커스텀 스크롤 슬라이드 바의 비율 및 위치 계산 함수
+        function updateScrollbarThumb() {
+            if (currentActiveGroup === 'single') return;
+
+            // 현재 활성화된 그룹인 아이템들만 필터링
+            const groupItems = Array.from(document.querySelectorAll(`.slide-item[data-group="${currentActiveGroup}"]`));
+            if (groupItems.length <= 1) return;
+
+            const totalWidth = groupItems.length * (900 + 1) - 1; // 전체 그룹의 가로 총 길이
+            const visibleWidth = 900; // 눈에 보이는 창 너비
+
+            // 현재 윈도우가 해당 그룹 내에서 얼마나 스크롤 되었는지 계산
+            const groupStartIndex = Array.from(document.querySelectorAll('.slide-item')).indexOf(groupItems[0]);
+            const currentGroupScroll = sliderWindow.scrollLeft - (groupStartIndex * (900 + 1));
+
+            // 슬라이드바 thumb 크기 및 위치 비율 적용
+            const thumbWidthRatio = visibleWidth / totalWidth;
+            const thumbWidth = Math.max(visibleWidth * thumbWidthRatio, 30); // 최소길이 30px 확보
+            
+            const maxScrollLeft = totalWidth - visibleWidth;
+            const currentProgress = maxScrollLeft > 0 ? currentGroupScroll / maxScrollLeft : 0;
+            const maxThumbLeft = visibleWidth - thumbWidth;
+            const thumbLeft = Math.min(Math.max(currentProgress * maxThumbLeft, 0), maxThumbLeft);
+
+            scrollThumb.style.width = `${thumbWidth}px`;
+            scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
+        }
+
+        // 사용자가 사진창을 마우스 휠이나 트랙패드로 스크롤할 때도 바가 연동되도록 바인딩
+        sliderWindow.addEventListener('scroll', updateScrollbarThumb);
+
+
+        /* 💡 [마우스 좌우 드래그 앤 스와이프 인터랙션 구현] */
+        let isDown = false;
+        let startX;
+        let scrollLeftOffset;
+
+        sliderWindow.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - sliderWindow.offsetLeft;
+            scrollLeftOffset = sliderWindow.scrollLeft;
+        });
+        sliderWindow.addEventListener('mouseleave', () => { isDown = false; });
+        sliderWindow.addEventListener('mouseup', () => { isDown = false; });
+        sliderWindow.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - sliderWindow.offsetLeft;
+            const walk = (x - startX) * 1.5; // 마우스 이동 속도 감도 조절 (1.5배)
+            sliderWindow.scrollLeft = scrollLeftOffset - walk;
+        });
+
 
         window.addEventListener('scroll', function() {
             const menuBlock = document.getElementById('menuBlock');
