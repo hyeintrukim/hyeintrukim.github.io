@@ -1,567 +1,214 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>WORKS</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Euphemia UCAS', sans-serif;
-            background-color: #ffffff;
-            color: #654321;
-            overflow: hidden; 
-        }
+<script>
+    const dbRepository = {
+        "the-last-island": [{ src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
+        "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-90px" }],
+        "ennui": [{ src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
+        "victory-of-lays": [{ src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
+        "hope": [
+            { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+            { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginLeft: "20px", marginTop: "40px" },
+            { src: "../images/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+            { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+            { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
+        ],
+        "horse-racing": [{ src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
+        "baum": [{ src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
+        "abdruck": [
+            { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
+        ],
+        "bienenstich": [{ src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
+        "wild-fire": [{ src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }]
+    };
 
-        .cv-main-container {
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            padding: 60px 40px 20px 40px;
-            display: flex;
-            gap: 40px; 
-            position: relative;
-        }
+    const sliderWindow = document.getElementById('sliderWindow');
+    const slideTrain = document.getElementById('slideTrain');
+    const displayZone = document.getElementById('displayZone');
+    const customScrollbar = document.getElementById('customScrollbar');
+    const scrollThumb = document.getElementById('scrollThumb');
+    const infoZone = document.getElementById('infoZone');
+    const fixedMetaInfo = document.getElementById('fixedMetaInfo');
 
-        /* [1구역] 맨 왼쪽: 대분류 탭 메뉴 */
-        .photo-zone {
-            width: 155px; 
-            flex-shrink: 0;
-            margin-top: 43px;
-            position: relative;
-            z-index: 100;
-            background-color: transparent;
-        }
+    let currentGroupLength = 0;
+    let isTabClickedOnce = false; 
 
-        .works-main-tab {
-            font-size: 18px; 
-            font-weight: 1100;
-            color: #654321;
-            text-decoration: none; 
-            border: 1px solid #654321; 
-            padding: 6px 12px; 
-            margin-bottom: 25px; 
-            display: inline-block; 
-            cursor: pointer;
-            transition: color 0.2s ease;
-            user-select: none;
-            box-sizing: border-box;
-            width: 100%; 
-            text-align: center;
-            background-color: transparent;
-        }
-        .works-main-tab:hover { color: #0022ff; }
-        .works-main-tab.active-tab { color: #0022ff; }
+    function loadArtworkGroup(groupKey, element) {
+        if (!groupKey) return; 
 
+        document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
+        if(element) element.classList.add('viewing');
 
-        /* [2구역] 가운데: 세부 작업 타이틀 리스트 */
-        .info-zone {
-            width: 250px; 
-            flex-shrink: 0;
-            padding-top: 43px; 
-            position: relative;
-            z-index: 90;
-            background-color: transparent;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
-            transform-origin: left top;
-            display: none; 
-        }
-
-        .content-section { background-color: transparent; display: none; }
-        .content-section.active { display: block; }
-
-        .works-year-title {
-            font-size: 19px;
-            font-weight: bold;
-            color: #654321;
-            margin-top: 35px;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
-            line-height: 1.5; 
-        }
+        slideTrain.innerHTML = '';
+        sliderWindow.scrollLeft = 0;
         
-        .content-section > .works-year-title:first-child {
-            margin-top: 0;
-            padding-top: 2px; 
+        infoZone.style.transform = 'translate(0, 0) scale(1)';
+        infoZone.style.opacity = '1';
+
+        const items = dbRepository[groupKey] || [];
+        currentGroupLength = items.length;
+
+        if(currentGroupLength > 0) {
+            fixedMetaInfo.innerText = items[0].meta;
+            fixedMetaInfo.style.opacity = '0';
+        } else {
+            fixedMetaInfo.innerText = '';
         }
 
-        .works-text-link, .works-text-disabled {
-            display: block;
-            font-size: 16px;
-            font-weight: 400; 
-            color: #654321;
-            letter-spacing: -1px; 
-            text-decoration: none; 
-            padding: 6px 0; 
-            user-select: none;
-            background-color: transparent;
+        if(currentGroupLength > 1) {
+            displayZone.className = "artwork-display-zone multi-mode";
+            customScrollbar.style.display = 'block';
+        } else {
+            displayZone.className = "artwork-display-zone single-mode";
+            customScrollbar.style.display = 'none';
         }
 
-        .works-text-link {
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        .works-text-link:hover { color: #0022ff; }
-        .works-text-link.viewing { color: #0022ff; font-weight: 400 !important; }
-        .works-text-disabled { cursor: default; }
-
-
-        /* [3구역] 사진 슬라이드 영역 */
-        .artwork-display-zone {
-            flex-grow: 1;
-            margin-top: 43px; 
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            display: none; 
-        }
-
-        .artwork-display-zone.multi-mode {
-            position: absolute;
-            left: 0;
-            top: 60px;
-            width: 100%;
-            height: calc(100% - 80px);
-            margin-top: 43px;
-        }
-
-        .artwork-display-zone.single-mode {
-            margin-left: 0px;
-            position: relative;
-        }
-
-        .photo-slider-window {
-            width: 100%;
-            overflow-x: auto; 
-            overflow-y: hidden;
-            position: relative;
-            scrollbar-width: none; 
-            display: flex;
-        }
-        .photo-slider-window::-webkit-scrollbar { display: none; }
-
-        .artwork-display-zone.multi-mode .photo-slider-window {
-            cursor: grab;
-            justify-content: flex-start;
-            padding-left: 475px; 
-            box-sizing: border-box;
-        }
-        .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
-
-        .artwork-display-zone.single-mode .photo-slider-window {
-            cursor: default;
-            justify-content: center; 
-            padding-left: 0;
-        }
-
-        /* 사진 트레인 컨테이너 */
-        .slide-train {
-            display: flex;
-            gap: 2px; 
-            width: max-content; 
-        }
-        .artwork-display-zone.single-mode .slide-train {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .slide-item {
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .viewer-frame {
-            height: calc(100vh - 260px); 
-            min-height: 450px;
-            display: flex;
-            align-items: center;    
-            justify-content: center;
-            position: relative;
-        }
-
-        .artwork-viewer {
-            max-width: 100%;
-            max-height: 100%; 
-            object-fit: contain; 
-            display: block; 
-            user-select: none;
-            -webkit-user-drag: none; 
-        }
-
-        .artwork-meta-info-fixed {
-            position: absolute;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #654321;
-            font-weight: 400;
-            letter-spacing: -0.8px;
-            white-space: nowrap;
-            pointer-events: none;
-            margin-top: 10px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 95;
-        }
-
-        .custom-scrollbar-container {
-            width: 600px;
-            height: 3px;
-            background-color: #eaeaea;
-            margin: 25px auto 0 auto;
-            position: relative;
-            display: none; 
-        }
-        .custom-scrollbar-thumb {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0px; 
-            background-color: #654321;
-        }
-
-        /* 우측 상단 고정 WORKS 로고 블록 */
-        .header-menu-block {
-            position: fixed; 
-            top: 40px;
-            right: 40px;
-            display: flex;
-            flex-direction: column; 
-            align-items: flex-end;    
-            z-index: 1000;
-        }
-
-        .cv-logo-link {
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 1100;
-            line-height: 1;
-            margin-bottom: 20px;
-            margin-right: -68px; 
-            transition: all 0.4s ease-in-out;
-            position: relative;
-            z-index: 1010; 
-            height: 170px; 
-        }
-
-        .char-w, .char-o, .char-r, .char-k, .char-s {
-            font-size: 115px; 
-            color: transparent;
-            -webkit-text-stroke: 1.7px #654321;
-            transition: all 0.4s ease-in-out;
-            font-weight: 1100;
-            position: relative;
-            display: inline-block;
-        }
-        .char-w { top: 0px; left: 0px; letter-spacing: -6px; }
-        .char-o { top: 45px; left: -15px; }
-        .char-r { top: -10px; left: -22px; }
-        .char-k { top: 35px; left: -35px; }
-        .char-s { top: 10px; left: -45px; }
-
-        .sub-menu-container {
-            display: flex;
-            flex-direction: column; 
-            gap: 35px; 
-            align-items: flex-end; 
-            opacity: 0;
-            transform: translateX(50px); 
-            transition: all 0.5s ease-in-out;
-            pointer-events: none; 
-            margin-top: 15px; 
-        }
-
-        .sub-menu-link {
-            font-size: 23px; 
-            text-decoration: none;
-            font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 1px #654321; 
-            letter-spacing: -1px;
-            line-height: 1.2;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="cv-main-container">
-        
-        <div class="photo-zone" id="photoZone">
-            <span class="works-main-tab" id="tab-worklist" onclick="switchTab('worklist')">WORK LIST</span><br>
-            <span class="works-main-tab" id="tab-exhibitions" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
-        </div>
-
-        <div class="info-zone" id="infoZone">
-            <div id="section-worklist" class="content-section">
-                <div class="works-year-title">2026</div>
-                <span class="works-text-link" onclick="loadArtworkGroup('the-last-island', this)">The Last Island</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('bad-mom', this)">Bad Mom</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('ennui', this)">Ennui</span>
-                
-                <div class="works-year-title">2025</div>
-                <span class="works-text-link" onclick="loadArtworkGroup('victory-of-lays', this)">Victory of Lays</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('hope', this)">Hope</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('horse-racing', this)">Horse racing</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('baum', this)">Baum</span>
-                
-                <span class="works-text-link" onclick="loadArtworkGroup('abdruck', this)">Abdruck</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('bienenstich', this)">Bienenstich</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('wild-fire', this)">Wild fire</span>
-            </div>
-
-            <div id="section-exhibitions" class="content-section">
-                <div class="works-year-title">2026</div>
-                <div class="works-text-disabled">Do you clean your mirror, everyday? Solo</div>
-                <div class="works-text-disabled">여기에 전시 이름을 적으세요 (Solo/Group)</div>
-            </div>
-        </div> 
-
-        <div class="artwork-display-zone" id="displayZone">
-            <div class="photo-slider-window" id="sliderWindow">
-                <div class="slide-train" id="slideTrain"></div>
-            </div>
-            <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
-
-            <div class="custom-scrollbar-container" id="customScrollbar">
-                <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
-            </div>
-        </div>
-
-        <div class="header-menu-block" id="menuBlock">
-            <a href="../index.html" class="cv-logo-link">
-                <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
-            </a>
-            <div class="sub-menu-container">
-                <a href="../index.html" class="sub-menu-link">HOME</a>
-                <a href="../cv.html" class="sub-menu-link">CV</a>
-                <a href="../press.html" class="sub-menu-link">PRESS</a>
-                <a href="../teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // 💡 수정 완료: marginLeft의 값을 반드시 따옴표 안에 문자로 적어주셔야 에러가 안 납니다!
-        const dbRepository = {
-            "the-last-island": [{ src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
-            "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-90px" }],
-            "ennui": [{ src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
-            "victory-of-lays": [{ src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
-            "hope": [
-                { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginLeft: "20px", marginTop: "40px" },
-                { src: "../images/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
-            ],
-            "horse-racing": [{ src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
-            "baum": [{ src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
-            "abdruck": [
-                { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
-            ],
-            "bienenstich": [{ src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
-            "wild-fire": [{ src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }]
-        };
-
-        const sliderWindow = document.getElementById('sliderWindow');
-        const slideTrain = document.getElementById('slideTrain');
-        const displayZone = document.getElementById('displayZone');
-        const customScrollbar = document.getElementById('customScrollbar');
-        const scrollThumb = document.getElementById('scrollThumb');
-        const infoZone = document.getElementById('infoZone');
-        const fixedMetaInfo = document.getElementById('fixedMetaInfo');
-
-        let currentGroupLength = 0;
-        let isTabClickedOnce = false; 
-
-        function loadArtworkGroup(groupKey, element) {
-            if (!groupKey) return; 
-
-            document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
-            if(element) element.classList.add('viewing');
-
-            slideTrain.innerHTML = '';
-            sliderWindow.scrollLeft = 0;
+        items.forEach((data, index) => {
+            const slideItem = document.createElement('div');
+            slideItem.className = 'slide-item';
             
+            slideItem.style.marginLeft = data.marginLeft ? data.marginLeft : "0px";
+
+            slideItem.innerHTML = `
+                <div class="viewer-frame">
+                    <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
+                </div>
+            `;
+            slideTrain.appendChild(slideItem);
+
+            if(index === 0) {
+                const targetImg = slideItem.querySelector('.artwork-viewer');
+                if (targetImg.complete) {
+                    alignMetaText(targetImg);
+                } else {
+                    targetImg.addEventListener('load', () => alignMetaText(targetImg));
+                }
+            }
+        });
+
+        if (currentGroupLength > 1) {
+            setTimeout(updateScrollbarThumb, 100);
+        }
+    }
+
+    function alignMetaText(imgElement) {
+        const frame = imgElement.parentElement;
+        const frameRect = frame.getBoundingClientRect();
+
+        const imgWidth = imgElement.clientWidth;
+        const imgHeight = imgElement.clientHeight;
+
+        const leftOffset = (frameRect.width - imgWidth) / 2;
+        const topOffset = (frameRect.height - imgHeight) / 2;
+
+        let targetLeft = frame.offsetLeft + leftOffset + imgWidth;
+        if (currentGroupLength > 1) {
+            targetLeft += 475; 
+        }
+        const targetTop = frame.offsetTop + topOffset + imgHeight;
+
+        fixedMetaInfo.style.left = `${targetLeft}px`;
+        fixedMetaInfo.style.top = `${targetTop}px`;
+        fixedMetaInfo.style.transform = 'translateX(-100%)'; 
+        fixedMetaInfo.style.opacity = '1';
+    }
+
+    function handleScrollInteractions() {
+        const currentScroll = sliderWindow.scrollLeft;
+
+        if (currentGroupLength > 1 && currentScroll > 0) {
+            const factor = Math.min(currentScroll / 300, 1); 
+            const scaleVal = 1 - (factor * 0.22); 
+            
+            const moveX = factor * -195; 
+            const moveY = factor * 120; 
+
+            infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
+            infoZone.style.opacity = `1`; 
+        } else {
             infoZone.style.transform = 'translate(0, 0) scale(1)';
             infoZone.style.opacity = '1';
-
-            const items = dbRepository[groupKey] || [];
-            currentGroupLength = items.length;
-
-            if(currentGroupLength > 0) {
-                fixedMetaInfo.innerText = items[0].meta;
-                fixedMetaInfo.style.opacity = '0';
-            } else {
-                fixedMetaInfo.innerText = '';
-            }
-
-            if(currentGroupLength > 1) {
-                displayZone.className = "artwork-display-zone multi-mode";
-                customScrollbar.style.display = 'block';
-            } else {
-                displayZone.className = "artwork-display-zone single-mode";
-                customScrollbar.style.display = 'none';
-            }
-
-            items.forEach((data, index) => {
-                const slideItem = document.createElement('div');
-                slideItem.className = 'slide-item';
-                
-                // 💡 추가된 로직: 데이터에 입력된 개별 marginLeft 스타일값을 적용 (없으면 0px)
-                slideItem.style.marginLeft = data.marginLeft ? data.marginLeft : "0px";
-
-                slideItem.innerHTML = `
-                    <div class="viewer-frame">
-                        <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
-                    </div>
-                `;
-                slideTrain.appendChild(slideItem);
-
-                if(index === 0) {
-                    const targetImg = slideItem.querySelector('.artwork-viewer');
-                    if (targetImg.complete) {
-                        alignMetaText(targetImg);
-                    } else {
-                        targetImg.addEventListener('load', () => alignMetaText(targetImg));
-                    }
-                }
-            });
-
-            if (currentGroupLength > 1) {
-                setTimeout(updateScrollbarThumb, 100);
-            }
         }
 
-        function alignMetaText(imgElement) {
-            const frame = imgElement.parentElement;
-            const frameRect = frame.getBoundingClientRect();
+        if (currentGroupLength <= 1) return;
+        const totalTrainWidth = slideTrain.scrollWidth;
+        const visibleWidth = sliderWindow.clientWidth;
+        const maxScrollLeft = totalTrainWidth - (visibleWidth - 475);
 
-            const imgWidth = imgElement.clientWidth;
-            const imgHeight = imgElement.clientHeight;
+        if(maxScrollLeft <= 0) return;
+        
+        const progress = currentScroll / maxScrollLeft;
+        const barContainerWidth = customScrollbar.clientWidth;
+        const thumbWidth = 60; 
+        const maxThumbLeft = barContainerWidth - thumbWidth;
+        const thumbLeft = Math.min(progress * maxThumbLeft, maxThumbLeft);
 
-            const leftOffset = (frameRect.width - imgWidth) / 2;
-            const topOffset = (frameRect.height - imgHeight) / 2;
+        scrollThumb.style.width = `${thumbWidth}px`;
+        scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
+    }
 
-            let targetLeft = frame.offsetLeft + leftOffset + imgWidth;
-            if (currentGroupLength > 1) {
-                targetLeft += 475; 
-            }
-            const targetTop = frame.offsetTop + topOffset + imgHeight;
+    function updateScrollbarThumb() {
+        if (currentGroupLength <= 1) return;
+        const firstImg = slideTrain.querySelector('.artwork-viewer');
+        if(firstImg) alignMetaText(firstImg);
+        handleScrollInteractions();
+    }
 
-            fixedMetaInfo.style.left = `${targetLeft}px`;
-            fixedMetaInfo.style.top = `${targetTop}px`;
-            fixedMetaInfo.style.transform = 'translateX(-100%)'; 
-            fixedMetaInfo.style.opacity = '1';
+    sliderWindow.addEventListener('scroll', handleScrollInteractions);
+    window.addEventListener('resize', updateScrollbarThumb);
+
+    let isDown = false;
+    let startX;
+    let scrollLeftOffset;
+
+    sliderWindow.addEventListener('mousedown', (e) => {
+        if (currentGroupLength <= 1) return; 
+        isDown = true;
+        startX = e.pageX - sliderWindow.offsetLeft;
+        scrollLeftOffset = sliderWindow.scrollLeft;
+    });
+    sliderWindow.addEventListener('mouseleave', () => { isDown = false; });
+    sliderWindow.addEventListener('mouseup', () => { isDown = false; });
+    sliderWindow.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - sliderWindow.offsetLeft;
+        const walk = (x - startX) * 2.2; 
+        sliderWindow.scrollLeft = scrollLeftOffset - walk;
+    });
+
+    // ✨ 수정된 탭 전환 함수
+    function switchTab(tabId) {
+        // 첫 클릭 시 숨겨진 중간 구역과 이미지 구역을 보여줍니다.
+        if (!isTabClickedOnce) {
+            isTabClickedOnce = true;
+            infoZone.style.display = 'block';
+            displayZone.style.display = 'flex';
         }
 
-        function handleScrollInteractions() {
-            const currentScroll = sliderWindow.scrollLeft;
+        // 기존 active 제거
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
 
-            if (currentGroupLength > 1 && currentScroll > 0) {
-                const factor = Math.min(currentScroll / 300, 1); 
-                const scaleVal = 1 - (factor * 0.22); 
-                
-                const moveX = factor * -195; 
-                const moveY = factor * 120; 
-
-                infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
-                infoZone.style.opacity = `1`; 
-            } else {
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-            }
-
-            if (currentGroupLength <= 1) return;
-            const totalTrainWidth = slideTrain.scrollWidth;
-            const visibleWidth = sliderWindow.clientWidth;
-            const maxScrollLeft = totalTrainWidth - (visibleWidth - 475);
-
-            if(maxScrollLeft <= 0) return;
-            
-            const progress = currentScroll / maxScrollLeft;
-            const barContainerWidth = customScrollbar.clientWidth;
-            const thumbWidth = 60; 
-            const maxThumbLeft = barContainerWidth - thumbWidth;
-            const thumbLeft = Math.min(progress * maxThumbLeft, maxThumbLeft);
-
-            scrollThumb.style.width = `${thumbWidth}px`;
-            scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
+        // 선택한 탭 활성화
+        document.getElementById('section-' + tabId).classList.add('active');
+        document.getElementById('tab-' + tabId).classList.add('active-tab');
+        
+        if(tabId !== 'worklist') {
+            slideTrain.innerHTML = '';
+            fixedMetaInfo.innerText = '';
+            customScrollbar.style.display = 'none';
+            infoZone.style.transform = 'translate(0, 0) scale(1)';
+            infoZone.style.opacity = '1';
+            displayZone.className = "artwork-display-zone single-mode";
+        } else {
+            // WORK LIST를 누르면 리스트의 가장 첫 번째 작품을 자동으로 클릭(실행)해줍니다.
+            const firstItem = document.querySelector('#section-worklist .works-text-link');
+            if(firstItem) firstItem.click();
         }
-
-        function updateScrollbarThumb() {
-            if (currentGroupLength <= 1) return;
-            const firstImg = slideTrain.querySelector('.artwork-viewer');
-            if(firstImg) alignMetaText(firstImg);
-            handleScrollInteractions();
-        }
-
-        sliderWindow.addEventListener('scroll', handleScrollInteractions);
-        window.addEventListener('resize', updateScrollbarThumb);
-
-        let isDown = false;
-        let startX;
-        let scrollLeftOffset;
-
-        sliderWindow.addEventListener('mousedown', (e) => {
-            if (currentGroupLength <= 1) return; 
-            isDown = true;
-            startX = e.pageX - sliderWindow.offsetLeft;
-            scrollLeftOffset = sliderWindow.scrollLeft;
-        });
-        sliderWindow.addEventListener('mouseleave', () => { isDown = false; });
-        sliderWindow.addEventListener('mouseup', () => { isDown = false; });
-        sliderWindow.addEventListener('mousemove', (e) => {
-            if(!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - sliderWindow.offsetLeft;
-            const walk = (x - startX) * 2.2; 
-            sliderWindow.scrollLeft = scrollLeftOffset - walk;
-        });
-
-        function switchTab(tabId) {
-            if (!isTabClickedOnce) {
-                if (window.event) { 
-                    isTabClickedOnce = true;
-                    infoZone.style.display = 'block';
-                    displayZone.style.display = 'flex';
-                } else {
-                    return; 
-                }
-            }
-
-            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
-
-            document.getElementById('section-' + tabId).classList.add('active');
-            document.getElementById('tab-' + tabId).classList.add('active-tab');
-            
-            if(tabId !== 'worklist') {
-                slideTrain.innerHTML = '';
-                fixedMetaInfo.innerText = '';
-                customScrollbar.style.display = 'none';
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-                displayZone.className = "artwork-display-zone single-mode";
-            } else {
-                const firstItem = document.querySelector('#section-worklist .works-text-link');
-                if(firstItem) firstItem.click();
-            }
-        }
-    </script>
-
-</body>
-</html>
+    }
+</script>
