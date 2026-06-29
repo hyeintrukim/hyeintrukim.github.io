@@ -137,10 +137,11 @@
         .photo-slider-window {
             width: 100%;
             overflow-x: auto; 
-            overflow-y: hidden;
+            overflow-y: auton;
             position: relative;
             scrollbar-width: none; 
             display: flex;
+            flex-direction column;
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
@@ -195,7 +196,7 @@
         }
 
         .artwork-meta-info-fixed {
-            position: absolute;
+            display: block;
             font-size: 14px;
             line-height: 1.6;
             color: #654321;
@@ -203,7 +204,9 @@
             letter-spacing: -0.8px;
             white-space: nowrap;
             pointer-events: none;
-            margin-top: 10px;
+            margin-top: 20px;
+            margin-left: 475px;
+            padding-bottom: 60px;
             opacity: 0;
             transition: opacity 0.2s ease;
             z-index: 95;
@@ -317,8 +320,25 @@
 
             <div id="section-exhibitions" class="content-section">
                 <div class="works-year-title">2026</div>
-                <div class="works-text-disabled">Do you clean your mirror, everyday? Solo</div>
-                <div class="works-text-disabled">여기에 전시 이름을 적으세요 (Solo/Group)</div>
+                <div class="works-text-disabled">Do you clean your mirror, everyday? solo</div>
+                <div class="works-text-disabled">Heussen Perpectives young artist Awards winner exhibition </div>
+                <div class="works-text-disabled">JustMad Madrid Art fair</div>
+                <div class="works-text-disabled">Verprochen</div>
+
+                <div class="works-year-title">2025</div>
+                <div class="works-text-disabled">The Vertigo of Appearing</div>
+                <div class="works-text-disabled">A-Z Mapping the Future</div>
+                <div class="works-text-disabled">Academy Positions Berlin Art fair</div>
+                <div class="works-text-disabled">It can be done, but only I can do it</div>
+                <div class="works-text-disabled">Kinder.Bilder</div>
+
+                <div class="works-year-title">2024</div>
+                <div class="works-text-disabled">Wesen Weißer Garten</div>
+                <div class="works-text-disabled">743Hz</div>
+
+                <div class="works-year-title">2021</div>
+                <div class="works-text-disabled">7MUTE</div>
+
             </div>
         </div> 
 
@@ -373,6 +393,17 @@
             ],
             "bienenstich": [{ src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
             "wild-fire": [{ src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }]
+
+            "mirror-2026": [
+                { 
+                    src: "../images/exhibitions/mirror-1.jpg", 
+                    alt: "Mirror Solo", 
+                    meta: "Do you clean your mirror, everyday? Solo exhibition.\n\n여기에 길게 쓰고 싶은 전시 안내 텍스트나 서문을 자유롭게 적으시면 됩니다. 줄을 바꾸고 싶을 때는 지금 보시는 것처럼 \\n 을 두 번 써주면 한 줄 띄어쓰기가 적용되어 가독성이 좋아집니다." 
+                }
+            ],
+            "heussen-2026": [
+                { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
+            ]
         };
 
         const sliderWindow = document.getElementById('sliderWindow');
@@ -445,25 +476,8 @@
         }
 
         function alignMetaText(imgElement) {
-            const frame = imgElement.parentElement;
-            const frameRect = frame.getBoundingClientRect();
-
-            const imgWidth = imgElement.clientWidth;
-            const imgHeight = imgElement.clientHeight;
-
-            const leftOffset = (frameRect.width - imgWidth) / 2;
-            const topOffset = (frameRect.height - imgHeight) / 2;
-
-            let targetLeft = frame.offsetLeft + leftOffset + imgWidth;
-            if (currentGroupLength > 1) {
-                targetLeft += 475; 
-            }
-            const targetTop = frame.offsetTop + topOffset + imgHeight;
-
-            fixedMetaInfo.style.left = `${targetLeft}px`;
-            fixedMetaInfo.style.top = `${targetTop}px`;
-            fixedMetaInfo.style.transform = 'translateX(-100%)'; 
-            fixedMetaInfo.style.opacity = '1';
+            if(!imgElement) return;
+            flixedMetaInfo.style.opacity = '1';
         }
 
         function handleScrollInteractions() {
