@@ -137,11 +137,11 @@
         .photo-slider-window {
             width: 100%;
             overflow-x: auto; 
-            overflow-y: auton;
+            overflow-y: auto; /* 🛠️ 오타 수정 및 세로 스크롤 허용 */
             position: relative;
             scrollbar-width: none; 
             display: flex;
-            flex-direction column;
+            flex-direction: column; /* 🛠️ 사진 아래로 텍스트가 줄바꿈되도록 배치 */
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
@@ -195,6 +195,7 @@
             -webkit-user-drag: none; 
         }
 
+        /* 🛠️ 상하 스크롤 형식에 맞게 배치 고정 해제 및 정렬 조절 */
         .artwork-meta-info-fixed {
             display: block;
             font-size: 14px;
@@ -202,14 +203,19 @@
             color: #654321;
             font-weight: 400;
             letter-spacing: -0.8px;
-            white-space: nowrap;
-            pointer-events: none;
-            margin-top: 20px;
-            margin-left: 475px;
-            padding-bottom: 60px;
+            white-space: normal; /* 긴 세로 서문 본문을 위해 자동 줄바꿈 허용 */
+            pointer-events: auto;
+            margin-top: 30px; /* 사진 밑 여백 */
+            margin-left: 475px; /* 왼쪽 정렬 맞춤 */
+            padding-bottom: 90px; /* 스크롤 끝 여백 확보 */
             opacity: 0;
             transition: opacity 0.2s ease;
             z-index: 95;
+            width: 600px; /* 텍스트 가독성을 위한 가로 너비 제한 */
+        }
+        .artwork-display-zone.single-mode .artwork-meta-info-fixed {
+            margin-left: auto;
+            margin-right: auto; /* 싱글 모드일 때는 가운데 정렬 */
         }
 
         .custom-scrollbar-container {
@@ -285,292 +291,5 @@
             text-decoration: none;
             font-weight: 900;
             color: transparent;
-            -webkit-text-stroke: 1px #654321; 
-            letter-spacing: -1px;
-            line-height: 1.2;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="cv-main-container">
+            -webkit-text-stroke: 1px #65
         
-        <div class="photo-zone" id="photoZone">
-            <span class="works-main-tab" id="tab-worklist" onclick="switchTab('worklist')">WORK LIST</span><br>
-            <span class="works-main-tab" id="tab-exhibitions" onclick="switchTab('exhibitions')">EXHIBITIONS</span>
-        </div>
-
-        <div class="info-zone" id="infoZone">
-            <div id="section-worklist" class="content-section">
-                <div class="works-year-title">2026</div>
-                <span class="works-text-link" onclick="loadArtworkGroup('the-last-island', this)">The Last Island</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('reflection-with-a-body', this)">Reflextion without a Body</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('bad-mom', this)">Bad Mom</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('ennui', this)">Ennui</span>
-                
-                <div class="works-year-title">2025</div>
-                <span class="works-text-link" onclick="loadArtworkGroup('victory-of-lays', this)">Victory of Lays</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('hope', this)">Hope</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('horse-racing', this)">Horse racing</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('baum', this)">Baum</span>
-                
-                <span class="works-text-link" onclick="loadArtworkGroup('abdruck', this)">Abdruck</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('bienenstich', this)">Bienenstich</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('wild-fire', this)">Wild fire</span>
-            </div>
-
-            <div id="section-exhibitions" class="content-section">
-                <div class="works-year-title">2026</div>
-                <div class="works-text-disabled">Do you clean your mirror, everyday? solo</div>
-                <div class="works-text-disabled">Heussen Perpectives young artist Awards winner exhibition </div>
-                <div class="works-text-disabled">JustMad Madrid Art fair</div>
-                <div class="works-text-disabled">Verprochen</div>
-
-                <div class="works-year-title">2025</div>
-                <div class="works-text-disabled">The Vertigo of Appearing</div>
-                <div class="works-text-disabled">A-Z Mapping the Future</div>
-                <div class="works-text-disabled">Academy Positions Berlin Art fair</div>
-                <div class="works-text-disabled">It can be done, but only I can do it</div>
-                <div class="works-text-disabled">Kinder.Bilder</div>
-
-                <div class="works-year-title">2024</div>
-                <div class="works-text-disabled">Wesen Weißer Garten</div>
-                <div class="works-text-disabled">743Hz</div>
-
-                <div class="works-year-title">2021</div>
-                <div class="works-text-disabled">7MUTE</div>
-
-            </div>
-        </div> 
-
-        <div class="artwork-display-zone" id="displayZone">
-            <div class="photo-slider-window" id="sliderWindow">
-                <div class="slide-train" id="slideTrain"></div>
-            </div>
-            <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
-
-            <div class="custom-scrollbar-container" id="customScrollbar">
-                <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
-            </div>
-        </div>
-
-        <div class="header-menu-block" id="menuBlock">
-            <a href="../index.html" class="cv-logo-link">
-                <span class="char-w">W</span><span class="char-o">O</span><span class="char-r">R</span><span class="char-k">K</span><span class="char-s">S</span>
-            </a>
-            <div class="sub-menu-container">
-                <a href="../index.html" class="sub-menu-link">HOME</a>
-                <a href="../cv.html" class="sub-menu-link">CV</a>
-                <a href="../press.html" class="sub-menu-link">PRESS</a>
-                <a href="../teller-tiger.html" class="sub-menu-link">TELLER TIGER</a>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        const dbRepository = {
-            "the-last-island": [{ src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
-            "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px", }],
-            "ennui": [{ src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
-            "victory-of-lays": [{ src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
-            "hope": [
-                { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginLeft: "20px", marginTop: "40px" },
-                { src: "../images/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
-            ],
-            "horse-racing": [{ src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
-            "baum": [{ src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
-            "abdruck": [
-                { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
-            ],
-            "bienenstich": [{ src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
-            "wild-fire": [{ src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }]
-
-            "mirror-2026": [
-                { 
-                    src: "../images/exhibitions/mirror-1.jpg", 
-                    alt: "Mirror Solo", 
-                    meta: "Do you clean your mirror, everyday? Solo exhibition.\n\n여기에 길게 쓰고 싶은 전시 안내 텍스트나 서문을 자유롭게 적으시면 됩니다. 줄을 바꾸고 싶을 때는 지금 보시는 것처럼 \\n 을 두 번 써주면 한 줄 띄어쓰기가 적용되어 가독성이 좋아집니다." 
-                }
-            ],
-            "heussen-2026": [
-                { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
-            ]
-        };
-
-        const sliderWindow = document.getElementById('sliderWindow');
-        const slideTrain = document.getElementById('slideTrain');
-        const displayZone = document.getElementById('displayZone');
-        const customScrollbar = document.getElementById('customScrollbar');
-        const scrollThumb = document.getElementById('scrollThumb');
-        const infoZone = document.getElementById('infoZone');
-        const fixedMetaInfo = document.getElementById('fixedMetaInfo');
-
-        let currentGroupLength = 0;
-        let isTabClickedOnce = false; 
-
-        function loadArtworkGroup(groupKey, element) {
-            if (!groupKey) return; 
-
-            document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
-            if(element) element.classList.add('viewing');
-
-            slideTrain.innerHTML = '';
-            sliderWindow.scrollLeft = 0;
-            
-            infoZone.style.transform = 'translate(0, 0) scale(1)';
-            infoZone.style.opacity = '1';
-
-            const items = dbRepository[groupKey] || [];
-            currentGroupLength = items.length;
-
-            if(currentGroupLength > 0) {
-                fixedMetaInfo.innerText = items[0].meta;
-                fixedMetaInfo.style.opacity = '0';
-            } else {
-                fixedMetaInfo.innerText = '';
-            }
-
-            if(currentGroupLength > 1) {
-                displayZone.className = "artwork-display-zone multi-mode";
-                customScrollbar.style.display = 'block';
-            } else {
-                displayZone.className = "artwork-display-zone single-mode";
-                customScrollbar.style.display = 'none';
-            }
-
-            items.forEach((data, index) => {
-                const slideItem = document.createElement('div');
-                slideItem.className = 'slide-item';
-                
-                slideItem.style.marginLeft = data.marginLeft ? data.marginLeft : "0px";
-
-                slideItem.innerHTML = `
-                    <div class="viewer-frame">
-                        <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
-                    </div>
-                `;
-                slideTrain.appendChild(slideItem);
-
-                if(index === 0) {
-                    const targetImg = slideItem.querySelector('.artwork-viewer');
-                    if (targetImg.complete) {
-                        alignMetaText(targetImg);
-                    } else {
-                        targetImg.addEventListener('load', () => alignMetaText(targetImg));
-                    }
-                }
-            });
-
-            if (currentGroupLength > 1) {
-                setTimeout(updateScrollbarThumb, 100);
-            }
-        }
-
-        function alignMetaText(imgElement) {
-            if(!imgElement) return;
-            flixedMetaInfo.style.opacity = '1';
-        }
-
-        function handleScrollInteractions() {
-            const currentScroll = sliderWindow.scrollLeft;
-
-            if (currentGroupLength > 1 && currentScroll > 0) {
-                const factor = Math.min(currentScroll / 300, 1); 
-                const scaleVal = 1 - (factor * 0.22); 
-                
-                const moveX = factor * -195; 
-                const moveY = factor * 120; 
-
-                infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
-                infoZone.style.opacity = `1`; 
-            } else {
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-            }
-
-            if (currentGroupLength <= 1) return;
-            const totalTrainWidth = slideTrain.scrollWidth;
-            const visibleWidth = sliderWindow.clientWidth;
-            const maxScrollLeft = totalTrainWidth - (visibleWidth - 475);
-
-            if(maxScrollLeft <= 0) return;
-            
-            const progress = currentScroll / maxScrollLeft;
-            const barContainerWidth = customScrollbar.clientWidth;
-            const thumbWidth = 60; 
-            const maxThumbLeft = barContainerWidth - thumbWidth;
-            const thumbLeft = Math.min(progress * maxThumbLeft, maxThumbLeft);
-
-            scrollThumb.style.width = `${thumbWidth}px`;
-            scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
-        }
-
-        function updateScrollbarThumb() {
-            if (currentGroupLength <= 1) return;
-            const firstImg = slideTrain.querySelector('.artwork-viewer');
-            if(firstImg) alignMetaText(firstImg);
-            handleScrollInteractions();
-        }
-
-        sliderWindow.addEventListener('scroll', handleScrollInteractions);
-        window.addEventListener('resize', updateScrollbarThumb);
-
-        let isDown = false;
-        let startX;
-        let scrollLeftOffset;
-
-        sliderWindow.addEventListener('mousedown', (e) => {
-            if (currentGroupLength <= 1) return; 
-            isDown = true;
-            startX = e.pageX - sliderWindow.offsetLeft;
-            scrollLeftOffset = sliderWindow.scrollLeft;
-        });
-        sliderWindow.addEventListener('mouseleave', () => { isDown = false; });
-        sliderWindow.addEventListener('mouseup', () => { isDown = false; });
-        sliderWindow.addEventListener('mousemove', (e) => {
-            if(!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - sliderWindow.offsetLeft;
-            const walk = (x - startX) * 2.2; 
-            sliderWindow.scrollLeft = scrollLeftOffset - walk;
-        });
-
-        function switchTab(tabId) {
-            if (!isTabClickedOnce) {
-                isTabClickedOnce = true;
-                infoZone.style.display = 'block';
-                displayZone.style.display = 'flex';
-            }
-
-            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
-
-            document.getElementById('section-' + tabId).classList.add('active');
-            document.getElementById('tab-' + tabId).classList.add('active-tab');
-            
-            if(tabId !== 'worklist') {
-                slideTrain.innerHTML = '';
-                fixedMetaInfo.innerText = '';
-                customScrollbar.style.display = 'none';
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-                displayZone.className = "artwork-display-zone single-mode";
-            } else {
-                const firstItem = document.querySelector('#section-worklist .works-text-link');
-                if(firstItem) firstItem.click();
-            }
-        }
-    </script>
-
-</body>
-</html>
