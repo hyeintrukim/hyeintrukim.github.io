@@ -179,11 +179,22 @@
             -webkit-user-drag: none; 
         }
 
-        /* 단일 이미지 화면 내부 자동 맞춤 (스크롤 원천 차단) */
-        .artwork-display-zone.single-mode .artwork-viewer {
-            max-height: calc(100vh - 290px);
-            width: auto;
-        }
+       /* 단일 이미지 모드일 때 프레임과 이미지의 세로 제한을 묶어 스크롤을 완벽 차단 */
+.artwork-display-zone.single-mode .viewer-frame {
+    height: calc(100vh - 290px); /* 이미지 영역이 차지할 수 있는 최대 높이 */
+    min-height: 0;               /* 💥 중요: 아래로 밀어내던 최소 높이 제한 해제 */
+}
+
+.artwork-display-zone.single-mode .artwork-viewer {
+    max-height: 100%;            /* 변경된 프레임 높이 안에 100% 맞춤 */
+    width: auto;
+    object-fit: contain;
+}
+
+.artwork-display-zone.single-mode .artwork-meta-info-fixed {
+    bottom: -40px;               /* 사진 바로 밑에 텍스트가 안정적으로 붙도록 조절 */
+}
+        
 
         /* 🛠️ [2번 해결] 하단 설명창 위치를 사진 하단 우측(Abdruck과 동일 구조)으로 고정 */
         .artwork-meta-info-fixed {
