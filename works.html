@@ -116,7 +116,7 @@
             display: none; 
         }
 
-        /* abdruck과 완벽 매칭을 위해 single, multi 전체 레이아웃 시작축 통일 */
+        /* single, multi 레이아웃 축 고정 */
         .artwork-display-zone.multi-mode,
         .artwork-display-zone.single-mode {
             position: absolute;
@@ -136,7 +136,8 @@
             display: flex;
             flex-direction: column; 
             box-sizing: border-box;
-            padding-left: 400px; /* 모든 이미지의 시작점 좌측 여백 고정 */
+            /* 🛠️ [3번 해결] 사진이 왼쪽 타이틀과 겹치지 않도록 안전 여백 고정 (475px 이상 추천) */
+            padding-left: 475px; 
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
@@ -168,6 +169,7 @@
             position: relative;
         }
 
+        /* 🛠️ [괄호 꼬임 해결] 깨진 CSS 중괄호 구조를 올바르게 분리 수정했습니다 */
         .artwork-viewer {
             max-width: 100%;
             max-height: 100%; 
@@ -175,12 +177,15 @@
             display: block; 
             user-select: none;
             -webkit-user-drag: none; 
-            .artwork-display-zone.single-mode .artwork-viewer {
-    max-height: calc(100vh - 290px); /* 1장짜리일 때 화면 높이에 맞춰 사진을 자동 축소 */
-    width: auto;                     /* 가로 세로 비율 유지 */
         }
 
-        /* 하단 작업 정보창 위치 완전 정렬 고정 */
+        /* 단일 이미지 화면 내부 자동 맞춤 (스크롤 원천 차단) */
+        .artwork-display-zone.single-mode .artwork-viewer {
+            max-height: calc(100vh - 290px);
+            width: auto;
+        }
+
+        /* 🛠️ [2번 해결] 하단 설명창 위치를 사진 하단 우측(Abdruck과 동일 구조)으로 고정 */
         .artwork-meta-info-fixed {
             display: block;
             font-size: 14px;
@@ -191,10 +196,10 @@
             white-space: normal; 
             pointer-events: auto;
             z-index: 95;
-            width: 600px; /* 🛠️ with 오타 수정 완료 */
+            width: 600px; 
             position: absolute;
-            left: 475px; /* 시작 사진 좌측 정렬과 완벽 일치 */
-            bottom: -50px; /* 사진 하단 밑으로 자연스럽게 떨어지도록 조절 */
+            left: 475px;      /* 이미지 시작선 정렬 일치 */
+            bottom: -50px;    /* 이미지 프레임 아래 배치 */
             opacity: 0;
             transition: opacity 0.2s ease;
         }
@@ -216,7 +221,7 @@
             background-color: #654321;
         }
 
-        /* 우측 상단 고정 WORKS 로고 블록 */
+        /* 🛠️ [1번 해결] 상단 중괄호가 닫히면서 우측 메뉴바 디자인이 정상적으로 부활했습니다 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -465,7 +470,7 @@
                 }
             });
 
-            /* 🛠️ [핵심 수정] 텍스트 박스를 슬라이드 트레인 하위 구조로 명확히 병합 */
+            // 텍스트 구조 동적 정렬 유지
             slideTrain.appendChild(fixedMetaInfo);
 
             if (currentGroupLength > 1) {
