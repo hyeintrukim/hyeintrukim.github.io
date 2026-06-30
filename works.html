@@ -175,6 +175,9 @@
             display: block; 
             user-select: none;
             -webkit-user-drag: none; 
+            .artwork-display-zone.single-mode .artwork-viewer {
+    max-height: calc(100vh - 290px); /* 1장짜리일 때 화면 높이에 맞춰 사진을 자동 축소 */
+    width: auto;                     /* 가로 세로 비율 유지 */
         }
 
         /* 하단 작업 정보창 위치 완전 정렬 고정 */
