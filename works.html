@@ -136,14 +136,15 @@
             display: flex;
             flex-direction: column; 
             box-sizing: border-box;
-            /* 🛠️ [3번 해결] 사진이 왼쪽 타이틀과 겹치지 않도록 안전 여백 고정 (475px 이상 추천) */
             padding-left: 475px; 
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
-        .artwork-display-zone.multi-mode .photo-slider-window { cursor: grab; }
+        .artwork-display-zone.multi-mode .photo-slider-window { cursor: grab; overflow-y: auto; }
         .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
-        .artwork-display-zone.single-mode .photo-slider-window { cursor: default; }
+        
+        /* 🛠️ 단일 이미지 모드일 때 윈도우 창의 상하 스크롤 오버플로우를 원천 차단 */
+        .artwork-display-zone.single-mode .photo-slider-window { cursor: default; overflow-y: hidden; }
 
         /* 사진 트레인 컨테이너 */
         .slide-train {
@@ -169,7 +170,6 @@
             position: relative;
         }
 
-        /* 🛠️ [괄호 꼬임 해결] 깨진 CSS 중괄호 구조를 올바르게 분리 수정했습니다 */
         .artwork-viewer {
             max-width: 100%;
             max-height: 100%; 
@@ -179,24 +179,24 @@
             -webkit-user-drag: none; 
         }
 
-       /* 단일 이미지 모드일 때 프레임과 이미지의 세로 제한을 묶어 스크롤을 완벽 차단 */
-.artwork-display-zone.single-mode .viewer-frame {
-    height: calc(100vh - 290px); /* 이미지 영역이 차지할 수 있는 최대 높이 */
-    min-height: 0;               /* 💥 중요: 아래로 밀어내던 최소 높이 제한 해제 */
-}
+        /* 🛠️ 단일 이미지 화면 내부 구조 강제 한화면 정렬 및 스크롤 원천 차단 */
+        .artwork-display-zone.single-mode .viewer-frame {
+            height: calc(100vh - 290px); 
+            min-height: 0;               
+        }
 
-.artwork-display-zone.single-mode .artwork-viewer {
-    max-height: 100%;            /* 변경된 프레임 높이 안에 100% 맞춤 */
-    width: auto;
-    object-fit: contain;
-}
+        .artwork-display-zone.single-mode .artwork-viewer {
+            max-height: 100%;            
+            width: auto;
+            object-fit: contain;
+        }
 
-.artwork-display-zone.single-mode .artwork-meta-info-fixed {
-    bottom: -40px;               /* 사진 바로 밑에 텍스트가 안정적으로 붙도록 조절 */
-}
+        .artwork-display-zone.single-mode .artwork-meta-info-fixed {
+            bottom: -40px;               
+        }
         
 
-        /* 🛠️ [2번 해결] 하단 설명창 위치를 사진 하단 우측(Abdruck과 동일 구조)으로 고정 */
+        /* 하단 설명창 위치 고정 */
         .artwork-meta-info-fixed {
             display: block;
             font-size: 14px;
@@ -209,8 +209,8 @@
             z-index: 95;
             width: 600px; 
             position: absolute;
-            left: 475px;      /* 이미지 시작선 정렬 일치 */
-            bottom: -50px;    /* 이미지 프레임 아래 배치 */
+            left: 475px;      
+            bottom: -50px;    
             opacity: 0;
             transition: opacity 0.2s ease;
         }
@@ -232,7 +232,6 @@
             background-color: #654321;
         }
 
-        /* 🛠️ [1번 해결] 상단 중괄호가 닫히면서 우측 메뉴바 디자인이 정상적으로 부활했습니다 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -307,7 +306,8 @@
             <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
                 <span class="works-text-link" onclick="loadArtworkGroup('the-last-island', this)">The Last Island</span>
-                <span class="works-text-link" onclick="loadArtworkGroup('reflection-with-a-body', this)">Reflextion without a Body</span>
+                <!-- 🛠️ 스펠링 교정 반영 및 온클릭 매칭 연동 확인 -->
+                <span class="works-text-link" onclick="loadArtworkGroup('refelction-without-a-body', this)">Reflextion without a Body</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('bad-mom', this)">Bad Mom</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('ennui', this)">Ennui</span>
                 
@@ -374,10 +374,11 @@
     <script>
         const dbRepository = {
             "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
+            /* 🛠️ [에러 해결] 쉼표(,)를 추가하여 데이터 파싱 에러를 완벽 복구했습니다 */
             "refelction-without-a-body": [
-                { src: "../images/work-list/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
-                { src: "../images/work-list/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
-                { src: "../images/work-list/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
+                { src: "../images/work-list/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
+                { src: "../images/work-list/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
+                { src: "../images/work-list/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
                 { src: "../images/work-list/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
             ],
             "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
@@ -487,7 +488,6 @@
                 }
             });
 
-            // 텍스트 구조 동적 정렬 유지
             slideTrain.appendChild(fixedMetaInfo);
 
             if (currentGroupLength > 1) {
