@@ -286,7 +286,7 @@
             text-decoration: none;
             font-weight: 900;
             color: transparent;
-            -webkit-text-stroke: 1px #654321; /* 🛠️ 잘려있던 부분 수정 완료 */
+            -webkit-text-stroke: 1px #654321;
             letter-spacing: -1px;
             line-height: 1.2;
         }
@@ -371,32 +371,33 @@
 
     <script>
         const dbRepository = {
-            "the-last-island": [{ src: "../images/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
-            "bad-mom": [{ src: "../images/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
-            "ennui": [{ src: "../images/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
-            "victory-of-lays": [{ src: "../images/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
+            // 🛠️ WORK LIST 영역: 파일 이동 경로 반영 완료 (images/work-list/)
+            "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
+            "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
+            "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
+            "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
             "hope": [
-                { src: "../images/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginLeft: "20px", marginTop: "40px" },
-                { src: "../images/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
+                { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginLeft: "20px", marginTop: "40px" },
+                { src: "../images/work-list/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+                { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
             ],
-            "horse-racing": [{ src: "../images/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
-            "baum": [{ src: "../images/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
+            "horse-racing": [{ src: "../images/work-list/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
+            "baum": [{ src: "../images/work-list/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
             "abdruck": [
-                { src: "../images/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
+                { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/work-list/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/work-list/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/work-list/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+                { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
             ],
-            "bienenstich": [{ src: "../images/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
-            "wild-fire": [{ src: "../images/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
+            "bienenstich": [{ src: "../images/work-list/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
+            "wild-fire": [{ src: "../images/work-list/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
 
-            // EXHIBITIONS 데이터 영역
+            // EXHIBITIONS 데이터 영역 (기존 경로 유지)
             "mirror-2026": [
                 { 
                     src: "../images/exhibitions/mirror-1.jpg", 
@@ -407,8 +408,6 @@
             "heussen-2026": [
                 { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
             ],
-
-            // 🛠️ 시범 등록: it 폴더 안에 들어갈 이미지 3장 슬라이딩 연동 세팅 완료
             "it-can-be-done": [
                 { src: "../images/exhibitions/it/it-main.jpg", alt: "It 1", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
                 { src: "../images/exhibitions/it/it-2.jpg", alt: "It 2", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
@@ -451,7 +450,6 @@
                 fixedMetaInfo.style.opacity = '0';
             }
 
-            // 🛠️ Exhibitions 항목도 여러 장일 때(multi-mode) 슬라이딩과 하단 바가 활성화되도록 완벽 처리
             if(currentGroupLength > 1) {
                 displayZone.className = "artwork-display-zone multi-mode";
                 customScrollbar.style.display = 'block';
