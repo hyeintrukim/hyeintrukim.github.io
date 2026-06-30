@@ -116,18 +116,15 @@
             display: none; 
         }
 
-        .artwork-display-zone.multi-mode {
+        /* abdruck과 완벽 매칭을 위해 single, multi 전체 레이아웃 시작축 통일 */
+        .artwork-display-zone.multi-mode,
+        .artwork-display-zone.single-mode {
             position: absolute;
             left: 0;
             top: 75px;
             width: 100%;
             height: calc(100% - 80px);
             margin-top: 58px;
-        }
-
-        .artwork-display-zone.single-mode {
-            margin-left: 0px;
-            position: relative;
         }
 
         .photo-slider-window {
@@ -138,32 +135,21 @@
             scrollbar-width: none; 
             display: flex;
             flex-direction: column; 
+            box-sizing: border-box;
+            padding-left: 475px; /* 모든 이미지의 시작점 좌측 여백 고정 */
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
-        .artwork-display-zone.multi-mode .photo-slider-window {
-            cursor: grab;
-            justify-content: flex-start;
-            padding-left: 475px; 
-            box-sizing: border-box;
-        }
+        .artwork-display-zone.multi-mode .photo-slider-window { cursor: grab; }
         .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
-
-        .artwork-display-zone.single-mode .photo-slider-window {
-            cursor: default;
-            justify-content: center; 
-            padding-left: 0;
-        }
+        .artwork-display-zone.single-mode .photo-slider-window { cursor: default; }
 
         /* 사진 트레인 컨테이너 */
         .slide-train {
             display: flex;
             gap: 2px; 
             width: max-content; 
-        }
-        .artwork-display-zone.single-mode .slide-train {
-            width: 100%;
-            justify-content: center;
+            position: relative;
         }
 
         .slide-item {
@@ -191,6 +177,7 @@
             -webkit-user-drag: none; 
         }
 
+        /* 하단 작업 정보창 위치 완전 정렬 고정 */
         .artwork-meta-info-fixed {
             display: block;
             font-size: 14px;
@@ -201,14 +188,12 @@
             white-space: normal; 
             pointer-events: auto;
             z-index: 95;
-            with: 600px;
+            width: 600px; /* 🛠️ with 오타 수정 완료 */
             position: absolute;
-            left: 475px;
-            bottom: -35px;
-        }
-        .artwork-display-zone.single-mode .artwork-meta-info-fixed {
-            margin-left: auto;
-            margin-right: auto; 
+            left: 475px; /* 시작 사진 좌측 정렬과 완벽 일치 */
+            bottom: -50px; /* 사진 하단 밑으로 자연스럽게 떨어지도록 조절 */
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
         .custom-scrollbar-container {
@@ -369,7 +354,6 @@
 
     <script>
         const dbRepository = {
-            // 🛠️ WORK LIST 영역: 파일 이동 경로 반영 완료 (images/work-list/)
             "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
             "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
             "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
@@ -395,7 +379,6 @@
             "bienenstich": [{ src: "../images/work-list/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
             "wild-fire": [{ src: "../images/work-list/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
 
-            // EXHIBITIONS 데이터 영역 (기존 경로 유지)
             "mirror-2026": [
                 { 
                     src: "../images/exhibitions/mirror-1.jpg", 
@@ -478,6 +461,9 @@
                     }
                 }
             });
+
+            /* 🛠️ [핵심 수정] 텍스트 박스를 슬라이드 트레인 하위 구조로 명확히 병합 */
+            slideTrain.appendChild(fixedMetaInfo);
 
             if (currentGroupLength > 1) {
                 setTimeout(updateScrollbarThumb, 100);
