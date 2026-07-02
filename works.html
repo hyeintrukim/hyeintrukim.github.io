@@ -140,8 +140,14 @@
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
-        .artwork-display-zone.multi-mode .photo-slider-window { cursor: grab; overflow-y: auto; }
-        .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
+        /* 1. 멀티 모드일 때도 상하 스크롤을 원천 차단 (overflow-y: hidden으로 변경) */
+        .artwork-display-zone.multi-mode .photo-slider-window { 
+            cursor: grab; 
+            overflow-y: hidden; /* 📌 기존 auto에서 hidden으로 수정 */
+        }
+        .artwork-display-zone.multi-mode .photo-slider-window:active {
+            cursor: grabbing;
+        }
         
         /* 🛠️ 단일 이미지 모드일 때 윈도우 창의 상하 스크롤 오버플로우를 원천 차단 */
         .artwork-display-zone.single-mode .photo-slider-window { cursor: default; overflow-y: hidden; }
@@ -225,9 +231,13 @@
             width: 600px; 
             position: absolute;
             left: 475px;      
-            bottom: -50px;    
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            bottom: 20px;    
+            opacity: 1;
+            transition: none;
+        }
+        /* 3. 단일 이미지 모드 하단 위치도 통일 */
+        .artwork-display-zone.single-mode .artwork-meta-info-fixed {
+        bottom: 20px;       /* 📌 멀티 모드와 동일하게 맞춰줍니다. */
         }
 
         .custom-scrollbar-container {
