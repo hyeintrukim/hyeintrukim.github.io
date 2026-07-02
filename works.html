@@ -372,224 +372,218 @@
     </div>
 
     <script>
-        const dbRepository = {
-            "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
-            /* 🛠️ [에러 해결] 쉼표(,)를 추가하여 데이터 파싱 에러를 완벽 복구했습니다 */
-            "refelction-without-a-body": [
-                { src: "../images/work-list/reflection-without-a-body/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
-                { src: "../images/work-list/reflection-without-a-body/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
-                { src: "../images/work-list/reflection-without-a-body/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
-                { src: "../images/work-list/reflection-without-a-body/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
-            ],
-            "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
-            "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
-            "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
-            "hope": [
-                { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
-                { src: "../images/work-list/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-                { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
-            ],
-            "horse-racing": [{ src: "../images/work-list/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
-            "baum": [{ src: "../images/work-list/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
-            "abdruck": [
-                { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/work-list/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/work-list/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/work-list/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-                { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
-            ],
-            "bienenstich": [{ src: "../images/work-list/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
-            "wild-fire": [{ src: "../images/work-list/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
+    const dbRepository = {
+        "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
+        "refelction-without-a-body": [
+            { src: "../images/work-list/reflection-without-a-body/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
+            { src: "../images/work-list/reflection-without-a-body/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
+            { src: "../images/work-list/reflection-without-a-body/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
+            { src: "../images/work-list/reflection-without-a-body/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
+        ],
+        "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
+        "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
+        "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
+        "hope": [
+            { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+            { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
+            { src: "../images/work-list/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+            { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+            { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
+        ],
+        "horse-racing": [{ src: "../images/work-list/horse-racing.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
+        "baum": [{ src: "../images/work-list/baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
+        "abdruck": [
+            { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/work-list/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/work-list/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/work-list/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+            { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
+        ],
+        "bienenstich": [{ src: "../images/work-list/bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
+        "wild-fire": [{ src: "../images/work-list/wild-fire.jpg", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
 
-            "mirror-2026": [
-                { 
-                    src: "../images/exhibitions/mirror-1.jpg", 
-                    alt: "Mirror Solo", 
-                    meta: "Do you clean your mirror, everyday? Solo exhibition.\n\n여기에 서문을 자유롭게 작성하세요." 
+        "mirror-2026": [
+            { src: "../images/exhibitions/mirror-1.jpg", alt: "Mirror Solo", meta: "Do you clean your mirror, everyday? Solo exhibition.\n\n여기에 서문을 자유롭게 작성하세요." }
+        ],
+        "heussen-2026": [
+            { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
+        ],
+        "it-can-be-done": [
+            { src: "../images/exhibitions/it/it-main.jpg", alt: "It 1", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
+            { src: "../images/exhibitions/it/it-2.jpg", alt: "It 2", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
+            { src: "../images/exhibitions/it/it-3.jpg", alt: "It 3", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
+        ]
+    };
+
+    const sliderWindow = document.getElementById('sliderWindow');
+    const slideTrain = document.getElementById('slideTrain');
+    const displayZone = document.getElementById('displayZone');
+    const customScrollbar = document.getElementById('customScrollbar');
+    const scrollThumb = document.getElementById('scrollThumb');
+    const infoZone = document.getElementById('infoZone');
+    const fixedMetaInfo = document.getElementById('fixedMetaInfo');
+
+    let currentGroupLength = 0;
+    let isTabClickedOnce = false; 
+
+    function loadArtworkGroup(groupKey, element) {
+        if (!groupKey) return; 
+
+        document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
+        if(element) element.classList.add('viewing');
+
+        slideTrain.innerHTML = '';
+        sliderWindow.scrollLeft = 0;
+        sliderWindow.scrollTop = 0; 
+        
+        infoZone.style.transform = 'translate(0, 0) scale(1)';
+        infoZone.style.opacity = '1';
+
+        const items = dbRepository[groupKey] || [];
+        currentGroupLength = items.length;
+
+        // ⭕ [핵심 수정 1] 데이터 로드 즉시 메타 텍스트 삽입 및 강제 노출 처리
+        if(currentGroupLength > 0) {
+            fixedMetaInfo.innerHTML = items[0].meta.replace(/\n/g, '<br>');
+            fixedMetaInfo.style.opacity = '1'; // 첫 로드시 강제로 투명도 해제
+        } else {
+            fixedMetaInfo.innerHTML = '';
+            fixedMetaInfo.style.opacity = '0';
+        }
+
+        if(currentGroupLength > 1) {
+            displayZone.className = "artwork-display-zone multi-mode";
+            customScrollbar.style.display = 'block';
+        } else {
+            displayZone.className = "artwork-display-zone single-mode";
+            customScrollbar.style.display = 'none';
+        }
+
+        items.forEach((data, index) => {
+            const slideItem = document.createElement('div');
+            slideItem.className = 'slide-item';
+            slideItem.style.marginLeft = data.marginLeft ? data.marginLeft : "0px";
+
+            slideItem.innerHTML = `
+                <div class="viewer-frame">
+                    <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
+                </div>
+            `;
+            slideTrain.appendChild(slideItem);
+
+            // ⭕ [핵심 수정 2] 비동기 이미지 로드 타이밍 문제 보완
+            if(index === 0) {
+                const targetImg = slideItem.querySelector('.artwork-viewer');
+                if (targetImg.complete) {
+                    alignMetaText(targetImg);
+                } else {
+                    targetImg.addEventListener('load', () => alignMetaText(targetImg));
                 }
-            ],
-            "heussen-2026": [
-                { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
-            ],
-            "it-can-be-done": [
-                { src: "../images/exhibitions/it/it-main.jpg", alt: "It 1", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
-                { src: "../images/exhibitions/it/it-2.jpg", alt: "It 2", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
-                { src: "../images/exhibitions/it/it-3.jpg", alt: "It 3", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
-            ]
-        };
+                // 브라우저 렌더링 딜레이를 방지하기 위해 한 번 더 투명도 고정 보장
+                setTimeout(() => { fixedMetaInfo.style.opacity = '1'; }, 50);
+            }
+        });
 
-        const sliderWindow = document.getElementById('sliderWindow');
-        const slideTrain = document.getElementById('slideTrain');
-        const displayZone = document.getElementById('displayZone');
-        const customScrollbar = document.getElementById('customScrollbar');
-        const scrollThumb = document.getElementById('scrollThumb');
-        const infoZone = document.getElementById('infoZone');
-        const fixedMetaInfo = document.getElementById('fixedMetaInfo');
+        slideTrain.appendChild(fixedMetaInfo);
 
-        let currentGroupLength = 0;
-        let isTabClickedOnce = false; 
+        if (currentGroupLength > 1) {
+            setTimeout(updateScrollbarThumb, 100);
+        }
+    }
 
-        function loadArtworkGroup(groupKey, element) {
-            if (!groupKey) return; 
+    function alignMetaText(imgElement) {
+        if(!imgElement) return;
+        fixedMetaInfo.style.opacity = '1';
+    }
 
-            document.querySelectorAll('.works-text-link').forEach(link => link.classList.remove('viewing'));
-            if(element) element.classList.add('viewing');
+    function handleScrollInteractions() {
+        const currentScroll = sliderWindow.scrollLeft;
 
-            slideTrain.innerHTML = '';
-            sliderWindow.scrollLeft = 0;
-            sliderWindow.scrollTop = 0; 
-            
+        if (currentGroupLength > 1 && currentScroll > 0) {
+            const factor = Math.min(currentScroll / 300, 1); 
+            const scaleVal = 1 - (factor * 0.22); 
+            const moveX = factor * -195; 
+            const moveY = factor * 120; 
+
+            infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
+            infoZone.style.opacity = `1`; 
+        } else {
             infoZone.style.transform = 'translate(0, 0) scale(1)';
             infoZone.style.opacity = '1';
-
-            const items = dbRepository[groupKey] || [];
-            currentGroupLength = items.length;
-
-            if(currentGroupLength > 0) {
-                fixedMetaInfo.innerHTML = items[0].meta.replace(/\n/g, '<br>');
-                fixedMetaInfo.style.opacity = '1';
-            } else {
-                fixedMetaInfo.innerHTML = '';
-                fixedMetaInfo.style.opacity = '0';
-            }
-
-            if(currentGroupLength > 1) {
-                displayZone.className = "artwork-display-zone multi-mode";
-                customScrollbar.style.display = 'block';
-            } else {
-                displayZone.className = "artwork-display-zone single-mode";
-                customScrollbar.style.display = 'none';
-            }
-
-            items.forEach((data, index) => {
-                const slideItem = document.createElement('div');
-                slideItem.className = 'slide-item';
-                
-                slideItem.style.marginLeft = data.marginLeft ? data.marginLeft : "0px";
-
-                slideItem.innerHTML = `
-                    <div class="viewer-frame">
-                        <img class="artwork-viewer" src="${data.src}" alt="${data.alt}">
-                    </div>
-                `;
-                slideTrain.appendChild(slideItem);
-
-                if(index === 0) {
-                    const targetImg = slideItem.querySelector('.artwork-viewer');
-                    if (targetImg.complete) {
-                        alignMetaText(targetImg);
-                    } else {
-                        targetImg.addEventListener('load', () => alignMetaText(targetImg));
-                    }
-                }
-            });
-
-            slideTrain.appendChild(fixedMetaInfo);
-
-            if (currentGroupLength > 1) {
-                setTimeout(updateScrollbarThumb, 100);
-            }
         }
 
-        function alignMetaText(imgElement) {
-            if(!imgElement) return;
-            fixedMetaInfo.style.opacity = '1';
+        if (currentGroupLength <= 1) return;
+        const totalTrainWidth = slideTrain.scrollWidth;
+        const visibleWidth = sliderWindow.clientWidth;
+        const maxScrollLeft = totalTrainWidth - (visibleWidth - 475);
+
+        if(maxScrollLeft <= 0) return;
+        
+        const progress = currentScroll / maxScrollLeft;
+        const barContainerWidth = customScrollbar.clientWidth;
+        const thumbWidth = 60; 
+        const maxThumbLeft = barContainerWidth - thumbWidth;
+        const thumbLeft = Math.min(progress * maxThumbLeft, maxThumbLeft);
+
+        scrollThumb.style.width = `${thumbWidth}px`;
+        scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
+    }
+
+    function updateScrollbarThumb() {
+        if (currentGroupLength <= 1) return;
+        const firstImg = slideTrain.querySelector('.artwork-viewer');
+        if(firstImg) alignMetaText(firstImg);
+        handleScrollInteractions();
+    }
+
+    sliderWindow.addEventListener('scroll', handleScrollInteractions);
+    window.addEventListener('resize', updateScrollbarThumb);
+
+    let isDown = false;
+    let startX;
+    let scrollLeftOffset;
+
+    sliderWindow.addEventListener('mousedown', (e) => {
+        if (currentGroupLength <= 1) return; 
+        isDown = true;
+        startX = e.pageX - sliderWindow.offsetLeft;
+        scrollLeftOffset = sliderWindow.scrollLeft;
+    });
+    sliderWindow.addEventListener('mouseleave', () => { isDown = false; });
+    sliderWindow.addEventListener('mouseup', () => { isDown = false; });
+    sliderWindow.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - sliderWindow.offsetLeft;
+        const walk = (x - startX) * 2.2; 
+        sliderWindow.scrollLeft = scrollLeftOffset - walk;
+    });
+
+    function switchTab(tabId) {
+        if (!isTabClickedOnce) {
+            isTabClickedOnce = true;
+            infoZone.style.display = 'block';
+            displayZone.style.display = 'flex';
         }
 
-        function handleScrollInteractions() {
-            const currentScroll = sliderWindow.scrollLeft;
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
 
-            if (currentGroupLength > 1 && currentScroll > 0) {
-                const factor = Math.min(currentScroll / 300, 1); 
-                const scaleVal = 1 - (factor * 0.22); 
-                
-                const moveX = factor * -195; 
-                const moveY = factor * 120; 
-
-                infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
-                infoZone.style.opacity = `1`; 
-            } else {
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-            }
-
-            if (currentGroupLength <= 1) return;
-            const totalTrainWidth = slideTrain.scrollWidth;
-            const visibleWidth = sliderWindow.clientWidth;
-            const maxScrollLeft = totalTrainWidth - (visibleWidth - 475);
-
-            if(maxScrollLeft <= 0) return;
-            
-            const progress = currentScroll / maxScrollLeft;
-            const barContainerWidth = customScrollbar.clientWidth;
-            const thumbWidth = 60; 
-            const maxThumbLeft = barContainerWidth - thumbWidth;
-            const thumbLeft = Math.min(progress * maxThumbLeft, maxThumbLeft);
-
-            scrollThumb.style.width = `${thumbWidth}px`;
-            scrollThumb.style.transform = `translateX(${thumbLeft}px)`;
+        document.getElementById('section-' + tabId).classList.add('active');
+        document.getElementById('tab-' + tabId).classList.add('active-tab');
+        
+        const firstItem = document.querySelector('#section-' + tabId + ' .works-text-link');
+        if(firstItem) {
+            firstItem.click();
+        } else {
+            slideTrain.innerHTML = '';
+            fixedMetaInfo.innerText = '';
+            customScrollbar.style.display = 'none';
+            infoZone.style.transform = 'translate(0, 0) scale(1)';
+            infoZone.style.opacity = '1';
+            displayZone.className = "artwork-display-zone single-mode";
         }
-
-        function updateScrollbarThumb() {
-            if (currentGroupLength <= 1) return;
-            const firstImg = slideTrain.querySelector('.artwork-viewer');
-            if(firstImg) alignMetaText(firstImg);
-            handleScrollInteractions();
-        }
-
-        sliderWindow.addEventListener('scroll', handleScrollInteractions);
-        window.addEventListener('resize', updateScrollbarThumb);
-
-        let isDown = false;
-        let startX;
-        let scrollLeftOffset;
-
-        sliderWindow.addEventListener('mousedown', (e) => {
-            if (currentGroupLength <= 1) return; 
-            isDown = true;
-            startX = e.pageX - sliderWindow.offsetLeft;
-            scrollLeftOffset = sliderWindow.scrollLeft;
-        });
-        sliderWindow.addEventListener('mouseleave', () => { isDown = false; });
-        sliderWindow.addEventListener('mouseup', () => { isDown = false; });
-        sliderWindow.addEventListener('mousemove', (e) => {
-            if(!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - sliderWindow.offsetLeft;
-            const walk = (x - startX) * 2.2; 
-            sliderWindow.scrollLeft = scrollLeftOffset - walk;
-        });
-
-        function switchTab(tabId) {
-            if (!isTabClickedOnce) {
-                isTabClickedOnce = true;
-                infoZone.style.display = 'block';
-                displayZone.style.display = 'flex';
-            }
-
-            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.works-main-tab').forEach(tab => tab.classList.remove('active-tab'));
-
-            document.getElementById('section-' + tabId).classList.add('active');
-            document.getElementById('tab-' + tabId).classList.add('active-tab');
-            
-            const firstItem = document.querySelector('#section-' + tabId + ' .works-text-link');
-            if(firstItem) {
-                firstItem.click();
-            } else {
-                slideTrain.innerHTML = '';
-                fixedMetaInfo.innerText = '';
-                customScrollbar.style.display = 'none';
-                infoZone.style.transform = 'translate(0, 0) scale(1)';
-                infoZone.style.opacity = '1';
-                displayZone.className = "artwork-display-zone single-mode";
-            }
-        }
-    </script>
-
-</body>
-</html>
+    }
+</script>
