@@ -129,8 +129,9 @@
 
         .photo-slider-window {
             width: 100%;
+            height: 100%;
             overflow-x: auto; 
-            overflow-y: auto; 
+            overflow-y: hidden; 
             position: relative;
             scrollbar-width: none; 
             display: flex;
@@ -140,70 +141,65 @@
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
-        /* 1. 멀티 모드일 때도 상하 스크롤을 원천 차단 (overflow-y: hidden으로 변경) */
+        /* 멀티 모드 및 싱글 모드 스크롤 통일 제어 */
         .artwork-display-zone.multi-mode .photo-slider-window { 
             cursor: grab; 
-            overflow-y: hidden; /* 📌 기존 auto에서 hidden으로 수정 */
         }
         .artwork-display-zone.multi-mode .photo-slider-window:active {
             cursor: grabbing;
         }
-        
-        /* 🛠️ 단일 이미지 모드일 때 윈도우 창의 상하 스크롤 오버플로우를 원천 차단 */
-        .artwork-display-zone.single-mode .photo-slider-window { cursor: default; overflow-y: hidden; }
+        .artwork-display-zone.single-mode .photo-slider-window { 
+            cursor: default; 
+        }
 
         /* 사진 트레인 컨테이너 */
-        /* 1. 사진들이 가로로 배치되는 기차(트레인) 컨테이너 */
-.slide-train {
-    display: flex;
-    flex-direction: row; /* 📌 무조건 가로로 한 줄 정렬 */
-    align-items: center; /* 📌 사진들의 세로 기준을 가운데로 맞춤 */
-    gap: 50px;           /* 📌 사진과 사진 사이의 기본 여백 (원하는 만큼 조절 가능) */
-    width: max-content;  /* 📌 사진이 늘어나는 만큼 가로 폭이 자동으로 확장됨 */
-    height: 100%;        /* 📌 부모 창 높이를 꽉 채움 */
-    position: relative;
-}
+        .slide-train {
+            display: flex;
+            flex-direction: row; 
+            align-items: center; 
+            gap: 50px;           /* 📌 사진 사이 간격 원래대로 원상복구 고정 */
+            width: max-content;  
+            height: 100%;        
+            position: relative;
+        }
 
-/* 2. 각 사진을 감싸고 있는 개별 구역(프레임) */
-.slide-item {
-    flex-shrink: 0;      /* 📌 중요: 사진이 많아져도 가로 폭이 좁혀지거나 찌그러지지 않게 방지 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 📌 내부 요소를 중앙 정렬 */
-    align-items: center;
-    position: relative;
-    height: 100%;
-}
+        /* 각 사진을 감싸고 있는 개별 구역(프레임) */
+        .slide-item {
+            flex-shrink: 0;      
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            position: relative;
+            height: 100%;
+        }
 
-/* 3. 실제 이미지가 보이는 영역의 기본 크기 및 정렬 */
-.viewer-frame {
-    /* 📌 상하 메뉴나 설명창 공간을 제외하고 화면 높이에 맞게 사진 크기를 유연하게 제한 */
-    height: calc(100vh - 280px); 
-    min-height: 400px;
-    display: flex;
-    align-items: center;     
-    justify-content: center;
-    position: relative;
-}
+        /* 실제 이미지가 보이는 영역의 크기 제한 및 기준 설정 */
+        .viewer-frame {
+            height: calc(100vh - 280px); 
+            min-height: 400px;
+            display: flex;
+            align-items: center;     
+            justify-content: center;
+            position: relative;  /* 📌 하단 설명창 배치를 위한 부모 기준축 설정 */
+        }
 
-/* 4. 최종 이미지(사진) 자체의 기본값 */
-.artwork-viewer {
-    display: block;
-    width: auto;         /* 📌 가로 길이는 사진 원본 비율에 맞춰 자동 조절 */
-    height: 100%;        /* 📌 위의 viewer-frame 높이(100%)에 가득 차도록 고정 */
-    max-height: 100%;
-    object-fit: contain; /* 📌 사진 비율이 절대 깨지지 않고 틀 안에 이쁘게 들어가도록 함 */
-    user-select: none;
-    -webkit-user-drag: none; 
-    
-    /* 개별 변경값이 적용될 때 부드럽게 크기/위치가 바뀌도록 애니메이션 추가 */
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
-}
+        /* 최종 이미지 자체 속성 */
+        .artwork-viewer {
+            display: block;
+            width: auto;         
+            height: 100%;        
+            max-height: 100%;
+            object-fit: contain; 
+            user-select: none;
+            -webkit-user-drag: none; 
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
 
-        /* 🛠️ 단일 이미지 화면 내부 구조 강제 한화면 정렬 및 스크롤 원천 차단 */
+        /* 단일 이미지 모드 전용 세부 조정 */
         .artwork-display-zone.single-mode .viewer-frame {
-            height: calc(100vh - 290px); 
-            min-height: 0;               
+            height: calc(100vh - 280px); 
+            min-height: 400px;              
         }
 
         .artwork-display-zone.single-mode .artwork-viewer {
@@ -212,33 +208,13 @@
             object-fit: contain;
         }
 
-       /* 🛠️ 단일 이미지 화면 내부 구조 강제 한화면 정렬 및 스크롤 원천 차단 */
-        .artwork-display-zone.single-mode .viewer-frame {
-            height: calc(100vh - 290px); 
-            min-height: 0;               
-        }
-
-        .artwork-display-zone.single-mode .artwork-viewer {
-            max-height: 100%;            
-            width: auto;
-            object-fit: contain;
-        }
-
-        /* 📌 단일 모드일 때도 기본 프레임 기준(top: 100%)을 따르도록 깔끔하게 통일 */
-        .artwork-display-zone.single-mode .artwork-meta-info-fixed {
-            bottom: auto;     /* 기존 바닥 고정 해제 */
-            top: 100%;        /* 사진 하단 기준으로 맞춤 */
-            margin-top: 20px; /* 오타 수정 (magin -> margin) */
-        }
-        
-        /* 하단 설명창 위치 고정 (기본 프레임) */
+        /* 하단 설명창 위치 고정 (우측 메뉴선 정렬 및 이미지 바닥 고정) */
         .artwork-meta-info-fixed {
             position: absolute;
-            right: 60px;         /* 📌 오른쪽 메뉴 끝선 정렬 */
-            top: 100%;           /* 📌 사진 구역 바로 바랫바닥 기준 */
-            margin-top: 20px;    /* 📌 사진과 텍스트 사이 간격 */
+            right: 60px;         /* 우측 메뉴 정렬 라인 고정 */
+            top: calc(100vh - 210px); /* 📌 부모 깊이에 얽매이지 않고 화면 하단에 안정적으로 안착시킴 */
             width: 600px;
-            text-align: right;   /* 📌 우측 정렬 */
+            text-align: right;   
             
             display: block;
             font-size: 14px;
@@ -250,13 +226,6 @@
             pointer-events: auto;
             z-index: 95;
             opacity: 1; 
-        }
-
-        /* ❌ 기존에 아래에 중복되던 .single-mode .artwork-meta-info-fixed { bottom: 20px; } 부분은 완전히 지웠습니다. */
-        /* 🛠️ 단일 이미지 화면 내부 구조 강제 한화면 정렬 및 스크롤 원천 차단 */
-        .artwork-display-zone.single-mode .viewer-frame {
-            height: calc(100vh - 290px); 
-            min-height: 0;               
         }
 
         .custom-scrollbar-container {
@@ -350,7 +319,6 @@
             <div id="section-worklist" class="content-section">
                 <div class="works-year-title">2026</div>
                 <span class="works-text-link" onclick="loadArtworkGroup('the-last-island', this)">The Last Island</span>
-                <!-- 🛠️ 스펠링 교정 반영 및 온클릭 매칭 연동 확인 -->
                 <span class="works-text-link" onclick="loadArtworkGroup('refelction-without-a-body', this)">Reflection without a Body</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('bad-mom', this)">Bad Mom</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('ennui', this)">Ennui</span>
@@ -367,14 +335,13 @@
                 <div class="works-year-title">2019</div>
                 <span class="works-text-link" onclick="loadArtworkGroup('rabbit-and-me', this)">Rabbit and me</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('vegetarian', this)">Vegetarian</span>
-
             </div>
 
             <div id="section-exhibitions" class="content-section">
                 <div class="works-year-title">2026</div>
                 <span class="works-text-link" onclick="loadArtworkGroup('mirror-2026', this)">
-    Do you clean your mirror, everyday? <span style="font-size: 13px; opacity: 0.7; font-style: italic;">solo</span>
-</span>
+                    Do you clean your mirror, everyday? <span style="font-size: 13px; opacity: 0.7; font-style: italic;">solo</span>
+                </span>
                 <span class="works-text-link" onclick="loadArtworkGroup('heussen-2026', this)">Heussen Perpectives young artist Awards winner exhibition</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('justmad-2026', this)">JustMad Madrid Art fair</span>
                 <span class="works-text-link" onclick="loadArtworkGroup('verprochen-2026', this)">Verprochen</span>
@@ -399,8 +366,9 @@
         <div class="artwork-display-zone" id="displayZone">
             <div class="photo-slider-window" id="sliderWindow">
                 <div class="slide-train" id="slideTrain"></div>
-                <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
             </div>
+            <!-- 📌 설명 영역을 스크롤 박스 밖, 디스플레이 존 최하단에 안전히 종속 배치 -->
+            <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
 
             <div class="custom-scrollbar-container" id="customScrollbar">
                 <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
@@ -456,7 +424,6 @@
         "rabbit-and-me": [{ src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019" }],
         "vegetarian": [{ src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019" }],
 
-
         "mirror-2026": [
             { src: "../images/exhibitions/mirror-1.jpg", alt: "Mirror Solo", meta: "Do you clean your mirror, everyday? Solo exhibition.\n\n여기에 서문을 자유롭게 작성하세요." }
         ],
@@ -464,9 +431,9 @@
             { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
         ],
         "it-can-be-done": [
-            { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
-            { src: "../images/exhibitions/it/it-1.jpg", alt: "it-1", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
-            { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>It can be done, but only I can do it<i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
+            { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
+            { src: "../images/exhibitions/it/it-1.jpg", alt: "it-1", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
+            { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
         ]
     };
 
@@ -497,10 +464,9 @@
         const items = dbRepository[groupKey] || [];
         currentGroupLength = items.length;
 
-        // ⭕ [핵심 수정 1] 데이터 로드 즉시 메타 텍스트 삽입 및 강제 노출 처리
         if(currentGroupLength > 0) {
             fixedMetaInfo.innerHTML = items[0].meta.replace(/\n/g, '<br>');
-            fixedMetaInfo.style.opacity = '1'; // 첫 로드시 강제로 투명도 해제
+            fixedMetaInfo.style.opacity = '1'; 
         } else {
             fixedMetaInfo.innerHTML = '';
             fixedMetaInfo.style.opacity = '0';
@@ -526,7 +492,6 @@
             `;
             slideTrain.appendChild(slideItem);
 
-            // ⭕ [핵심 수정 2] 비동기 이미지 로드 타이밍 문제 보완
             if(index === 0) {
                 const targetImg = slideItem.querySelector('.artwork-viewer');
                 if (targetImg.complete) {
@@ -534,17 +499,28 @@
                 } else {
                     targetImg.addEventListener('load', () => alignMetaText(targetImg));
                 }
-                // 브라우저 렌더링 딜레이를 방지하기 위해 한 번 더 투명도 고정 보장
                 setTimeout(() => { fixedMetaInfo.style.opacity = '1'; }, 50);
             }
         });
-
-displayZone.appendChild(fixedMetaInfo);
         
         if (currentGroupLength > 1) {
             setTimeout(updateScrollbarThumb, 100);
         }
     }
+
+    // 로고 마우스 반응 메뉴 핸들링 연동 구조 유지
+    const menuBlock = document.getElementById('menuBlock');
+    const subMenuContainer = menuBlock.querySelector('.sub-menu-container');
+    menuBlock.addEventListener('mouseenter', () => {
+        subMenuContainer.style.opacity = '1';
+        subMenuContainer.style.transform = 'translateX(0)';
+        subMenuContainer.style.pointerEvents = 'auto';
+    });
+    menuBlock.addEventListener('mouseleave', () => {
+        subMenuContainer.style.opacity = '0';
+        subMenuContainer.style.transform = 'translateX(50px)';
+        subMenuContainer.style.pointerEvents = 'none';
+    });
 
     function alignMetaText(imgElement) {
         if(!imgElement) return;
@@ -640,3 +616,5 @@ displayZone.appendChild(fixedMetaInfo);
         }
     }
 </script>
+</body>
+</html>
