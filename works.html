@@ -124,7 +124,7 @@
             top: 60px;
             width: 100%;
             height: calc(100% - 80px);
-            margin-top: 58px;
+            margin-top: 65px;
         }
 
         .photo-slider-window {
@@ -147,37 +147,52 @@
         .artwork-display-zone.single-mode .photo-slider-window { cursor: default; overflow-y: hidden; }
 
         /* 사진 트레인 컨테이너 */
-        .slide-train {
-            display: flex;
-            gap: 2px; 
-            width: max-content; 
-            position: relative;
-        }
+        /* 1. 사진들이 가로로 배치되는 기차(트레인) 컨테이너 */
+.slide-train {
+    display: flex;
+    flex-direction: row; /* 📌 무조건 가로로 한 줄 정렬 */
+    align-items: center; /* 📌 사진들의 세로 기준을 가운데로 맞춤 */
+    gap: 50px;           /* 📌 사진과 사진 사이의 기본 여백 (원하는 만큼 조절 가능) */
+    width: max-content;  /* 📌 사진이 늘어나는 만큼 가로 폭이 자동으로 확장됨 */
+    height: 100%;        /* 📌 부모 창 높이를 꽉 채움 */
+    position: relative;
+}
 
-        .slide-item {
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
+/* 2. 각 사진을 감싸고 있는 개별 구역(프레임) */
+.slide-item {
+    flex-shrink: 0;      /* 📌 중요: 사진이 많아져도 가로 폭이 좁혀지거나 찌그러지지 않게 방지 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 📌 내부 요소를 중앙 정렬 */
+    align-items: center;
+    position: relative;
+    height: 100%;
+}
 
-        .viewer-frame {
-            height: calc(100vh - 260px); 
-            min-height: 450px;
-            display: flex;
-            align-items: center;     
-            justify-content: center;
-            position: relative;
-        }
+/* 3. 실제 이미지가 보이는 영역의 기본 크기 및 정렬 */
+.viewer-frame {
+    /* 📌 상하 메뉴나 설명창 공간을 제외하고 화면 높이에 맞게 사진 크기를 유연하게 제한 */
+    height: calc(100vh - 280px); 
+    min-height: 400px;
+    display: flex;
+    align-items: center;     
+    justify-content: center;
+    position: relative;
+}
 
-        .artwork-viewer {
-            max-width: 100%;
-            max-height: 100%; 
-            object-fit: contain; 
-            display: block; 
-            user-select: none;
-            -webkit-user-drag: none; 
-        }
+/* 4. 최종 이미지(사진) 자체의 기본값 */
+.artwork-viewer {
+    display: block;
+    width: auto;         /* 📌 가로 길이는 사진 원본 비율에 맞춰 자동 조절 */
+    height: 100%;        /* 📌 위의 viewer-frame 높이(100%)에 가득 차도록 고정 */
+    max-height: 100%;
+    object-fit: contain; /* 📌 사진 비율이 절대 깨지지 않고 틀 안에 이쁘게 들어가도록 함 */
+    user-select: none;
+    -webkit-user-drag: none; 
+    
+    /* 개별 변경값이 적용될 때 부드럽게 크기/위치가 바뀌도록 애니메이션 추가 */
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
+}
 
         /* 🛠️ 단일 이미지 화면 내부 구조 강제 한화면 정렬 및 스크롤 원천 차단 */
         .artwork-display-zone.single-mode .viewer-frame {
