@@ -116,7 +116,6 @@
             display: none; 
         }
 
-        /* single, multi 레이아웃 축 고정 */
         .artwork-display-zone.multi-mode,
         .artwork-display-zone.single-mode {
             position: absolute;
@@ -141,7 +140,6 @@
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
-        /* 멀티 모드 및 싱글 모드 스크롤 통일 제어 */
         .artwork-display-zone.multi-mode .photo-slider-window { 
             cursor: grab; 
         }
@@ -157,13 +155,12 @@
             display: flex;
             flex-direction: row; 
             align-items: center; 
-            gap: 50px;           /* 📌 사진 사이 간격 원래대로 원상복구 고정 */
+            gap: 2px;            /* 📌 요청하신 사진 사이 촘촘한 간격 2px로 완벽 수정 */
             width: max-content;  
             height: 100%;        
             position: relative;
         }
 
-        /* 각 사진을 감싸고 있는 개별 구역(프레임) */
         .slide-item {
             flex-shrink: 0;      
             display: flex;
@@ -174,17 +171,15 @@
             height: 100%;
         }
 
-        /* 실제 이미지가 보이는 영역의 크기 제한 및 기준 설정 */
         .viewer-frame {
             height: calc(100vh - 280px); 
             min-height: 400px;
             display: flex;
             align-items: center;     
             justify-content: center;
-            position: relative;  /* 📌 하단 설명창 배치를 위한 부모 기준축 설정 */
+            position: relative;  
         }
 
-        /* 최종 이미지 자체 속성 */
         .artwork-viewer {
             display: block;
             width: auto;         
@@ -196,7 +191,6 @@
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
         }
 
-        /* 단일 이미지 모드 전용 세부 조정 */
         .artwork-display-zone.single-mode .viewer-frame {
             height: calc(100vh - 280px); 
             min-height: 400px;              
@@ -208,11 +202,10 @@
             object-fit: contain;
         }
 
-        /* 하단 설명창 위치 고정 (우측 메뉴선 정렬 및 이미지 바닥 고정) */
         .artwork-meta-info-fixed {
             position: absolute;
-            right: 60px;         /* 우측 메뉴 정렬 라인 고정 */
-            top: calc(100vh - 210px); /* 📌 부모 깊이에 얽매이지 않고 화면 하단에 안정적으로 안착시킴 */
+            right: 60px;         
+            top: calc(100vh - 210px); 
             width: 600px;
             text-align: right;   
             
@@ -245,6 +238,7 @@
             background-color: #654321;
         }
 
+        /* [4구역] 우측 상단 로고 및 전체 블록 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -253,6 +247,8 @@
             flex-direction: column; 
             align-items: flex-end;     
             z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: right top;
         }
 
         .cv-logo-link {
@@ -367,7 +363,6 @@
             <div class="photo-slider-window" id="sliderWindow">
                 <div class="slide-train" id="slideTrain"></div>
             </div>
-            <!-- 📌 설명 영역을 스크롤 박스 밖, 디스플레이 존 최하단에 안전히 종속 배치 -->
             <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
 
             <div class="custom-scrollbar-container" id="customScrollbar">
@@ -444,6 +439,7 @@
     const scrollThumb = document.getElementById('scrollThumb');
     const infoZone = document.getElementById('infoZone');
     const fixedMetaInfo = document.getElementById('fixedMetaInfo');
+    const menuBlock = document.getElementById('menuBlock');
 
     let currentGroupLength = 0;
     let isTabClickedOnce = false; 
@@ -460,6 +456,7 @@
         
         infoZone.style.transform = 'translate(0, 0) scale(1)';
         infoZone.style.opacity = '1';
+        menuBlock.style.transform = 'translate(0, 0) scale(1)';
 
         const items = dbRepository[groupKey] || [];
         currentGroupLength = items.length;
@@ -508,8 +505,6 @@
         }
     }
 
-    // 로고 마우스 반응 메뉴 핸들링 연동 구조 유지
-    const menuBlock = document.getElementById('menuBlock');
     const subMenuContainer = menuBlock.querySelector('.sub-menu-container');
     menuBlock.addEventListener('mouseenter', () => {
         subMenuContainer.style.opacity = '1';
@@ -533,14 +528,18 @@
         if (currentGroupLength > 1 && currentScroll > 0) {
             const factor = Math.min(currentScroll / 300, 1); 
             const scaleVal = 1 - (factor * 0.22); 
+            
             const moveX = factor * -195; 
             const moveY = factor * 120; 
-
             infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
             infoZone.style.opacity = `1`; 
+
+            const logoMoveY = factor * 120; 
+            menuBlock.style.transform = `translate(0px, ${logoMoveY}px) scale(${scaleVal})`;
         } else {
             infoZone.style.transform = 'translate(0, 0) scale(1)';
             infoZone.style.opacity = '1';
+            menuBlock.style.transform = 'translate(0, 0) scale(1)';
         }
 
         if (currentGroupLength <= 1) return;
@@ -612,6 +611,7 @@
             customScrollbar.style.display = 'none';
             infoZone.style.transform = 'translate(0, 0) scale(1)';
             infoZone.style.opacity = '1';
+            menuBlock.style.transform = 'translate(0, 0) scale(1)';
             displayZone.className = "artwork-display-zone single-mode";
         }
     }
