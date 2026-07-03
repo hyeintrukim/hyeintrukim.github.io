@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* [1구역] 맨 왼쪽: 대분류 탭 메뉴 */
+        /* [1구역] 맨 왼쪽 */
         .photo-zone {
             width: 155px; 
             flex-shrink: 0;
@@ -55,8 +55,7 @@
         .works-main-tab:hover { color: #0022ff; }
         .works-main-tab.active-tab { color: #0022ff; }
 
-
-        /* [2구역] 가운데: 세부 작업 타이틀 리스트 */
+        /* [2구역] 가운데 */
         .info-zone {
             width: 250px; 
             flex-shrink: 0;
@@ -104,7 +103,7 @@
         .works-text-link.viewing { color: #0022ff; font-weight: 400 !important; }
 
 
-        /* [3구역] 사진 슬라이드 영역 */
+        /* [3구역] 사진 및 슬라이드 영역 */
         .artwork-display-zone {
             flex-grow: 1;
             margin-top: 70px; 
@@ -129,8 +128,6 @@
         .photo-slider-window {
             width: 100%;
             height: 100%;
-            overflow-x: auto; 
-            overflow-y: hidden; 
             position: relative;
             scrollbar-width: none; 
             display: flex;
@@ -140,25 +137,37 @@
         }
         .photo-slider-window::-webkit-scrollbar { display: none; }
 
+        /* 다중 모드: 가로 스크롤만 작동 */
         .artwork-display-zone.multi-mode .photo-slider-window { 
+            overflow-x: auto; 
+            overflow-y: hidden;
             cursor: grab; 
         }
-        .artwork-display-zone.multi-mode .photo-slider-window:active {
-            cursor: grabbing;
-        }
+        .artwork-display-zone.multi-mode .photo-slider-window:active { cursor: grabbing; }
+
+        /* 📌 단일 모드: 세로 스크롤 허용하여 아래 공간 탐색 가능하도록 변경 */
         .artwork-display-zone.single-mode .photo-slider-window { 
+            overflow-x: hidden;
+            overflow-y: auto;
             cursor: default; 
         }
 
-        /* 사진 트레인 컨테이너 */
         .slide-train {
             display: flex;
             flex-direction: row; 
             align-items: center; 
-            gap: 2px;            /* 📌 요청하신 사진 사이 촘촘한 간격 2px로 완벽 수정 */
+            gap: 2px;            
             width: max-content;  
             height: 100%;        
             position: relative;
+        }
+
+        /* 단일 모드일 때 트레인이 가로 전체를 채우고 높이는 가변적이 되도록 설정 */
+        .artwork-display-zone.single-mode .slide-train {
+            width: 100%;
+            height: auto;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .slide-item {
@@ -171,6 +180,13 @@
             height: 100%;
         }
 
+        /* 단일 모드일 때는 첫 메인 사진 아이템의 높이를 화면 높이에 맞춤 */
+        .artwork-display-zone.single-mode .slide-item {
+            width: 100%;
+            height: calc(100vh - 200px);
+            margin-bottom: 80px; /* 아래 추가 공간과의 간격 */
+        }
+
         .viewer-frame {
             height: calc(100vh - 280px); 
             min-height: 400px;
@@ -178,6 +194,10 @@
             align-items: center;     
             justify-content: center;
             position: relative;  
+        }
+        .artwork-display-zone.single-mode .viewer-frame {
+            height: 100%;
+            width: 100%;
         }
 
         .artwork-viewer {
@@ -191,24 +211,12 @@
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
         }
 
-        .artwork-display-zone.single-mode .viewer-frame {
-            height: calc(100vh - 280px); 
-            min-height: 400px;              
-        }
-
-        .artwork-display-zone.single-mode .artwork-viewer {
-            max-height: 100%;            
-            width: auto;
-            object-fit: contain;
-        }
-
         .artwork-meta-info-fixed {
             position: absolute;
             right: 60px;         
             top: calc(100vh - 210px); 
             width: 600px;
             text-align: right;   
-            
             display: block;
             font-size: 14px;
             line-height: 1.6;
@@ -219,6 +227,11 @@
             pointer-events: auto;
             z-index: 95;
             opacity: 1; 
+        }
+
+        /* 📌 스크롤 시 고정 캡션이 아래 콘텐츠와 겹치지 않도록 단일 스크롤 모드에선 하단으로 숨김 처리 */
+        .artwork-display-zone.single-mode ~ .artwork-meta-info-fixed {
+            display: none;
         }
 
         .custom-scrollbar-container {
@@ -238,7 +251,67 @@
             background-color: #654321;
         }
 
-        /* [4구역] 우측 상단 로고 및 전체 블록 */
+        /* 📌 [새로운 공간] 단일 사진 아래에 추가되는 동적 상세 영역 스타일 */
+        .single-bottom-extra-zone {
+            width: 100%;
+            box-sizing: border-box;
+            padding-right: 60px;
+            padding-bottom: 100px;
+            color: #654321;
+            display: none;
+        }
+        .artwork-display-zone.single-mode .single-bottom-extra-zone {
+            display: block;
+        }
+
+        /* 1) WORK LIST 전용 하단 레이아웃 */
+        .extra-work-layout {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .extra-work-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #654321;
+            padding-bottom: 10px;
+        }
+
+        /* 2) EXHIBITIONS 전용 하단 레이아웃 (좌: 포스터, 우: 텍스트) */
+        .extra-exhibition-layout {
+            display: flex;
+            gap: 50px;
+            width: 100%;
+            align-items: flex-start;
+        }
+        .exhibition-poster-box {
+            width: 45%;
+            flex-shrink: 0;
+        }
+        .exhibition-poster-box img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border: 1px solid #eaeaea;
+        }
+        .exhibition-text-box {
+            flex-grow: 1;
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .exhibition-detail-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        /* [4구역] 우측 상단 로고 */
         .header-menu-block {
             position: fixed; 
             top: 40px;
@@ -385,17 +458,23 @@
     </div>
 
     <script>
+    // 📌 하단 스크롤 공간에 띄울 설명 텍스트 및 포스터 데이터 추가 구조화
     const dbRepository = {
-        "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
+        "the-last-island": [{ 
+            src: "../images/work-list/the-last-island.jpg", 
+            alt: "The Last Island", 
+            meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026",
+            detailText: "The Last Island 작업에 대한 심층적인 텍스트 공간입니다. 여기에 작품의 영감, 제작 과정, 기법 등 원하는 노트를 자유롭게 채우실 수 있습니다."
+        }],
         "refelction-without-a-body": [
             { src: "../images/work-list/reflection-without-a-body/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
             { src: "../images/work-list/reflection-without-a-body/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
             { src: "../images/work-list/reflection-without-a-body/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
             { src: "../images/work-list/reflection-without-a-body/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
         ],
-        "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
-        "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
-        "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
+        "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px", detailText: "Bad Mom 작업 설명 텍스트 공간입니다." }],
+        "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026", detailText: "Ennui 작업 설명 텍스트 공간입니다." }],
+        "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025", detailText: "Victory of Lays 작업 설명입니다." }],
         "hope": [
             { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
             { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
@@ -403,8 +482,8 @@
             { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
             { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
         ],
-        "horse-racing": [{ src: "../images/work-list/pferderennen.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
-        "baum": [{ src: "../images/work-list/Baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
+        "horse-racing": [{ src: "../images/work-list/pferderennen.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025", detailText: "Horse racing 작업 설명입니다." }],
+        "baum": [{ src: "../images/work-list/Baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025", detailText: "Baum 작업 설명입니다." }],
         "abdruck": [
             { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
             { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
@@ -414,16 +493,28 @@
             { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
             { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
         ],
-        "bienenstich": [{ src: "../images/work-list/Bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
-        "wild-fire": [{ src: "../images/work-list/wild-fire.png", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
-        "rabbit-and-me": [{ src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019" }],
-        "vegetarian": [{ src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019" }],
+        "bienenstich": [{ src: "../images/work-list/Bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025", detailText: "Bienenstich 설명입니다." }],
+        "wild-fire": [{ src: "../images/work-list/wild-fire.png", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025", detailText: "Wild fire 설명입니다." }],
+        "rabbit-and-me": [{ src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019", detailText: "Rabbit and Me 설명입니다." }],
+        "vegetarian": [{ src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019", detailText: "Vegetarian 설명입니다." }],
 
         "mirror-2026": [
-            { src: "../images/exhibitions/mirror-1.jpg", alt: "Mirror Solo", meta: "Do you clean your mirror, everyday? Solo exhibition.\n\n여기에 서문을 자유롭게 작성하세요." }
+            { 
+                src: "../images/exhibitions/mirror-1.jpg", 
+                alt: "Mirror Solo", 
+                meta: "Do you clean your mirror, everyday? Solo exhibition.",
+                posterSrc: "../images/exhibitions/mirror-poster.jpg", // 전시 포스터 경로 설정 가능
+                detailText: "<b>Do you clean your mirror, everyday?</b><br><br>여기에 전시 서문 및 상세 기획 의도를 자유롭게 작성하세요. 좌측에는 포스터 이미지가 정렬되고 우측에는 이 텍스트 박스가 유연하게 매칭됩니다." 
+            }
         ],
         "heussen-2026": [
-            { src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text..." }
+            { 
+                src: "../images/exhibitions/heussen-1.jpg", 
+                alt: "Heussen", 
+                meta: "Heussen Exhibition Text...",
+                posterSrc: "../images/exhibitions/heussen-poster.jpg",
+                detailText: "Heussen 전시 관련 서문 내용 공간입니다."
+            }
         ],
         "it-can-be-done": [
             { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
@@ -443,6 +534,7 @@
 
     let currentGroupLength = 0;
     let isTabClickedOnce = false; 
+    let currentActiveTab = 'worklist'; // 현재 어떤 대분류 탭이 켜져있는지 기록
 
     function loadArtworkGroup(groupKey, element) {
         if (!groupKey) return; 
@@ -496,6 +588,41 @@
                 } else {
                     targetImg.addEventListener('load', () => alignMetaText(targetImg));
                 }
+                
+                // 📌 단일 사진 모드일 때 하단 레이아웃 공간 조건부 동적 삽입
+                if (currentGroupLength === 1) {
+                    const extraZone = document.createElement('div');
+                    extraZone.className = 'single-bottom-extra-zone';
+                    
+                    const textContent = data.detailText ? data.detailText : "상세 텍스트가 아직 등록되지 않았습니다.";
+                    const titleText = data.alt ? data.alt : "";
+
+                    if (currentActiveTab === 'worklist') {
+                        // 1) Work List 레이아웃: 단순 중앙 정렬형 텍스트 박스
+                        extraZone.innerHTML = `
+                            <div class="extra-work-layout">
+                                <div class="extra-work-title">${titleText}</div>
+                                <p>${textContent}</p>
+                            </div>
+                        `;
+                    } else {
+                        // 2) Exhibitions 레이아웃: 좌측 포스터 이미지 + 우측 텍스트 분할형
+                        const posterPath = data.posterSrc ? data.posterSrc : "../images/exhibitions/default-poster.jpg";
+                        extraZone.innerHTML = `
+                            <div class="extra-exhibition-layout">
+                                <div class="exhibition-poster-box">
+                                    <img src="${posterPath}" alt="Exhibition Poster" onerror="this.style.display='none';">
+                                </div>
+                                <div class="exhibition-text-box">
+                                    <div class="exhibition-detail-title">${titleText}</div>
+                                    <p>${textContent}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    slideTrain.appendChild(extraZone);
+                }
+
                 setTimeout(() => { fixedMetaInfo.style.opacity = '1'; }, 50);
             }
         });
@@ -522,10 +649,12 @@
         fixedMetaInfo.style.opacity = '1';
     }
 
+    // 스크롤 제어 함수 (가로축 무빙 축소 메커니즘 유지)
     function handleScrollInteractions() {
-        const currentScroll = sliderWindow.scrollLeft;
+        // 다중 모드 가로 스크롤값 또는 단일 모드 세로 스크롤값 통합 대응
+        const currentScroll = (currentGroupLength > 1) ? sliderWindow.scrollLeft : sliderWindow.scrollTop;
 
-        if (currentGroupLength > 1 && currentScroll > 0) {
+        if (currentScroll > 0) {
             const factor = Math.min(currentScroll / 300, 1); 
             const scaleVal = 1 - (factor * 0.22); 
             
@@ -534,7 +663,7 @@
             infoZone.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleVal})`;
             infoZone.style.opacity = `1`; 
 
-            const logoMoveY = factor * 120; 
+            const logoMoveY = (factor * 120) - (factor * 30); 
             menuBlock.style.transform = `translate(0px, ${logoMoveY}px) scale(${scaleVal})`;
         } else {
             infoZone.style.transform = 'translate(0, 0) scale(1)';
@@ -549,7 +678,7 @@
 
         if(maxScrollLeft <= 0) return;
         
-        const progress = currentScroll / maxScrollLeft;
+        const progress = sliderWindow.scrollLeft / maxScrollLeft;
         const barContainerWidth = customScrollbar.clientWidth;
         const thumbWidth = 60; 
         const maxThumbLeft = barContainerWidth - thumbWidth;
@@ -590,6 +719,7 @@
     });
 
     function switchTab(tabId) {
+        currentActiveTab = tabId; // 📌 현재 탭 종류 갱신 기억
         if (!isTabClickedOnce) {
             isTabClickedOnce = true;
             infoZone.style.display = 'block';
