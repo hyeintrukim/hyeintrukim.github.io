@@ -457,24 +457,19 @@
 
     </div>
 
-   <script>
-    // 📌 하단 스크롤 공간에 띄울 설명 텍스트 및 포스터 데이터 추가 구조화
+  <script>
+    // 오리지널 데이터 보존 및 kinder-bilder 구조 세팅 완수
     const dbRepository = {
-        "the-last-island": [{ 
-            src: "../images/work-list/the-last-island.jpg", 
-            alt: "The Last Island", 
-            meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026",
-            detailText: "The Last Island 작업에 대한 심층적인 텍스트 공간입니다. 여기에 작품의 영감, 제작 과정, 기법 등 원하는 노트를 자유롭게 채우실 수 있습니다."
-        }],
+        "the-last-island": [{ src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }],
         "refelction-without-a-body": [
             { src: "../images/work-list/reflection-without-a-body/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
             { src: "../images/work-list/reflection-without-a-body/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
             { src: "../images/work-list/reflection-without-a-body/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
             { src: "../images/work-list/reflection-without-a-body/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
         ],
-        "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px", detailText: "Bad Mom 작업 설명 텍스트 공간입니다." }],
-        "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026", detailText: "Ennui 작업 설명 텍스트 공간입니다." }],
-        "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025", detailText: "Victory of Lays 작업 설명입니다." }],
+        "bad-mom": [{ src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }],
+        "ennui": [{ src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }],
+        "victory-of-lays": [{ src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }],
         "hope": [
             { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
             { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
@@ -482,8 +477,8 @@
             { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
             { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
         ],
-        "horse-racing": [{ src: "../images/work-list/pferderennen.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025", detailText: "Horse racing 작업 설명입니다." }],
-        "baum": [{ src: "../images/work-list/Baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025", detailText: "Baum 작업 설명입니다." }],
+        "horse-racing": [{ src: "../images/work-list/pferderennen.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }],
+        "baum": [{ src: "../images/work-list/Baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }],
         "abdruck": [
             { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
             { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
@@ -493,18 +488,18 @@
             { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
             { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
         ],
-        "bienenstich": [{ src: "../images/work-list/Bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025", detailText: "Bienenstich 설명입니다." }],
-        "wild-fire": [{ src: "../images/work-list/wild-fire.png", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025", detailText: "Wild fire 설명입니다." }],
-        "rabbit-and-me": [{ src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019", detailText: "Rabbit and Me 설명입니다." }],
-        "vegetarian": [{ src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019", detailText: "Vegetarian 설명입니다." }],
+        "bienenstich": [{ src: "../images/work-list/Bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }],
+        "wild-fire": [{ src: "../images/work-list/wild-fire.png", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }],
+        "rabbit-and-me": [{ src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019" }],
+        "vegetarian": [{ src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019" }],
 
         "mirror-2026": [
             { 
                 src: "../images/exhibitions/mirror-1.jpg", 
                 alt: "Mirror Solo", 
                 meta: "Do you clean your mirror, everyday? Solo exhibition.",
-                posterSrc: "../images/exhibitions/mirror-poster.jpg", // 전시 포스터 경로 설정 가능
-                detailText: "<b>Do you clean your mirror, everyday?</b><br><br>여기에 전시 서문 및 상세 기획 의도를 자유롭게 작성하세요. 좌측에는 포스터 이미지가 정렬되고 우측에는 이 텍스트 박스가 유연하게 매칭됩니다." 
+                posterSrc: "../images/exhibitions/mirror-poster.jpg",
+                detailText: "<b>Do you clean your mirror, everyday?</b><br><br>전시 기획 서문 내용 공간입니다." 
             }
         ],
         "heussen-2026": [
@@ -526,38 +521,32 @@
             { 
                 src: "../images/exhibitions/kinder.bilder-main.jpg", 
                 alt: "Kinder.Bilder-main", 
-                meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025",
+                meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025",
                 posterSrc: "../images/exhibitions/kinder-bilder-plakat.jpg", 
-                detailText: `<p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood. 
-
-Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks. Together they turn cardboard boxes or the dining table Into the best playground in the world.
-They grow (up) together.
-
-Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher’. She is very strict. However, Hyein Is praised by her. However, ‘Childhood’ also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.
-
-These memories often come up and then vanish again. She uses the Image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.
-
-For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.
-However, children are not Immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.
-©Text : Regina Zieglerstein </p>'
+                detailText: `
+                    <p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.</p>
+                    <p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks. Together they turn cardboard boxes or the dining table Into the best playground in the world.<br>They grow (up) together.</p>
+                    <p>Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher’. She is very strict. However, Hyein Is praised by her. However, ‘Childhood’ also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.</p>
+                    <p>These memories often come up and then vanish again. She uses the Image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.</p>
+                    <p>For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.<br>However, children are not Immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.</p>
+                    <p style="font-size: 13px; opacity: 0.6; margin-top: 40px; letter-spacing: 0px;">&copy; Text: Regina Ziegelstein</p>
                 `
             },
-            { src: "../images/exhibitions/kinder.bilder-1.jpg", alt: "Kinder.Bilder-1", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-2.jpg", alt: "Kinder.Bilder-2", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-3.jpg", alt: "Kinder.Bilder-3", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-4.jpg", alt: "Kinder.Bilder-4", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-5.jpg", alt: "Kinder.Bilder-5", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-6.jpg", alt: "Kinder.Bilder-6", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-7.jpg", alt: "Kinder.Bilder-7", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-8.jpg", alt: "Kinder.Bilder-8", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" },
-            { src: "../images/exhibitions/kinder.bilder-9.jpg", alt: "Kinder.Bilder-9", meta: "<i>Kinder.Bilder<i>, Raum 004, Munich, 2025" }
+            { src: "../images/exhibitions/kinder.bilder-1.jpg", alt: "Kinder.Bilder-1", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-2.jpg", alt: "Kinder.Bilder-2", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-3.jpg", alt: "Kinder.Bilder-3", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-4.jpg", alt: "Kinder.Bilder-4", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-5.jpg", alt: "Kinder.Bilder-5", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-6.jpg", alt: "Kinder.Bilder-6", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-7.jpg", alt: "Kinder.Bilder-7", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-8.jpg", alt: "Kinder.Bilder-8", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
+            { src: "../images/exhibitions/kinder.bilder-9.jpg", alt: "Kinder.Bilder-9", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }
         ],
         "wesen-2024": [
             { 
                 src: "../images/exhibitions/wesen-main.heic", 
                 alt: "Wesen Wei&szlig;er Garten", 
-                meta: "Wesen Wei&szlig;er Garten, 2024",
-                detailText: "Wesen Wei&szlig;er Garten 전시에 대한 깊이 있는 서문이 들어갑니다."
+                meta: "Wesen Wei&szlig;er Garten, 2024"
             }
         ]
     };
