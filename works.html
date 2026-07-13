@@ -469,7 +469,7 @@
 
     </div>
 
-    <script>
+<script>
         // 1. 데이터베이스 구역 (작품 이미지 및 서문 텍스트 데이터)
         const dbRepository = {
             "the-last-island": [
@@ -534,21 +534,36 @@
                 { 
                     src: "../images/exhibitions/versprochen/versprochen-main.jpg",
                     alt: "versprochen main",
-                    meta: "<i>versprochen<i>, 2026",
+                    meta: "<i>versprochen</i>, 2026",
                     posterSrc: "../images/exhibitions/versprochen/versprochen-plakat.jpg",
                     detailText: "<b>Do you clean your mirror, everyday?</b><br><br>전시 기획 서문 내용 공간입니다."
                 },
-                { src: "../images/exhibitions/versprochen/versprochen-main.jpg", alt: "versprochen-main", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026"},
-                { src: "../images/exhibitions/versprochen/versprochen-1.jpg", alt: "versprochen-1", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026"},
-                { src: "../images/exhibitions/versprochen/versprochen-2.jpg", alt: "versprochen-2", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026"},
-                { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026"},
-
+                { src: "../images/exhibitions/versprochen/versprochen-main.jpg", alt: "versprochen-main", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
+                { src: "../images/exhibitions/versprochen/versprochen-1.jpg", alt: "versprochen-1", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
+                { src: "../images/exhibitions/versprochen/versprochen-2.jpg", alt: "versprochen-2", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
+                { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }
             ],
+            "Academy Positions 25-2025": [
+                { 
+                    src: "../images/exhibitions/positions/positions-main.jpg",
+                    alt: "positions main",
+                    meta: "<i>Academy Positions Berlin Art fair 2025</i>, 2025",
+                    posterSrc: "../images/exhibitions/positions/positions-plakat.png",
+                    detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다."
+                },
+                { src: "../images/exhibitions/positions/positions-main.jpg", alt: "positions-main", meta: "<i>academy positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-1.jpg", alt: "positions-1", meta: "<i>Bienenstich</i>, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-2.jpg", alt: "positions-2", meta: "<i>The way to Home</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-3.jpg", alt: "positions-3", meta: "<i>academy positions</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-4.jpg", alt: "positions-4", meta: "<i>academy positions</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-5.jpg", alt: "positions-5", meta: "<i>Heussen Perspective Young Artist Award Winner</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-6.jpg", alt: "positions-6", meta: "<i>academy positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" }
+            ], 
             "it-can-be-done-2025": [
                 { 
                     src: "../images/exhibitions/it/it-main.jpg",
                     alt: "it main",
-                    meta: "<i>It can be done, but only i can do it<i>, 2025",
+                    meta: "<i>It can be done, but only i can do it</i>, 2025",
                     posterSrc: "../images/exhibitions/it/it-plakat.jpg",
                     detailText: "<b>It can be done, but only i can do it</b><br><br>전시 기획 서문 내용 공간입니다."
                 },
@@ -586,16 +601,17 @@
                 { src: "../images/exhibitions/wesen-main.heic", alt: "Wesen Weißer Garten", meta: "Wesen Weißer Garten, 2024" }
             ],
             "743hz-2024": [
-                 {
-                    src: "../images/exhibitions/kinder.bilder/plakat_kinder.bilder.png",
-                    alt: "Kinder.Bilder-main",
-                    meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025",
+                {
+                    src: "../images/exhibitions/743hz/hz-main.jpg",
+                    alt: "743Hz",
+                    meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024",
                     posterSrc: "../images/exhibitions/743hz/743-plakat.jpg",
-                    detailText: `
+                    detailText: "<b>743Hz 전시회</b><br><br>여기에 743Hz 전시 서문 및 기획 내용을 입력하세요."
+                },
                 { src: "../images/exhibitions/743hz/hz-main.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" },
                 { src: "../images/exhibitions/743hz/hz-1.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" },
                 { src: "../images/exhibitions/743hz/hz-2.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" },
-                { src: "../images/exhibitions/743hz/hz-3.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" }
+                { src: "../images/exhibitions/743hz/hz-3.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" },
                 { src: "../images/exhibitions/743hz/hz-4.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" },
                 { src: "../images/exhibitions/743hz/hz-5.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" },
                 { src: "../images/exhibitions/743hz/hz-6.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, karlsruhe, 2024" }
@@ -606,7 +622,7 @@
         let currentGroupLength = 0;
         let currentActiveTab = "worklist";
 
-        // DOM 요소들이 완전히 준비된 후(DOMContentLoaded) 스크립트가 실행되도록 안전장치를 걸어줍니다.
+        // DOM 요소 로드 안전장치
         document.addEventListener("DOMContentLoaded", () => {
             const sliderWindow = document.getElementById("sliderWindow");
             const slideTrain = document.getElementById("slideTrain");
@@ -618,7 +634,6 @@
             const menuBlock = document.getElementById("menuBlock");
             const subMenuContainer = menuBlock.querySelector(".sub-menu-container");
 
-            // 글로벌 스코프에 함수 바인딩 (HTML 안의 onclick 속성이 정상 작동하도록 처리)
             window.switchTab = function(tabName) {
                 currentActiveTab = tabName;
                 document.querySelectorAll(".works-main-tab").forEach(e => e.classList.remove("active-tab"));
@@ -675,7 +690,7 @@
                     const extraZone = document.createElement("div");
                     extraZone.className = "single-bottom-extra-zone";
                     
-                    const detailText = items[0].detailText || "상세 텍스트가 아직 등록되지 않았습니다.";
+                    const detailText = items[0].detailText || "";
                     const altText = items[0].alt || "";
                     
                     if (currentActiveTab === "worklist") {
@@ -724,7 +739,6 @@
                 }
             }
 
-            // 이벤트 리스너 바인딩
             menuBlock.addEventListener("mouseenter", () => {
                 subMenuContainer.style.opacity = "1";
                 subMenuContainer.style.transform = "translateX(0)";
@@ -746,9 +760,7 @@
                 if (currentGroupLength > 1) updateScrollbarThumb();
             });
 
-            // 초기 실행 세팅 (WORK LIST 우선 활성화)
+            // 초기 실행 탭 활성화
             window.switchTab("worklist");
         });
     </script>
-</body>
-</html>
