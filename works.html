@@ -485,7 +485,7 @@
                 { src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }
             ],
             "ennui": [
-                { src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026" }
+                { src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026", marginRight: "50px" }
             ],
             "victory-of-lays": [
                 { src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }
@@ -650,15 +650,21 @@
                     customScrollbar.style.display = "none";
                 }
                 
-                // 1. 기존과 완전히 동일하게 모든 가로 전시 전경 사진들을 먼저 렌더링합니다.
-                items.forEach(item => {
-                    const slideItem = document.createElement("div");
-                    slideItem.className = "slide-item";
-                    if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft;
-                    
-                    slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`;
-                    slideTrain.appendChild(slideItem);
-                });
+               // 1. 개별 여백/크기 스타일 옵션을 지원하도록 업그레이드된 렌더링 코드
+items.forEach(item => {
+    const slideItem = document.createElement("div");
+    slideItem.className = "slide-item";
+    
+    // [핵심] 데이터에 해당 값이 적혀 있을 때만 스타일을 하나씩 입힙니다.
+    if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft;
+    if (item.marginRight) slideItem.style.marginRight = item.marginRight;
+    if (item.marginTop) slideItem.style.marginTop = item.marginTop;
+    if (item.marginBottom) slideItem.style.marginBottom = item.marginBottom;
+    if (item.width) slideItem.style.width = item.width;
+    
+    slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`;
+    slideTrain.appendChild(slideItem);
+});
                 
                 if (currentGroupLength > 1) {
                     setTimeout(updateScrollbarThumb, 100);
