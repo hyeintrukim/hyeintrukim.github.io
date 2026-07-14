@@ -357,7 +357,7 @@
         }
 
         .char-w { top: 0; left: -10; letter-spacing: -6px; }
-        .char-o { top: 37px; left: -17px; }
+        .char-o { top: 37px; left: -5px; }
         .char-r { top: -10px; left: -22px; }
         .char-k { top: 35px; left: -35px; }
         .char-s { top: 10px; left: -45px; }
@@ -715,10 +715,10 @@ items.forEach(item => {
 
                     // [수정 포인트]
                     // 1. infoZone (좌측 메뉴): 원래 Y축으로 120px 내려오던 것을 위쪽으로 완전히 올려 붙이도록 수정 (-10px ~ -50px 등으로 조절 가능)
-                    infoZone.style.transform = `translate(${-120 * progress}px, ${-30 * progress}px) scale(${scaleValue})`;
+                    infoZone.style.transform = `translate(${120 * progress}px, ${-30 * progress}px) scale(${scaleValue})`;
                     
                     // 2. menuBlock (우측 WORKS 로고): 원래 Y축 50px 위치에서 더 위쪽인 -20px 영역까지 바짝 올리도록 수정
-                    menuBlock.style.transform = `translate(0px, ${-40 * progress}px) scale(${scaleValue})`;
+                    menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
                 } else {
                     infoZone.style.transform = "translate(0,0) scale(1)";
                     menuBlock.style.transform = "translate(0,0) scale(1)";
