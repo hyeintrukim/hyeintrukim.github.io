@@ -545,13 +545,13 @@
                 { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }
             ],
             "berlin-2025": [
-                { src: "../images/exhibitions/positions/positions-main.jpg", alt: "positions-main", meta: "<i>academy positions</i>, POSITIONS Berlin Art fair, Berlin, 2025", posterSrc: "../images/exhibitions/positions/positions-plakat.png", detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다." },
+                { src: "../images/exhibitions/positions/positions-main.jpg", alt: "positions-main", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025", posterSrc: "../images/exhibitions/positions/positions-plakat.png", detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다." },
                 { src: "../images/exhibitions/positions/positions-1.jpg", alt: "positions-1", meta: "<i>Bienenstich</i>, POSITIONS Berlin Art fair, Berlin, 2025" },
                 { src: "../images/exhibitions/positions/positions-2.jpg", alt: "positions-2", meta: "<i>The way to Home</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-                { src: "../images/exhibitions/positions/positions-3.jpg", alt: "positions-3", meta: "<i>academy positions</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-                { src: "../images/exhibitions/positions/positions-4.jpg", alt: "positions-4", meta: "<i>academy positions</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-3.jpg", alt: "positions-3", meta: "<i>Academy Positions</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
+                { src: "../images/exhibitions/positions/positions-4.jpg", alt: "positions-4", meta: "<i>Academy Positions</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
                 { src: "../images/exhibitions/positions/positions-5.jpg", alt: "positions-5", meta: "<i>Heussen Perspective Young Artist Award Winner</i>, Photo : Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-                { src: "../images/exhibitions/positions/positions-6.jpg", alt: "positions-6", meta: "<i>academy positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" }
+                { src: "../images/exhibitions/positions/positions-6.jpg", alt: "positions-6", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" }
             ], 
             "it-can-be-done": [
                 { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025", posterSrc: "../images/exhibitions/it/it-plakat.jpg", detailText: "<b>It can be done, but only i can do it</b><br><br>전시 기획 서문 내용 공간입니다." },
@@ -632,6 +632,17 @@
                 sliderWindow.scrollTop = 0;
                 
                 const items = dbRepository[groupKey] || [];
+                window.loadArtworkGroup = function(groupKey, element) {
+    if (!groupKey) return;
+    
+    // [추가] 스크롤할 때 각각의 설명을 가져올 수 있도록 현재 선택된 데이터를 저장합니다.
+    window.currentGroupItems = dbRepository[groupKey];
+
+    document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
+    if (element) element.classList.add("viewing");
+    
+    // ... (이 아래에 slideTrain에 이미지를 추가하는 기존 코드가 이어집니다) ...
+};
                 currentGroupLength = items.length;
                 
                 if (currentGroupLength > 0) {
@@ -736,12 +747,48 @@ items.forEach(item => {
                 subMenuContainer.style.transform = "translateX(50px)";
                 subMenuContainer.style.pointerEvents = "none";
             });
-
+// 스크롤 시 실행할 이벤트들
             sliderWindow.addEventListener("scroll", () => {
+                updateScrollbarThumb();
                 handleScrollInteractions();
-                if (currentGroupLength > 1) updateScrollbarThumb();
+                
+                // [추가] 스크롤할 때마다 현재 보이는 사진의 설명으로 업데이트합니다.
+                updateActiveMetaDescription();
             });
 
+            // 현재 화면에 가장 가깝게 보이는 사진의 설명을 찾아 갱신하는 함수
+            function updateActiveMetaDescription() {
+                const slideItems = document.querySelectorAll(".slide-item");
+                // 표시할 데이터나 화면에 그려진 사진이 없으면 실행하지 않습니다.
+                if (!window.currentGroupItems || slideItems.length === 0) return;
+
+                let activeIndex = 0;
+                let minDistance = Infinity;
+                
+                // 슬라이더 화면의 왼쪽 시작점 기준
+                const containerLeft = sliderWindow.getBoundingClientRect().left;
+
+                slideItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    // 각 사진이 현재 화면 왼쪽 끝에서 얼마나 떨어져 있는지 계산
+                    const distance = Math.abs(rect.left - containerLeft);
+                    
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeIndex = index;
+                    }
+                });
+
+                // 계산된 사진 번호(activeIndex)에 해당하는 meta 텍스트를 화면에 뿌려줍니다.
+                if (window.currentGroupItems[activeIndex]) {
+                    const activeItem = window.currentGroupItems[activeIndex];
+                    const metaElement = document.getElementById("artwork-meta") || document.querySelector(".artwork-meta");
+                    
+                    if (metaElement && activeItem.meta) {
+                        metaElement.innerHTML = activeItem.meta;
+                    }
+                }
+            }
             window.addEventListener("resize", () => {
                 if (currentGroupLength > 1) updateScrollbarThumb();
             });
