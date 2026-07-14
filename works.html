@@ -701,15 +701,18 @@
                 }
             };
 
- // 기존에 중복되어 있던 2개의 함수를 완벽히 하나로 통합한 코드입니다.
-            function handleScrollInteractions() {
-                // 세로(scrollTop)와 가로(scrollLeft) 스크롤 중 더 많이 움직인 값을 기준값으로 삼습니다.
+ function handleScrollInteractions() {
                 const scrollValue = Math.max(sliderWindow.scrollTop, sliderWindow.scrollLeft);
                 if (scrollValue > 0) {
                     const progress = Math.min(scrollValue / 300, 1);
-                    const scaleValue = 1 - 0.22 * progress;
-                    infoZone.style.transform = `translate(${-195 * progress}px, ${120 * progress}px) scale(${scaleValue})`;
-                    menuBlock.style.transform = `translate(0px, ${120 * progress - 70 * progress}px) scale(${scaleValue})`;
+                    const scaleValue = 1 - 0.22 * progress; // 크기 22% 축소
+
+                    // [수정 포인트]
+                    // 1. infoZone (좌측 메뉴): 원래 Y축으로 120px 내려오던 것을 위쪽으로 완전히 올려 붙이도록 수정 (-10px ~ -50px 등으로 조절 가능)
+                    infoZone.style.transform = `translate(${-195 * progress}px, ${-30 * progress}px) scale(${scaleValue})`;
+                    
+                    // 2. menuBlock (우측 WORKS 로고): 원래 Y축 50px 위치에서 더 위쪽인 -20px 영역까지 바짝 올리도록 수정
+                    menuBlock.style.transform = `translate(0px, ${-40 * progress}px) scale(${scaleValue})`;
                 } else {
                     infoZone.style.transform = "translate(0,0) scale(1)";
                     menuBlock.style.transform = "translate(0,0) scale(1)";
