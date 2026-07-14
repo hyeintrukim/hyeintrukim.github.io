@@ -559,6 +559,24 @@
                 { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
             ],
             "kinder-bilder": [
+                { 
+                    src: "../images/exhibitions/versprochen/versprochen-main.jpg", // 이 사진은 가로 슬라이딩 전경 사진입니다.
+                    alt: "versprochen main",
+                    meta: "<i>versprochen</i>, 2026",
+
+                    // 🔽 포스터와 텍스트는 이 아래 항목을 수정하세요 🔽
+
+                    posterSrc: "../images/exhibitions/kinder.bilder/plakat_kinder.bilder.png", // 👈 [포스터 이미지 수정] 실제 파일 경로로 고치세요.
+                    detailText: `<br><br>
+                        <p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.</p>
+                        <p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks. Together they turn cardboard boxes or the dining table Into the best playground in the world.<br>They grow (up) together.</p>
+                        <p>Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher’. She is very strict. However, Hyein Is praised by her. However, ‘Childhood’ also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.</p>
+                        <p>These memories often come up and then vanish again. She uses the Image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.</p>
+                        <p>For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.<br>However, children are not Immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.</p>
+                        <p style="font-size: 13px; opacity: 0.6; margin-top: 40px; letter-spacing: 0px;">&copy; Text: Regina Ziegelstein</p>
+                    ` 전시 기획 서문 내용 공간입니다. 여기에 원하는 소개글을 입력하세요." // 👈 [소개 텍스트 수정] 내용을 입력하세요.
+                },
+                // ... 아래는 가로 슬라이딩용 전경 사진 데이터들입니다.
                 { src: "../images/exhibitions/kinder.bilder/bilder-main.jpg", alt: "Kinder.Bilder-main", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025", posterSrc: "../images/exhibitions/kinder-bilder-plakat.jpg", detailText: `<p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.</p><p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks. Together they turn cardboard boxes or the dining table Into the best playground in the world.<br>They grow (up) together.</p><p>Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher’. She is very strict. However, Hyein Is praised by her. However, ‘Childhood’ also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.</p><p>These memories often come up and then vanish again. She uses the Image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.</p><p>For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.<br>However, children are not Immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.</p><p style="font-size: 13px; opacity: 0.6; margin-top: 40px; letter-spacing: 0px;">&copy; Text: Regina Ziegelstein</p>` },
                 { src: "../images/exhibitions/kinder.bilder/bilder-1.jpg", alt: "Kinder.Bilder-1", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
                 { src: "../images/exhibitions/kinder.bilder/bilder-2.jpg", alt: "Kinder.Bilder-2", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
@@ -598,16 +616,6 @@
             const menuBlock = document.getElementById("menuBlock");
             const subMenuContainer = menuBlock.querySelector(".sub-menu-container");
 
-            // 기존 하단 텍스트용 엘리먼트 제거 및 새로 동적 추가용 변수
-            let globalExtraZone = document.getElementById("globalExtraZone");
-            if (!globalExtraZone) {
-                globalExtraZone = document.createElement("div");
-                globalExtraZone.id = "globalExtraZone";
-                globalExtraZone.className = "single-bottom-extra-zone";
-                // sliderWindow 외부 혹은 하단에 연출하기 위해 sliderWindow의 부모 요소에 추가
-                sliderWindow.parentNode.appendChild(globalExtraZone);
-            }
-
             window.switchTab = function(tabName) {
                 currentActiveTab = tabName;
                 document.querySelectorAll(".works-main-tab").forEach(e => e.classList.remove("active-tab"));
@@ -625,9 +633,6 @@
                 if (element) element.classList.add("viewing");
                 
                 slideTrain.innerHTML = "";
-                globalExtraZone.innerHTML = "";
-                globalExtraZone.style.display = "none";
-                
                 sliderWindow.scrollLeft = 0;
                 sliderWindow.scrollTop = 0;
                 
@@ -650,7 +655,7 @@
                     customScrollbar.style.display = "none";
                 }
                 
-                // 1. 순수한 전시장 이미지들만 가로 기차(slideTrain)에 셋팅
+                // 1. 기존과 완전히 동일하게 모든 가로 전시 전경 사진들을 먼저 렌더링합니다.
                 items.forEach(item => {
                     const slideItem = document.createElement("div");
                     slideItem.className = "slide-item";
@@ -664,34 +669,40 @@
                     setTimeout(updateScrollbarThumb, 100);
                 }
                 
-                // 2. 세로 스크롤 시 아래 나타날 포스터 및 서문 레이아웃은 따로 하단 구역에 분리 배치
+                // 2. 가로 기차(slideTrain) 바로 안쪽에 세로 스크롤로 보여질 포스터 및 텍스트 구역을 추가합니다.
+                // 가로로 나열되던 기존 방식과 달리, CSS 충돌이 없도록 아래로 쌓이게 하는 레이아웃 구조를 잡았습니다.
                 const firstItem = items[0];
                 if (firstItem && (firstItem.detailText || firstItem.posterSrc)) {
-                    globalExtraZone.style.display = "block";
+                    const extraZone = document.createElement("div");
+                    extraZone.className = "single-bottom-extra-zone";
+                    // 기존 가로 흐름을 끊고 가로 전경 하단으로 떨어지도록 절대 레이아웃 스타일 설정
+                    extraZone.setAttribute("style", "width: 100%; min-width: 100%; display: block; clear: both; margin-top: 100px;");
+                    
                     const detailText = firstItem.detailText || "";
                     const altText = firstItem.alt || "";
                     
                     if (currentActiveTab === "worklist") {
-                        globalExtraZone.innerHTML = `
-                            <div class="extra-work-layout">
-                                <div class="extra-work-title">${altText}</div>
-                                <p>${detailText}</p>
+                        extraZone.innerHTML = `
+                            <div class="extra-work-layout" style="padding: 40px;">
+                                <div class="extra-work-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">${altText}</div>
+                                <div style="line-height: 1.6; opacity: 0.85;">${detailText}</div>
                             </div>
                         `;
                     } else {
                         const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
-                        globalExtraZone.innerHTML = `
-                            <div class="extra-exhibition-layout" style="display: flex; gap: 50px; padding: 60px 40px; align-items: flex-start;">
+                        extraZone.innerHTML = `
+                            <div class="extra-exhibition-layout" style="display: flex; gap: 50px; padding: 60px 40px; align-items: flex-start; text-align: left; clear: both;">
                                 <div class="exhibition-poster-box" style="flex: 0 0 350px; max-width: 350px;">
                                     <img src="${posterSrc}" alt="Poster" style="width: 100%; height: auto; display: block;">
                                 </div>
-                                <div class="exhibition-text-box" style="flex: 1; min-width: 0; line-height: 1.6; text-align: left;">
-                                    <div class="exhibition-detail-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">${altText}</div>
-                                    <div style="font-size: 15px; opacity: 0.85;">${detailText}</div>
+                                <div class="exhibition-text-box" style="flex: 1; min-width: 0; line-height: 1.6; color: inherit;">
+                                    <div class="exhibition-detail-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px; letter-spacing: -0.5px;">${altText}</div>
+                                    <div style="font-size: 15px; opacity: 0.85; word-break: break-word;">${detailText}</div>
                                 </div>
                             </div>
                         `;
                     }
+                    slideTrain.appendChild(extraZone);
                 }
             };
 
