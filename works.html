@@ -701,13 +701,19 @@
                 }
             };
 
-            function updateScrollbarThumb() {
-                const scrollRange = sliderWindow.scrollWidth - sliderWindow.clientWidth;
-                if (scrollRange <= 0) return;
-                
-                const thumbLeft = (sliderWindow.scrollLeft / scrollRange) * (600 - parseFloat(scrollThumb.style.width || 150));
-                scrollThumb.style.left = thumbLeft + "px";
-            }
+            function handleScrollInteractions() {
+    // 세로(scrollTop)와 가로(scrollLeft) 스크롤 중 더 많이 움직인 값을 기준으로 잡습니다.
+    const scrollValue = Math.max(sliderWindow.scrollTop, sliderWindow.scrollLeft);
+    if (scrollValue > 0) {
+        const progress = Math.min(scrollValue / 300, 1);
+        const scaleValue = 1 - 0.22 * progress;
+        infoZone.style.transform = `translate(${-195 * progress}px, ${120 * progress}px) scale(${scaleValue})`;
+        menuBlock.style.transform = `translate(0px, ${120 * progress - 70 * progress}px) scale(${scaleValue})`;
+    } else {
+        infoZone.style.transform = "translate(0,0) scale(1)";
+        menuBlock.style.transform = "translate(0,0) scale(1)";
+    }
+}
 
             function handleScrollInteractions() {
                 const scrollTop = sliderWindow.scrollTop;
