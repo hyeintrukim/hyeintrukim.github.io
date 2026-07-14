@@ -747,48 +747,56 @@ items.forEach(item => {
                 subMenuContainer.style.transform = "translateX(50px)";
                 subMenuContainer.style.pointerEvents = "none";
             });
-// 스크롤 시 실행할 이벤트들
-            sliderWindow.addEventListener("scroll", () => {
-                updateScrollbarThumb();
-                handleScrollInteractions();
-                
-                // [추가] 스크롤할 때마다 현재 보이는 사진의 설명으로 업데이트합니다.
-                updateActiveMetaDescription();
-            });
+// 스크롤이 일어날 때 실행되는 모든 이벤트를 하나로 묶어줍니다.
+sliderWindow.addEventListener("scroll", () => {
+    // 1. 기존 스크롤바 바 가로 조절
+    if (typeof updateScrollbarThumb === "function") {
+        updateScrollbarThumb();
+    }
+    
+    // 2. [가장 중요] 좌측 메뉴(infoZone)와 우측 로고(menuBlock) 축소/이동 기능 다시 활성화!
+    if (typeof handleScrollInteractions === "function") {
+        handleScrollInteractions();
+    }
+    
+    // 3. 사진별 설명(meta) 실시간 업데이트 기능
+    updateActiveMetaDescription();
+});
 
-            // 현재 화면에 가장 가깝게 보이는 사진의 설명을 찾아 갱신하는 함수
-            function updateActiveMetaDescription() {
-                const slideItems = document.querySelectorAll(".slide-item");
-                // 표시할 데이터나 화면에 그려진 사진이 없으면 실행하지 않습니다.
-                if (!window.currentGroupItems || slideItems.length === 0) return;
+// 현재 화면 중앙(왼쪽 끝)에 가장 가까운 사진을 감지하여 설명을 바꿔주는 함수
+function updateActiveMetaDescription() {
+    const slideItems = document.querySelectorAll(".slide-item");
+    if (!window.currentGroupItems || slideItems.length === 0) return;
 
-                let activeIndex = 0;
-                let minDistance = Infinity;
-                
-                // 슬라이더 화면의 왼쪽 시작점 기준
-                const containerLeft = sliderWindow.getBoundingClientRect().left;
+    let activeIndex = 0;
+    let minDistance = Infinity;
+    
+    // 슬라이더 화면의 왼쪽 시작점 기준
+    const containerLeft = sliderWindow.getBoundingClientRect().left;
 
-                slideItems.forEach((item, index) => {
-                    const rect = item.getBoundingClientRect();
-                    // 각 사진이 현재 화면 왼쪽 끝에서 얼마나 떨어져 있는지 계산
-                    const distance = Math.abs(rect.left - containerLeft);
-                    
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        activeIndex = index;
-                    }
-                });
+    slideItems.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        // 각 사진이 현재 화면 왼쪽 끝에서 얼마나 떨어져 있는지 계산
+        const distance = Math.abs(rect.left - containerLeft);
+        
+        if (distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+        }
+    });
 
-                // 계산된 사진 번호(activeIndex)에 해당하는 meta 텍스트를 화면에 뿌려줍니다.
-                if (window.currentGroupItems[activeIndex]) {
-                    const activeItem = window.currentGroupItems[activeIndex];
-                    const metaElement = document.getElementById("artwork-meta") || document.querySelector(".artwork-meta");
-                    
-                    if (metaElement && activeItem.meta) {
-                        metaElement.innerHTML = activeItem.meta;
-                    }
-                }
-            }
+    // 계산된 사진 번호(activeIndex)에 해당하는 설명(meta)을 화면에 뿌려줍니다.
+    if (window.currentGroupItems[activeIndex]) {
+        const activeItem = window.currentGroupItems[activeIndex];
+        
+        // 화면에서 설명이 표시되는 요소를 찾습니다. (기존 변수명 fixedMetaInfo 사용)
+        const metaElement = document.getElementById("artwork-meta") || document.querySelector(".artwork-meta") || fixedMetaInfo;
+        
+        if (metaElement && activeItem.meta) {
+            metaElement.innerHTML = activeItem.meta;
+        }
+    }
+}
             window.addEventListener("resize", () => {
                 if (currentGroupLength > 1) updateScrollbarThumb();
             });
