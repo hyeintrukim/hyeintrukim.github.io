@@ -383,6 +383,48 @@
             letter-spacing: -1px;
             line-height: 1.2;
         }
+
+        
+        /* 하단 전시 영역 컨테이너 */
+.exhibition-bottom-section {
+    max-width: 1200px;         /* 좌우 대칭이 흐트러지지 않는 넉넉한 가로 너비 */
+    margin: 100px auto 150px auto; /* 위 여백 100px, 아래 넉넉한 여백 150px */
+    display: flex;
+    justify-content: space-between; /* 양 끝 정렬 (좌측 서문, 우측 포스터) */
+    align-items: flex-start;
+    gap: 80px;                 /* 두 구역 사이의 넉넉한 간격 */
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* 좌측 전시 서문 텍스트 영역 */
+.exhibition-left-text {
+    flex: 1.2;                 /* 텍스트가 포스터보다 살짝 더 넓은 범위를 갖도록 비율 조정 */
+    text-align: left;
+    color: #111;               /* 본문 글자 색상 */
+    font-size: 14px;
+    line-height: 1.8;          /* 편안한 가독성을 위한 줄간격 */
+    letter-spacing: -0.01em;
+}
+
+.exhibition-left-text p {
+    margin-bottom: 24px;       /* 단락 간의 여백 */
+}
+
+/* 우측 전시 포스터 영역 */
+.exhibition-right-poster {
+    flex: 0.8;                 /* 포스터 구역 비율 */
+    display: flex;
+    justify-content: center;
+}
+
+.exhibition-right-poster img {
+    max-width: 100%;           /* 영역을 벗어나지 않게 설정 */
+    height: auto;
+    max-height: 650px;         /* 너무 과도하게 커지는 것 방지 */
+    object-fit: contain;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* 포스터에 부드러운 음영 효과 */
+}
     </style>
 </head>
 <body>
@@ -624,51 +666,40 @@
                 if (targetSection) targetSection.classList.add("active");
             };
 
-            window.loadArtworkGroup = function(groupKey, element) {
-                if (!groupKey) return;
-                document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
-                if (element) element.classList.add("viewing");
-                
-                slideTrain.innerHTML = "";
-                sliderWindow.scrollLeft = 0;
-                sliderWindow.scrollTop = 0;
-                
-                const items = dbRepository[groupKey] || [];
-                window.loadArtworkGroup = function(groupKey, element) {
-    if (!groupKey) return;
-    
-    // [추가] 스크롤할 때 각각의 설명을 가져올 수 있도록 현재 선택된 데이터를 저장합니다.
-    window.currentGroupItems = dbRepository[groupKey];
+// [중요] 스크롤할 때 실시간으로 설명(meta)을 추적하기 위해 현재 그룹 데이터를 전역에 저장합니다.
+window.currentGroupItems = dbRepository[groupKey] || [];
 
-    document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
-    if (element) element.classList.add("viewing");
-    
-    // ... (이 아래에 slideTrain에 이미지를 추가하는 기존 코드가 이어집니다) ...
-};
-                currentGroupLength = items.length;
-                
-                if (currentGroupLength > 0) {
-                    fixedMetaInfo.innerHTML = items[0].meta;
-                    fixedMetaInfo.style.opacity = "1";
-                } else {
-                    fixedMetaInfo.innerHTML = "";
-                    fixedMetaInfo.style.opacity = "0";
-                }
-                
-                if (currentGroupLength > 1) {
-                    displayZone.className = "artwork-display-zone multi-mode";
-                    customScrollbar.style.display = "block";
-                } else {
-                    displayZone.className = "artwork-display-zone single-mode";
-                    customScrollbar.style.display = "none";
-                }
-                
-               // 1. 개별 여백/크기 스타일 옵션을 지원하도록 업그레이드된 렌더링 코드
+document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
+if (element) element.classList.add("viewing");
+
+slideTrain.innerHTML = "";
+sliderWindow.scrollLeft = 0;
+sliderWindow.scrollTop = 0;
+
+const items = window.currentGroupItems;
+currentGroupLength = items.length;
+
+if (currentGroupLength > 0) {
+    fixedMetaInfo.innerHTML = items[0].meta;
+    fixedMetaInfo.style.opacity = "1";
+} else {
+    fixedMetaInfo.innerHTML = "";
+    fixedMetaInfo.style.opacity = "0";
+}
+
+if (currentGroupLength > 1) {
+    displayZone.className = "artwork-display-zone multi-mode";
+    customScrollbar.style.display = "block";
+} else {
+    displayZone.className = "artwork-display-zone single-mode";
+    customScrollbar.style.display = "none";
+}
+
+// 1. 개별 여백/크기 스타일 옵션을 지원하는 렌더링 코드
 items.forEach(item => {
     const slideItem = document.createElement("div");
     slideItem.className = "slide-item";
     
-    // [핵심] 데이터에 해당 값이 적혀 있을 때만 스타일을 하나씩 입힙니다.
     if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft;
     if (item.marginRight) slideItem.style.marginRight = item.marginRight;
     if (item.marginTop) slideItem.style.marginTop = item.marginTop;
@@ -678,46 +709,44 @@ items.forEach(item => {
     slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`;
     slideTrain.appendChild(slideItem);
 });
-                
-                if (currentGroupLength > 1) {
-                    setTimeout(updateScrollbarThumb, 100);
-                }
-                
-                // 2. 가로 기차(slideTrain) 바로 안쪽에 세로 스크롤로 보여질 포스터 및 텍스트 구역을 추가합니다.
-                // 가로로 나열되던 기존 방식과 달리, CSS 충돌이 없도록 아래로 쌓이게 하는 레이아웃 구조를 잡았습니다.
-                const firstItem = items[0];
-                if (firstItem && (firstItem.detailText || firstItem.posterSrc)) {
-                    const extraZone = document.createElement("div");
-                    extraZone.className = "single-bottom-extra-zone";
-                    // 기존 가로 흐름을 끊고 가로 전경 하단으로 떨어지도록 절대 레이아웃 스타일 설정
-                    extraZone.setAttribute("style", "width: 100%; min-width: 100%; display: block; clear: both; margin-top: 100px;");
-                    
-                    const detailText = firstItem.detailText || "";
-                    const altText = firstItem.alt || "";
-                    
-                    if (currentActiveTab === "worklist") {
-                        extraZone.innerHTML = `
-                            <div class="extra-work-layout" style="padding: 40px;">
-                                <div class="extra-work-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">${altText}</div>
-                                <div style="line-height: 1.6; opacity: 0.85;">${detailText}</div>
-                            </div>
-                        `;
-                    } else {
-                        const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
-                        extraZone.innerHTML = `
-                            <div class="extra-exhibition-layout" style="display: flex; gap: 50px; padding: 60px 40px; align-items: flex-start; text-align: left; clear: both;">
-                                <div class="exhibition-poster-box" style="flex: 0 0 350px; max-width: 350px;">
-                                    <img src="${posterSrc}" alt="Poster" style="width: 100%; height: auto; display: block;">
-                                </div>
-                                <div class="exhibition-text-box" style="flex: 1; min-width: 0; line-height: 1.6; color: inherit;">
-                                    <div class="exhibition-detail-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px; letter-spacing: -0.5px;">${altText}</div>
-                                    <div style="font-size: 15px; opacity: 0.85; word-break: break-word;">${detailText}</div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                    slideTrain.appendChild(extraZone);
-                }
+
+if (currentGroupLength > 1) {
+    setTimeout(updateScrollbarThumb, 100);
+}
+
+// 2. 가로 기차(slideTrain) 바로 안쪽에 세로 스크롤로 보여질 포스터 및 텍스트 구역 추가
+const firstItem = items[0];
+if (firstItem && (firstItem.detailText || firstItem.posterSrc)) {
+    const extraZone = document.createElement("div");
+    extraZone.className = "single-bottom-extra-zone";
+    extraZone.setAttribute("style", "width: 100%; min-width: 100%; display: block; clear: both; margin-top: 100px;");
+    
+    const detailText = firstItem.detailText || "";
+    const altText = firstItem.alt || "";
+    
+    if (currentActiveTab === "worklist") {
+        extraZone.innerHTML = `
+            <div class="extra-work-layout" style="padding: 40px;">
+                <div class="extra-work-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">${altText}</div>
+                <div style="line-height: 1.6; opacity: 0.85;">${detailText}</div>
+            </div>
+        `;
+    } else {
+        const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
+        extraZone.innerHTML = `
+            <div class="extra-exhibition-layout" style="display: flex; gap: 50px; padding: 60px 40px; align-items: flex-start; text-align: left; clear: both;">
+                <div class="exhibition-poster-box" style="flex: 0 0 350px; max-width: 350px;">
+                    <img src="${posterSrc}" alt="Poster" style="width: 100%; height: auto; display: block;">
+                </div>
+                <div class="exhibition-text-box" style="flex: 1; min-width: 0; line-height: 1.6; color: inherit;">
+                    <div class="exhibition-detail-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px; letter-spacing: -0.5px;">${altText}</div>
+                    <div style="font-size: 15px; opacity: 0.85; word-break: break-word;">${detailText}</div>
+                </div>
+            </div>
+        `;
+    }
+    slideTrain.appendChild(extraZone);
+}
             };
 
  function handleScrollInteractions() {
