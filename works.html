@@ -5,7 +5,6 @@
     <title>WORKS</title>
     <style>
         /* ==========================================================================
-           1. CSS 스타일 영역 (디자인 및 레이아웃)
            ========================================================================== */
         body, html {
             margin: 0;
@@ -116,16 +115,6 @@
             font-weight: 400 !important;
         }
 
-        .artwork-display-zone {
-            flex-grow: 1;
-            margin-top: 70px;
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
         .artwork-display-zone.multi-mode,
         .artwork-display-zone.single-mode {
             position: absolute;
@@ -142,13 +131,22 @@
             position: relative;
             scrollbar-width: none;
             display: flex;
-            flex-direction: column;
+            align-itmes: center;
             box-sizing: border-box;
             padding-left: 475px;
-            overflow-y: auto;
-            padding-bottom: 500px;
+            overflow-x: auto;
+            overflow-y: hidden;
         }
 
+        /* 2. 전체 디스플레이 존: 세로 스크롤이 가능하도록 이 영역에 패딩과 스크롤을 줍니다 */
+.artwork-display-zone {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;    /* 이 영역에서 세로 스크롤을 내려 포스터를 보게 만듭니다 */
+    overflow-x: hidden;
+    padding-bottom: 300px; /* 아래 포스터가 들어갈 충분한 여백 확보! */
+}
         .photo-slider-window::-webkit-scrollbar {
             display: none;
         }
@@ -245,7 +243,7 @@
             width: 600px;
             height: 3px;
             background-color: #eaeaea;
-            margin: 20px auto 0 auto;
+            margin: 30px auto 0 auto;
             position: relative;
             display: none;
         }
@@ -365,14 +363,15 @@
 
         .sub-menu-container {
             display: flex;
-            flex-direction: column;
-            gap: 35px;
-            align-items: flex-end;
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all .5s ease-in-out;
-            margin-top: -30px;
-        }
+    flex-direction: column;
+    gap: 35px;
+    align-items: flex-end;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all .5s ease-in-out;
+    pointer-events: auto; /* 항상 클릭 가능하도록 복구 */
+    margin-top: -30px;    /* 값을 마이너스로 주어 초기 버튼 위치를 위로 올렸습니다 */
+}
 
         .sub-menu-link {
             font-size: 23px;
@@ -484,16 +483,18 @@
         </div>
 
         <div class="artwork-display-zone" id="displayZone">
-            <div class="photo-slider-window" id="sliderWindow" style="padding-bottom: 500px;">
-                <div class="slide-train" id="slideTrain"></div>
-            </div>
-            <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
-            <div class="custom-scrollbar-container" id="customScrollbar">
-                <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
-            </div>
+    <div class="photo-slider-window" id="sliderWindow">
+        <div class="slide-train" id="slideTrain"></div>
+    </div>
+    
+    <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
+    
+    <div class="custom-scrollbar-container" id="customScrollbar">
+        <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
+    </div>
 
-            <div id="exhibitionIntroSection" class="exhibition-bottom-section"></div>
-        </div>
+    <div id="exhibitionIntroSection" class="exhibition-bottom-section" style="display: none;"></div>
+</div>
 
         <div class="header-menu-block" id="menuBlock">
             <a class="cv-logo-link" href="../index.html">
