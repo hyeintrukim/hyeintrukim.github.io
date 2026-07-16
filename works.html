@@ -370,7 +370,6 @@
             opacity: 0;
             transform: translateX(50px);
             transition: all .5s ease-in-out;
-            pointer-events: none;
             margin-top: -30px;
         }
 
@@ -719,22 +718,26 @@ items.forEach(item => {
             };
 
  function handleScrollInteractions() {
-                const scrollValue = Math.max(sliderWindow.scrollTop, sliderWindow.scrollLeft);
-                if (scrollValue > 0) {
-                    const progress = Math.min(scrollValue / 300, 1);
-                    const scaleValue = 1 - 0.22 * progress; // 크기 22% 축소
+    const scrollValue = Math.max(sliderWindow.scrollTop, sliderWindow.scrollLeft);
 
-                    // [수정 포인트]
-                    // 1. infoZone (좌측 메뉴): 원래 Y축으로 120px 내려오던 것을 위쪽으로 완전히 올려 붙이도록 수정 (-10px ~ -50px 등으로 조절 가능)
-                    infoZone.style.transform = `translate(${-195 * progress}px, ${120 * progress}px) scale(${scaleValue})`;
-                    
-                    // 2. menuBlock (우측 WORKS 로고): 원래 Y축 50px 위치에서 더 위쪽인 -20px 영역까지 바짝 올리도록 수정
-                    menuBlock.style.transform = `translate(0px, ${-10 * progress}px) scale(${scaleValue})`;
-                } else {
-                    infoZone.style.transform = "translate(0,0) scale(1)";
-                    menuBlock.style.transform = "translate(0,0) scale(1)";
-                }
-            }
+    // 항상 클릭할 수 있도록 최초 1회만 확실하게 활성화해 두고, 스크롤 분기점에서는 건드리지 않습니다.
+    infoZone.style.pointerEvents = "auto"; 
+
+    if (scrollValue > 0) {
+        const progress = Math.min(scrollValue / 300, 1);
+        const scaleValue = 1 - 0.22 * progress;
+
+        infoZone.style.transform = `translate(${-120 * progress}px, ${-30 * progress}px) scale(${scaleValue})`;
+        menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
+
+        // [삭제 완료] 여기에 있던 infoZone.style.pointerEvents = "none" 코드를 지웠습니다.
+    } else {
+        infoZone.style.transform = "translate(0,0) scale(1)";
+        menuBlock.style.transform = "translate(0,0) scale(1)";
+
+        // [삭제 완료] 여기에 있던 infoZone.style.pointerEvents = "auto" 코드를 지웠습니다.
+    }
+}
 
             menuBlock.addEventListener("mouseenter", () => {
                 subMenuContainer.style.opacity = "1";
