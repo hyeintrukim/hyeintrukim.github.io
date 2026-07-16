@@ -667,111 +667,101 @@
                 if (targetSection) targetSection.classList.add("active");
             };
 
-// [중요] 스크롤할 때 실시간으로 설명(meta)을 추적하기 위해 현재 그룹 데이터를 전역에 저장합니다.
-window.currentGroupItems = dbRepository[groupKey] || [];
-
-document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
-if (element) element.classList.add("viewing");
-
-slideTrain.innerHTML = "";
-sliderWindow.scrollLeft = 0;
-sliderWindow.scrollTop = 0;
-
-const items = window.currentGroupItems;
-currentGroupLength = items.length;
-
-if (currentGroupLength > 0) {
-    fixedMetaInfo.innerHTML = items[0].meta;
-    fixedMetaInfo.style.opacity = "1";
-} else {
-    fixedMetaInfo.innerHTML = "";
-    fixedMetaInfo.style.opacity = "0";
-}
-
-if (currentGroupLength > 1) {
-    displayZone.className = "artwork-display-zone multi-mode";
-    customScrollbar.style.display = "block";
-} else {
-    displayZone.className = "artwork-display-zone single-mode";
-    customScrollbar.style.display = "none";
-}
-
-// 1. 개별 여백/크기 스타일 옵션을 지원하는 렌더링 코드
-items.forEach(item => {
-    const slideItem = document.createElement("div");
-    slideItem.className = "slide-item";
+/window.loadArtworkGroup = function(groupKey, element) {
+    if (!groupKey) return;
     
-    if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft;
-    if (item.marginRight) slideItem.style.marginRight = item.marginRight;
-    if (item.marginTop) slideItem.style.marginTop = item.marginTop;
-    if (item.marginBottom) slideItem.style.marginBottom = item.marginBottom;
-    if (item.width) slideItem.style.width = item.width;
-    
-    slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`;
-    slideTrain.appendChild(slideItem);
-});
+    // 현재 그룹 데이터 전역 저장 (실시간 meta 업데이트용)
+    window.currentGroupItems = dbRepository[groupKey] || [];
 
-if (currentGroupLength > 1) {
-    setTimeout(updateScrollbarThumb, 100);
-}
-
-// 2. 가로 기차(slideTrain) 바로 안쪽에 세로 스크롤로 보여질 포스터 및 텍스트 구역 추가
-const firstItem = items[0];
-if (firstItem && (firstItem.detailText || firstItem.posterSrc)) {
-    const extraZone = document.createElement("div");
-    extraZone.className = "single-bottom-extra-zone";
-    extraZone.setAttribute("style", "width: 100%; min-width: 100%; display: block; clear: both; margin-top: 100px;");
+    document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
+    if (element) element.classList.add("viewing");
     
-    const detailText = firstItem.detailText || "";
-    const altText = firstItem.alt || "";
+    slideTrain.innerHTML = "";
+    sliderWindow.scrollLeft = 0;
+    sliderWindow.scrollTop = 0;
     
-    if (currentActiveTab === "worklist") {
-        extraZone.innerHTML = `
-            <div class="extra-work-layout" style="padding: 40px;">
-                <div class="extra-work-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">${altText}</div>
-                <div style="line-height: 1.6; opacity: 0.85;">${detailText}</div>
-            </div>
-        `;
+    const items = window.currentGroupItems;
+    currentGroupLength = items.length;
+    
+    if (currentGroupLength > 0) {
+        fixedMetaInfo.innerHTML = items[0].meta;
+        fixedMetaInfo.style.opacity = "1";
     } else {
-        const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
-        extraZone.innerHTML = `
-            <div class="extra-exhibition-layout" style="display: flex; gap: 50px; padding: 60px 40px; align-items: flex-start; text-align: left; clear: both;">
-                <div class="exhibition-poster-box" style="flex: 0 0 350px; max-width: 350px;">
-                    <img src="${posterSrc}" alt="Poster" style="width: 100%; height: auto; display: block;">
-                </div>
-                <div class="exhibition-text-box" style="flex: 1; min-width: 0; line-height: 1.6; color: inherit;">
-                    <div class="exhibition-detail-title" style="font-size: 20px; font-weight: bold; margin-bottom: 20px; letter-spacing: -0.5px;">${altText}</div>
-                    <div style="font-size: 15px; opacity: 0.85; word-break: break-word;">${detailText}</div>
-                </div>
-            </div>
-        `;
+        fixedMetaInfo.innerHTML = "";
+        fixedMetaInfo.style.opacity = "0";
     }
-    slideTrain.appendChild(extraZone);
-}
-            };
-
+    
+    if (currentGroupLength > 1) {
+        displayZone.className = "artwork-display-zone multi-mode";
+        customScrollbar.style.display = "block";
+    } else {
+        displayZone.className = "artwork-display-zone single-mode";
+        customScrollbar.style.display = "none";
+    }
+    
+    // 기존 이미지 가로 렌더링 완벽 복구 (간격, 크기 건드리지 않음)
+    items.forEach(item => {
+        const slideItem = document.createElement("div");
+        slideItem.className = "slide-item";
+        
+        if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft;
+        if (item.marginRight) slideItem.style.marginRight = item.marginRight;
+        if (item.marginTop) slideItem.style.marginTop = item.marginTop;
+        if (item.marginBottom) slideItem.style.marginBottom = item.marginBottom;
+        if (item.width) slideItem.style.width = item.width;
+        
+        slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`;
+        slideTrain.appendChild(slideItem);
+    });
+    
+    if (currentGroupLength > 1) {
+        setTimeout(updateScrollbarThumb, 100);
+    }
+    
+    // [하단 영역 분리 렌더링] 슬라이드바 아래 전용 공간에 포스터와 서문을 그립니다.
+    const bottomSection = document.getElementById("exhibitionIntroSection");
+    if (bottomSection) {
+        const firstItem = items[0];
+        if (firstItem && (firstItem.detailText || firstItem.posterSrc)) {
+            bottomSection.style.display = "flex";
+            
+            const detailText = firstItem.detailText || "";
+            const altText = firstItem.alt || "";
+            const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
+            
+            bottomSection.innerHTML = `
+                <div class="exhibition-left-text" style="flex: 1.2; text-align: left; line-height: 1.8; padding-right: 40px;">
+                    <div class="exhibition-detail-title" style="font-size: 22px; font-weight: bold; margin-bottom: 30px;">${altText}</div>
+                    <div style="font-size: 14px; opacity: 0.9;">${detailText}</div>
+                </div>
+                <div class="exhibition-right-poster" style="flex: 0.8; display: flex; justify-content: center;">
+                    <img src="${posterSrc}" alt="Poster" style="max-width: 100%; height: auto; max-height: 550px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                </div>
+            `;
+        } else {
+            bottomSection.style.display = "none";
+            bottomSection.innerHTML = "";
+        }
+    }
+};
  function handleScrollInteractions() {
     const scrollValue = Math.max(sliderWindow.scrollTop, sliderWindow.scrollLeft);
-
-    // 항상 클릭할 수 있도록 최초 1회만 확실하게 활성화해 두고, 스크롤 분기점에서는 건드리지 않습니다.
+    
+    // 메뉴 축소 중에도 언제나 클릭이 가능하도록 스타일 부여
     infoZone.style.pointerEvents = "auto"; 
-
+    
     if (scrollValue > 0) {
         const progress = Math.min(scrollValue / 300, 1);
-        const scaleValue = 1 - 0.22 * progress;
-
-        infoZone.style.transform = `translate(${-120 * progress}px, ${-30 * progress}px) scale(${scaleValue})`;
+        const scaleValue = 1 - 0.22 * progress; // 크기 22% 축소
+        
+        // infoZone 위치 조절 (원래 정보 기반 최적화)
+        infoZone.style.transform = `translate(${-195 * progress}px, ${-40 * progress}px) scale(${scaleValue})`;
         menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
-
-        // [삭제 완료] 여기에 있던 infoZone.style.pointerEvents = "none" 코드를 지웠습니다.
     } else {
         infoZone.style.transform = "translate(0,0) scale(1)";
         menuBlock.style.transform = "translate(0,0) scale(1)";
-
-        // [삭제 완료] 여기에 있던 infoZone.style.pointerEvents = "auto" 코드를 지웠습니다.
     }
 }
-
             menuBlock.addEventListener("mouseenter", () => {
                 subMenuContainer.style.opacity = "1";
                 subMenuContainer.style.transform = "translateX(0)";
