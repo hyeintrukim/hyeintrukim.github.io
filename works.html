@@ -102,7 +102,7 @@ body, html {
     font-weight: 400 !important;
 }
 
-/* === 레이아웃 복구 및 구조 개선 구역 === */
+/* === 디스플레이 존 및 슬라이더 레이아웃 === */
 .artwork-display-zone {
     position: absolute;
     left: 0;
@@ -110,21 +110,21 @@ body, html {
     width: 100%;
     height: calc(100% - 80px);
     margin-top: 65px;
-    overflow-y: auto; /* 하단 전시 소개를 위해 전체 영역은 세로 스크롤 허용 */
+    overflow-y: auto; 
     overflow-x: hidden;
-    padding-bottom: 600px; /* 맨 아래 부드러운 여백 확보 */
+    padding-bottom: 600px;
 }
 .photo-slider-window {
     width: 100%;
-    height: 58vh; /* 이미지들의 세로 크기가 일정하게 유지되도록 고정 높이 비율 설정 */
+    height: 58vh;
     min-height: 400px;
     position: relative;
     scrollbar-width: none;
     display: flex;
-    align-items: center; /* 이미지 수직 가운데 정렬 복구 */
+    align-items: center;
     box-sizing: border-box;
     padding-left: 475px;
-    overflow-x: auto; /* 가로 슬라이더 기능 유지 */
+    overflow-x: auto;
     overflow-y: hidden;
 }
 .photo-slider-window::-webkit-scrollbar {
@@ -178,7 +178,7 @@ body, html {
 .artwork-meta-info-fixed {
     position: absolute;
     right: 60px;
-    top: 62vh; /* 이미지 바로 아래에 안정적으로 고정되도록 조정 */
+    top: 62vh;
     width: 600px;
     text-align: right;
     display: block;
@@ -195,7 +195,7 @@ body, html {
     width: 600px;
     height: 3px;
     background-color: #eaeaea;
-    margin: 80px auto 0 auto; /* 여백을 조절하여 슬라이드 바를 위로 올렸습니다 */
+    margin: 80px auto 0 auto;
     position: relative;
     display: none;
 }
@@ -241,7 +241,7 @@ body, html {
     position: relative;
     display: inline-block;
 }
-.char-w { top: 0; left: 20px; letter-spacing: -6px; }
+.char-w { top: 0; left: -30px; letter-spacing: -6px; }
 .char-o { top: 25px; left: 3px; }
 .char-r { top: -10px; left: 22px; }
 .char-k { top: 35px; left: -35px; }
@@ -268,7 +268,7 @@ body, html {
     line-height: 1.2;
 }
 
-/* 하단 전시 영역 컨테이너 (정밀 그리드 조정) */
+/* 하단 전시 영역 컨테이너 */
 .exhibition-bottom-section {
     max-width: 1200px;
     margin: 100px auto 50px auto;
@@ -475,7 +475,8 @@ const dbRepository = {
             posterSrc: "../images/exhibitions/kinder.bilder/plakat_kinder.bilder.png", 
             detailText: ` 
             <p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.</p> 
-            <p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks. Together they turn cardboard boxes or the dining table into the best playground in the world.<br>They grow (up) together.</p> 
+            <p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks.</p> 
+            <p>Together they turn cardboard boxes or the dining table into the best playground in the world.<br>They grow (up) together.</p> 
             <p>Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher’. She is very strict. However, Hyein is praised by her. However, ‘Childhood’ also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.</p> 
             <p>These memories often come up and then vanish again. She uses the image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.</p> 
             <p>For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.<br>However, children are not immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.</p> 
@@ -520,10 +521,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuBlock = document.getElementById("menuBlock"); 
     const subMenuContainer = menuBlock.querySelector(".sub-menu-container"); 
 
-   window.switchTab = function(tabName) { 
+    // [해결완료] 탭 전환 작동 및 첫 번째 항목 자동클릭 논리 삽입
+    window.switchTab = function(tabName) { 
         currentActiveTab = tabName; 
-        
-        // 1. 모든 탭과 컨텐츠 섹션 활성화 초기화
         document.querySelectorAll(".works-main-tab").forEach(e => e.classList.remove("active-tab")); 
         document.querySelectorAll(".content-section").forEach(e => e.classList.remove("active"));
         
@@ -533,15 +533,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (targetTab) targetTab.classList.add("active-tab"); 
         if (targetSection) targetSection.classList.add("active"); 
 
-        // 2. [핵심 해결책] 탭이 바뀔 때, 해당 탭의 가장 첫 번째 작품을 자동으로 불러오기!
+        // 탭이 바뀔 때, 해당 카테고리의 첫 작품을 강제로 활성화 시켜 화면 먹통을 해결합니다
         const firstLink = targetSection ? targetSection.querySelector(".works-text-link") : null;
         if (firstLink) {
-            // onclick 속성에 적힌 함수명과 인자값을 직접 추출하여 실행합니다.
-            firstLink.click(); 
+            firstLink.click();
         }
     };
-    
-    // [정상화 완료] 꼬였던 loadArtworkGroup 함수 오타 제거 및 최적화 연동
+
     window.loadArtworkGroup = function(groupKey, element) { 
         if (!groupKey) return;
 
@@ -552,7 +550,7 @@ document.addEventListener("DOMContentLoaded", () => {
         slideTrain.innerHTML = ""; 
         sliderWindow.scrollLeft = 0; 
         sliderWindow.scrollTop = 0; 
-        displayZone.scrollTop = 0; // 가로 슬라이더 바뀔 때 스크롤 맨 위로 자동 리셋
+        displayZone.scrollTop = 0; // 세로 레이아웃도 최상단으로 정리
         
         const items = window.currentGroupItems;
         currentGroupLength = items.length; 
@@ -573,7 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
             customScrollbar.style.display = "none";
         } 
         
-        // 개별 여백 및 스타일 처리 렌더링 복구
+        // 개별 이미지 스타일 렌더링
         items.forEach(item => { 
             const slideItem = document.createElement("div"); 
             slideItem.className = "slide-item"; 
@@ -592,7 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(updateScrollbarThumb, 100); 
         } 
         
-        // 하단 영역 분리 렌더링 (구조적 격리)
+        // 하단 전시 영역 렌더링
         const bottomSection = document.getElementById("exhibitionIntroSection"); 
         if (bottomSection) { 
             const firstItem = items[0];
@@ -616,9 +614,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 bottomSection.innerHTML = ""; 
             } 
         } 
+        
+        // 새로운 그룹 로드 후 크기 조절 상태 초기화
+        handleScrollInteractions();
     };
 
-    // [정상화 완료] 스크롤바 이동 시 썸네일 위치 계산
     function updateScrollbarThumb() {
         if (currentGroupLength <= 1) return;
         const maxScroll = sliderWindow.scrollWidth - sliderWindow.clientWidth;
@@ -630,15 +630,16 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollThumb.style.left = leftPos + "px";
     }
 
-    // [정상화 완료] 세로 스크롤 시 좌측 메뉴 및 로고 크기 축소 인터랙션
+    // [원래 기능 복구 완료] 가로 슬라이더 스크롤 시 좌측 메뉴(infoZone) 축소 기능 매핑
     function handleScrollInteractions() { 
-        // 실제 화면의 세로 스크롤 값 기준 감지
-        const scrollValue = displayZone.scrollTop;
+        // 실제 이미지를 가로로 넘긴 스크롤 값(scrollLeft)을 기준으로 합니다
+        const scrollValue = sliderWindow.scrollLeft;
         infoZone.style.pointerEvents = "auto";
 
         if (scrollValue > 50) { 
+            // 50px 이상 가로 스크롤했을 때부터 서서히 축소 시작
             const progress = Math.min((scrollValue - 50) / 250, 1);
-            const scaleValue = 1 - 0.22 * progress; 
+            const scaleValue = 1 - 0.22 * progress; // 원래 배율인 22% 축소 구현
             
             infoZone.style.transform = `translate(${-195 * progress}px, ${-40 * progress}px) scale(${scaleValue})`;
             menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`; 
@@ -659,18 +660,14 @@ document.addEventListener("DOMContentLoaded", () => {
         subMenuContainer.style.pointerEvents = "none"; 
     });
 
-    // 가로 스크롤 이벤트 (스크롤바 연동 및 사진 설명 교체)
+    // [수정] 가로 스크롤 시 스크롤바 이동, 사진 정보 업데이트, 그리고 대망의 '좌측 메뉴 크기 조절'을 함께 수행합니다
     sliderWindow.addEventListener("scroll", () => { 
         updateScrollbarThumb(); 
         updateActiveMetaDescription(); 
+        handleScrollInteractions(); // 가로 스크롤 시 실시간 작아짐 기능 트리거
     });
 
-    // 세로 스크롤 이벤트 (메뉴 축소/확장 연동)
-    displayZone.addEventListener("scroll", () => {
-        handleScrollInteractions();
-    });
-
-    // 현재 중앙 사진 감지하여 설명 업데이트
+    // 화면 중앙 이미지 감지 함수
     function updateActiveMetaDescription() { 
         const slideItems = document.querySelectorAll(".slide-item");
         if (!window.currentGroupItems || slideItems.length === 0) return; 
@@ -699,6 +696,9 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", () => { 
         if (currentGroupLength > 1) updateScrollbarThumb(); 
     });
+
+    // 사이트 최초 실행 시 "WORK LIST"가 열린 상태로 시작하도록 기본 트랙을 로드합니다
+    switchTab("worklist");
 }); 
 </script>
 </body>
