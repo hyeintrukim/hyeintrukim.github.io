@@ -630,24 +630,22 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollThumb.style.left = leftPos + "px";
     }
 
-    // [원래 기능 복구 완료] 가로 슬라이더 스크롤 시 좌측 메뉴(infoZone) 축소 기능 매핑
-    function handleScrollInteractions() { 
-        // 실제 이미지를 가로로 넘긴 스크롤 값(scrollLeft)을 기준으로 합니다
-        const scrollValue = sliderWindow.scrollLeft;
-        infoZone.style.pointerEvents = "auto";
+   function handleScrollInteractions() { 
+    const scrollValue = sliderWindow.scrollLeft;
+    infoZone.style.pointerEvents = "auto";
 
-        if (scrollValue > 50) { 
-            // 50px 이상 가로 스크롤했을 때부터 서서히 축소 시작
-            const progress = Math.min((scrollValue - 50) / 250, 1);
-            const scaleValue = 1 - 0.22 * progress; // 원래 배율인 22% 축소 구현
-            
-            infoZone.style.transform = `translate(${-195 * progress}px, ${-10 * progress}px) scale(${scaleValue})`;
-            menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`; 
-        } else { 
-            infoZone.style.transform = "translate(0,0) scale(1)"; 
-            menuBlock.style.transform = "translate(0,0) scale(1)";
-        } 
+    if (scrollValue > 50) { 
+        const progress = Math.min((scrollValue - 50) / 250, 1);
+        const scaleValue = 1 - 0.22 * progress; 
+        
+        // [수정] 메뉴가 작아진 상태에서도 원래 글자 영역 위에서 정확히 클릭되도록 X축/Y축 이동량 최적화
+        infoZone.style.transform = `translate(${-30 * progress}px, 0px) scale(${scaleValue})`;
+        menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`; 
+    } else { 
+        infoZone.style.transform = "translate(0,0) scale(1)"; 
+        menuBlock.style.transform = "translate(0,0) scale(1)";
     } 
+}
 
     menuBlock.addEventListener("mouseenter", () => { 
         subMenuContainer.style.opacity = "1";
