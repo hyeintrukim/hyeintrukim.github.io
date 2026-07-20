@@ -641,7 +641,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const progress = Math.min((scrollValue - 50) / 250, 1);
             const scaleValue = 1 - 0.22 * progress; // 원래 배율인 22% 축소 구현
             
-            infoZone.style.transform = `translate(${-195 * progress}px, ${-40 * progress}px) scale(${scaleValue})`;
+            infoZone.style.transform = `translate(${-195 * progress}px, ${-10 * progress}px) scale(${scaleValue})`;
             menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`; 
         } else { 
             infoZone.style.transform = "translate(0,0) scale(1)"; 
