@@ -649,8 +649,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const progress = Math.min((scrollValue - 50) / 250, 1);
         const scaleValue = 1 - 0.22 * progress; 
         
-        // [수정] 메뉴가 작아진 상태에서도 원래 글자 영역 위에서 정확히 클릭되도록 X축/Y축 이동량 최적화
-        infoZone.style.transform = `translate(${-30 * progress}px, 0px) scale(${scaleValue})`;
+        // [수정] 작아지면서 정확히 EXHIBITIONS 버튼 아래 정위치로 안착하도록 좌표값 수정
+        infoZone.style.transform = `translate(${-15 * progress}px, ${55 * progress}px) scale(${scaleValue})`;
         menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`; 
     } else { 
         infoZone.style.transform = "translate(0,0) scale(1)"; 
