@@ -393,8 +393,15 @@ const dbRepository = {
     "bad-mom": [
         { src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 × 170 cm, 2026", marginLeft: "-140px" }
     ],
-    "ennui": [
-        { src: "../images/work-list/ennui.jpg", alt: "Ennui", meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026", marginRight: "300px" }
+   "ennui": [
+        { 
+            src: "../images/work-list/ennui.jpg", 
+            alt: "Ennui", 
+            meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026", 
+            height: "130%",       /* 사진 크기 확대 (기존 100%에서 변경) */
+            marginLeft: "150px",   /* 사진을 오른쪽으로 밀어 좌측 하단 공간 확보 */
+            marginRight: "200px"   /* 우측 여백 조정 */
+        }
     ],
     "victory-of-lays": [
         { src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }
@@ -558,6 +565,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentGroupLength > 0) { 
             fixedMetaInfo.innerHTML = items[0].meta; 
             fixedMetaInfo.style.opacity = "1";
+            
+            fixedMetaInfo.style.right = items[0].metaRight ? items[0].metaRight : "60px";
+            fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "62vh";
+            
         } else { 
             fixedMetaInfo.innerHTML = ""; 
             fixedMetaInfo.style.opacity = "0";
