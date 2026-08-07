@@ -354,7 +354,7 @@ body, html {
 .exhibition-right-poster img {
   max-width: 100%;
   height: auto;
-  max-height: 650px;
+  max-height: 850px; 
   object-fit: contain;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
@@ -503,7 +503,9 @@ const dbRepository = {
      alt: "Do you clean your mirror, everyday?",
      meta: "Do you clean your mirror, everyday? Solo exhibition.",
      posterSrc: "../images/exhibitions/mirror/mirror-poster.jpg",
-     detailText: "<p>Do You Clean Your Mirror, Everyday? ist eine Einzelausstellung, die sich mit den verborgenen emotionalen Landschaften des Menschen auseinandersetzt. Ausgangspunkt der Ausstellung ist die Metapher des Spiegels – nicht als bloßes Objekt der Reflexion, sondern als Ort der Selbstbegegnung. So wie Staub und Flecken den Blick auf unser Spiegelbild verdecken, erschweren äußere Erwartungen, Vorurteile, Ängste und Eitelkeit den Zugang zu unseren ursprünglichen Emotionen. Die Ausstellung lädt das Publikum ein, sich eine einfache, zugleich grundlegende Frage zu stellen: Wie sauber ist dein Spiegel heute? Im Zentrum der künstlerischen Arbeit von Hyein Kim stehen Emotionen, die gesellschaftlich häufig verdrängt oder als negativ bewertet werden – etwa Eifersucht, Angst oder Depression. Anstatt diese Gefühle als Makel zu verstehen, begreift die Künstlerin sie als ursprüngliche Bestandteile menschlicher Existenz. In ihren surrealen Gemälden ersetzt sie den Menschen durch anthropomorphe Tierfiguren und schafft dadurch eine Distanz, die eine objektivere Auseinandersetzung mit den eigenen Emotionen ermöglicht. Ergänzend dazu untersuchen Installationen die Spuren von Beziehungen, Erinnerungen und Vergessen, indem sie die Perspektiven zwischen Mensch und Objekt verschieben. Der Ausstellungsraum selbst wird zu einem symbolischen Spiegel. In der Begegnung mit den Arbeiten sind die Betrachtenden eingeladen, die „Flecken“ äußerer Zuschreibungen abzulegen und sich den Ursprüngen ihrer eigenen Gefühlswelt zuzuwenden. Durch die Verbindung surrealistischer Bildwelten mit Symbolen der koreanischen und ostasiatischen Kultur eröffnet Kim einen kulturellen Dialog über universelle menschliche Emotionen und die Frage, wie wir unserem eigenen Inneren begegnen.<p>"
+     detailText: "<p>Do You Clean Your Mirror, Everyday? ist eine Einzelausstellung, die sich mit den verborgenen emotionalen Landschaften des Menschen auseinandersetzt. Ausgangspunkt der Ausstellung ist die Metapher des Spiegels – nicht als bloßes Objekt der Reflexion, sondern als Ort der Selbstbegegnung. So wie Staub und Flecken den Blick auf unser Spiegelbild verdecken, erschweren äußere Erwartungen, Vorurteile, Ängste und Eitelkeit den Zugang zu unseren ursprünglichen Emotionen. Die Ausstellung lädt das Publikum ein, sich eine einfache, zugleich grundlegende Frage zu stellen: <b>Wie sauber ist dein Spiegel heute?<b>
+       Im Zentrum der künstlerischen Arbeit von Hyein Kim stehen Emotionen, die gesellschaftlich häufig verdrängt oder als negativ bewertet werden – etwa Eifersucht, Angst oder Depression. Anstatt diese Gefühle als Makel zu verstehen, begreift die Künstlerin sie als ursprüngliche Bestandteile menschlicher Existenz. In ihren surrealen Gemälden ersetzt sie den Menschen durch anthropomorphe Tierfiguren und schafft dadurch eine Distanz, die eine objektivere Auseinandersetzung mit den eigenen Emotionen ermöglicht. Ergänzend dazu untersuchen Installationen die Spuren von Beziehungen, Erinnerungen und Vergessen, indem sie die Perspektiven zwischen Mensch und Objekt verschieben.
+  Der Ausstellungsraum selbst wird zu einem symbolischen Spiegel. In der Begegnung mit den Arbeiten sind die Betrachtenden eingeladen, die „Flecken“ äußerer Zuschreibungen abzulegen und sich den Ursprüngen ihrer eigenen Gefühlswelt zuzuwenden. Durch die Verbindung surrealistischer Bildwelten mit Symbolen der koreanischen und ostasiatischen Kultur eröffnet Kim einen kulturellen Dialog über universelle menschliche Emotionen und die Frage, wie wir unserem eigenen Inneren begegnen.<p>"
        }
  ], 
  "heussen-2026": [ 
@@ -674,14 +676,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
         
         bottomSection.innerHTML = `
-          <div class="exhibition-right-poster" style="flex: 0.8; display: flex; justify-content: center;">
-            <img src="${posterSrc}" alt="Poster" style="max-width: 100%; height: auto; max-height: 650px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
-          </div>
-          <div class="exhibition-left-text" style="flex: 1.2; text-align: left; color: #111; font-size: 14px; line-height: 1.8; letter-spacing: -0.01em;">
-            <div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div>
-            <div>${detailText}</div>
-          </div>
-        `;
+<div class="exhibition-right-poster" style="flex: 1; display: flex; justify-content: center;">
+<img src="${posterSrc}" alt="Poster" style="max-width: 100%; height: auto; max-height: 850px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
+</div>
+<div class="exhibition-left-text" style="flex: 2; text-align: left; color: #111; font-size: 14px; line-height: 1.8; letter-spacing: -0.01em;">
+<div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div>
+<div>${detailText}</div>
+</div>`;
       } 
       // 2. WORK LIST 탭인 경우: 작업 설명(텍스트)만 전면 표시
       else if (currentActiveTab === "worklist" && firstItem && firstItem.detailText) {
