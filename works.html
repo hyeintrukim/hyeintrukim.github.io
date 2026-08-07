@@ -436,144 +436,137 @@ body, html {
 </div>
 
 <script>
-const dbRepository = {
-  "the-last-island": [
-    { src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" }
-  ],
-  "refelction-without-a-body": [
-    { src: "../images/work-list/reflection-without-a-body/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
-    { src: "../images/work-list/reflection-without-a-body/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
-    { src: "../images/work-list/reflection-without-a-body/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" },
-    { src: "../images/work-list/reflection-without-a-body/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }
-  ],
-  "bad-mom": [
-    { src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 x 170 cm, 2026", marginLeft: "-140px" }
-  ],
-  "ennui": [
-    {
-      src: "../images/work-list/ennui.jpg",
-      alt: "Ennui",
-      meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026",
-      height: "130%",
-      marginLeft: "150px",
-      marginRight: "200px",
-      detailText: "작품에 대한 상세 설명이나 작업 노트 텍스트가 여기에 나타납니다."
-    }
-  ],
-  "victory-of-lays": [
-    { src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }
-  ],
-  "hope": [
-    { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 х 60 х 46 cm, 2025" },
-    { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
-    { src: "../images/work-list/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-    { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
-    { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
-  ],
-  "horse-racing": [
-    { src: "../images/work-list/pferderennen.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }
-  ],
-  "baum": [
-    { src: "../images/work-list/Baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }
-  ],
-  "abdruck": [
-    { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-    { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-    { src: "../images/work-list/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-    { src: "../images/work-list/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-    { src: "../images/work-list/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-    { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
-    { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
-  ],
-  "bienenstich": [
-    { src: "../images/work-list/Bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }
-  ],
-  "wild-fire": [
-    { src: "../images/work-list/wild-fire.png", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }
-  ],
-  "rabbit-and-me": [
-    { src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019" }
-  ],
-  "vegetarian": [
-    { src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019" }
-  ],
-  "mirror-2026": [
-    {
-      src: "../images/exhibitions/mirror-1.jpg", alt: "Mirror Solo", meta: "Do you clean your mirror, everyday? Solo exhibition.",
-      posterSrc: "../images/exhibitions/mirror-poster.jpg",
-      detailText: "<b>Do you clean your mirror, everyday?</b><br><br>전시 기획 서문 내용 공간입니다."
-    }
-  ],
-  "heussen-2026": [
-    {
-      src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text...",
-      posterSrc: "../images/exhibitions/heussen-poster.jpg",
-      detailText: "Heussen 전시 관련 서문 내용 공간입니다."
-    }
-  ],
-  "versprochen-2026": [
-    { src: "../images/exhibitions/versprochen/versprochen-main.jpg", alt: "versprochen-main", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026", posterSrc: "../images/exhibitions/versprochen/versprochen-plakat.jpg", detailText: "<b>Versprochen</b><br><br>전시 기획 서문 내용 공간입니다." },
-    { src: "../images/exhibitions/versprochen/versprochen-1.jpg", alt: "versprochen-1", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
-    { src: "../images/exhibitions/versprochen/versprochen-2.JPG", alt: "versprochen-2", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
-    { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }
-  ],
-  "berlin-2025": [
-    { src: "../images/exhibitions/positions/positions-main.jpg", alt: "Academy Positions 2025", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025", posterSrc: "../images/exhibitions/positions/positions-plakat.png", detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다." },
-    { src: "../images/exhibitions/positions/positions-1.jpg", alt: "positions-1", meta: "<i>Bienenstich</i>, POSITIONS Berlin Art fair, Berlin, 2025" },
-    { src: "../images/exhibitions/positions/positions-2.jpg", alt: "positions-2", meta: "<i>The way to Home</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-    { src: "../images/exhibitions/positions/positions-3.jpg", alt: "positions-3", meta: "<i>Academy Positions</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-    { src: "../images/exhibitions/positions/positions-4.jpg", alt: "positions-4", meta: "<i>Academy Positions</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-    { src: "../images/exhibitions/positions/positions-5.jpg", alt: "positions-5", meta: "<i>Heussen Perspective Young Artist Award Winner</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
-    { src: "../images/exhibitions/positions/positions-6.jpg", alt: "positions-6", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" }
-  ],
-  "it-can-be-done": [
-    { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025", posterSrc: "../images/exhibitions/it/it-plakat.jpg", detailText: "<b>It can be done, but only I can do it</b><br><br>전시 기획 서문 내용 공간입니다." },
-    { src: "../images/exhibitions/it/it-1.jpg", alt: "it-1", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
-    { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
-  ],
-  "kinder-bilder": [
-    {
-      src: "../images/exhibitions/kinder.bilder/bilder-main.jpg",
-      alt: "Kinder.Bilder",
-      meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025",
-      posterSrc: "../images/exhibitions/kinder.bilder/plakat_kinder.bilder.png",
-      detailText: "<p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.</p><p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks.</p><p>Together they turn cardboard boxes or the dining table into the best playground in the world.<br>They grow (up) together.</p><p>Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher'. She is very strict. However, Hyein is praised by her. However, 'Childhood' also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.</p><p>These memories often come up and then vanish again. She uses the image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.</p><p>For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.<br>However, children are not immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.</p><p style='font-size: 13px; opacity: 0.6; margin-top: 40px; letter-spacing: 0px;'>&copy; Text: Regina Ziegelstein</p>"
-    },
-    { src: "../images/exhibitions/kinder.bilder/bilder-1.jpg", alt: "Kinder.Bilder-1", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-2.jpg", alt: "Kinder.Bilder-2", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-3.jpg", alt: "Kinder.Bilder-3", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-4.jpg", alt: "Kinder.Bilder-4", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-5.jpg", alt: "Kinder.Bilder-5", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-6.jpg", alt: "Kinder.Bilder-6", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-7.jpg", alt: "Kinder.Bilder-7", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-8.jpg", alt: "Kinder.Bilder-8", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" },
-    { src: "../images/exhibitions/kinder.bilder/bilder-9.jpg", alt: "Kinder.Bilder-9", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }
-  ],
-  "wesen-2024": [
-    { src: "../images/exhibitions/wesen-main.heic",
-     alt:"Wesen Weißer Garten",
-     meta: "Wesen Weißer Garten, 2024" }
-  ],
-  "hz-2024": [
-    {
-      src: "../images/exhibitions/743hz/hz-main.jpg",
-      alt: "743Hz",
-      meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024",
-      posterSrc: "../images/exhibitions/743hz/743-plakat.jpg",
-      detailText: "<p>Der Kammerton 440 Hz ist in der westlichen Musikwelt normativ festgelegt. Die spirituell konnotierte Frequenz 432 Hz wird dagegen von zahlreichen Musiker:innen als der eigentlich stimulierende Ton deklariert. Welche Frequenz ist die angenehmste? Wann beginnt es unangenehm zu werden? Jede:r der Klasse hört sich durch das akustische Spektrum von 20 bis 20.000 Hz und bestimmt die jeweils eigene Schwelle, bei der es für sie:ihn beginnt unangenehm zu werden. Das Ergebnis: 21 unterschiedliche Frequenzen zwischen 117 und 1638 Hz. Der Mittelwert: 743 Hz. Auch Farben oder Strahlungen lassen sich als Schwingungen pro Sekunde und damit als Frequenzen beschreiben: Blau liegt z.B. bei 714 - 612 Terahertz, Röntgenstrahlung bei 60 Exahertz. Ließe sich auch hier eine visuelle Verortung vornehmen und über eine gemeinsame Frequenz der Klasse spekulieren? Wie unterschiedlich die einzelnen Frequenzen und künstlerischen Positionen auch sind, sie treffen in der Begegnung mit den Anderen im Raum aufeinander. So werden neue Verbindungspunkte und Kontexte erschlossen. Schon bei der Ausstellung MUTE im stillgelegten Club White Noise und einem leergeräumten Ladenlokal in der Neckarstraße war das zentrale Anliegen durch formale, gegenseitige Bezugnahme einen gemeinsamen Nenner zu finden. Auf den „gemuteten“ Zustand während der Corona-Monate folgt jetzt die Ausstellung 743 Hz im Projektraum V8 in Karlsruhe, der auch einen Dialog mit der Stadt und der art Karlsruhe eröffnet.
-Leitung: Florina Leinss & Jochen Wagner
-(i.V. Reto Boller)
-
-Opening: 23.02.2024 19:00 - Live Musik ab 22:00 mit @varan.tracks, @andreascretinmusic & @djytb_
-Laufzeit: 23.02 – 25.02. 2024
-Öffnungszeiten 24.02. und 25.02.2024, 14 -18 Uhr<p>" },
-    { src: "../images/exhibitions/743hz/hz-1.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" },
-    { src: "../images/exhibitions/743hz/hz-2.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" },
-    { src: "../images/exhibitions/743hz/hz-3.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" },
-    { src: "../images/exhibitions/743hz/hz-4.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" },
-    { src: "../images/exhibitions/743hz/hz-5.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" },
-    { src: "../images/exhibitions/743hz/hz-6.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" }
-  ]
+const dbRepository = { 
+ "the-last-island": [ 
+   { src: "../images/work-list/the-last-island.jpg", alt: "The Last Island", meta: "The Last Island, Oil on canvas, 220 x 170 cm, 2026" } 
+ ], 
+ "refelction-without-a-body": [ 
+   { src: "../images/work-list/reflection-without-a-body/mirror-main.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }, 
+   { src: "../images/work-list/reflection-without-a-body/mirror-1.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }, 
+   { src: "../images/work-list/reflection-without-a-body/mirror-2.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" }, 
+   { src: "../images/work-list/reflection-without-a-body/mirror-3.jpg", alt: "Reflection without a Body", meta: "Reflection without a Body, Mirror, Polyester, Gelatine cast from skin, 2026" } 
+ ], 
+ "bad-mom": [ 
+   { src: "../images/work-list/bad-mom.jpg", alt: "Bad Mom", meta: "Bad Mom, Oil on canvas, 250 x 170 cm, 2026", marginLeft: "-140px" } 
+ ], 
+ "ennui": [ 
+   { 
+     src: "../images/work-list/ennui.jpg", 
+     alt: "Ennui", 
+     meta: "Ennui, Oil on canvas, 100 x 150 cm, 2026", 
+     height: "130%", 
+     marginLeft: "150px", 
+     marginRight: "200px", 
+     detailText: "작품에 대한 상세 설명이나 작업 노트 텍스트가 여기에 나타납니다." 
+   } 
+ ], 
+ "victory-of-lays": [ 
+   { src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" } 
+ ], 
+ "hope": [ 
+   { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 х 60 х 46 cm, 2025" },
+   { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
+   { src: "../images/work-list/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+   { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+   { src: "../images/work-list/hope/hope-4.jpg", alt: "Hope 4", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" }
+ ],
+ "horse-racing": [
+   { src: "../images/work-list/pferderennen.jpg", alt: "Horse racing", meta: "Horse racing, Oil on canvas, Air spray, coloured pencil, 180 x 135 cm, 2025" }
+ ],
+ "baum": [
+   { src: "../images/work-list/Baum.jpg", alt: "Baum", meta: "Baum, Oil on canvas, 186 x 115 cm, 2025" }
+ ],
+ "abdruck": [
+   { src: "../images/work-list/abdruck/abdruck-main.jpg", alt: "Abdruck", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+   { src: "../images/work-list/abdruck/abdruck-1.jpg", alt: "Abdruck 1", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+   { src: "../images/work-list/abdruck/abdruck-2.jpg", alt: "Abdruck 2", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+   { src: "../images/work-list/abdruck/abdruck-3.jpg", alt: "Abdruck 3", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+   { src: "../images/work-list/abdruck/abdruck-4.jpg", alt: "Abdruck 4", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+   { src: "../images/work-list/abdruck/abdruck-5.jpg", alt: "Abdruck 5", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" },
+   { src: "../images/work-list/abdruck/abdruck-6.jpg", alt: "Abdruck 6", meta: "Abdruck, Installation with drawing on fabric, 126 x 172 x 70 cm, 2025" }
+ ],
+ "bienenstich": [
+   { src: "../images/work-list/Bienenstich.jpg", alt: "Bienenstich", meta: "Bienenstich, Oil on canvas, 130 x 95 cm, 2025" }
+ ],
+ "wild-fire": [
+   { src: "../images/work-list/wild-fire.png", alt: "Wild fire", meta: "Wild fire, Lithography, 38 x 64 cm, 2025" }
+ ],
+ "rabbit-and-me": [
+   { src: "../images/work-list/rabbit-and-me.jpg", alt: "rabbit and me", meta: "Rabbit and Me, Lithography, 21 x 27 cm, 2019" }
+ ],
+ "vegetarian": [
+   { src: "../images/work-list/vegetarian.heic", alt: "vegetarian", meta: "Vegetarian, Lithography, 2019" }
+ ],
+ "mirror-2026": [
+   {
+     src: "../images/exhibitions/mirror-1.jpg", alt: "Mirror Solo", meta: "Do you clean your mirror, everyday? Solo exhibition.",
+     posterSrc: "../images/exhibitions/mirror-poster.jpg",
+     detailText: "<b>Do you clean your mirror, everyday?</b><br><br>전시 기획 서문 내용 공간입니다."
+   }
+ ], 
+ "heussen-2026": [ 
+   { 
+     src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text...", 
+     posterSrc: "../images/exhibitions/heussen-poster.jpg", 
+     detailText: "Heussen 전시 관련 서문 내용 공간입니다." 
+   } 
+ ], 
+ "versprochen-2026": [ 
+   { src: "../images/exhibitions/versprochen/versprochen-main.jpg", alt: "versprochen-main", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026", posterSrc: "../images/exhibitions/versprochen/versprochen-plakat.jpg", detailText: "<b>Versprochen</b><br><br>전시 기획 서문 내용 공간입니다." }, 
+   { src: "../images/exhibitions/versprochen/versprochen-1.jpg", alt: "versprochen-1", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }, 
+   { src: "../images/exhibitions/versprochen/versprochen-2.JPG", alt: "versprochen-2", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }, 
+   { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" } 
+ ], 
+ "berlin-2025": [ 
+   { src: "../images/exhibitions/positions/positions-main.jpg", alt: "Academy Positions 2025", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025", posterSrc: "../images/exhibitions/positions/positions-plakat.png", detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다." }, 
+   { src: "../images/exhibitions/positions/positions-1.jpg", alt: "positions-1", meta: "<i>Bienenstich</i>, POSITIONS Berlin Art fair, Berlin, 2025" }, 
+   { src: "../images/exhibitions/positions/positions-2.jpg", alt: "positions-2", meta: "<i>The way to Home</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" }, 
+   { src: "../images/exhibitions/positions/positions-3.jpg", alt: "positions-3", meta: "<i>Academy Positions</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" }, 
+   { src: "../images/exhibitions/positions/positions-4.jpg", alt: "positions-4", meta: "<i>Academy Positions</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" }, 
+   { src: "../images/exhibitions/positions/positions-5.jpg", alt: "positions-5", meta: "<i>Heussen Perspective Young Artist Award Winner</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" }, 
+   { src: "../images/exhibitions/positions/positions-6.jpg", alt: "positions-6", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" } 
+ ], 
+ "it-can-be-done": [ 
+   { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025", posterSrc: "../images/exhibitions/it/it-plakat.jpg", detailText: "<b>It can be done, but only I can do it</b><br><br>전시 기획 서문 내용 공간입니다." }, 
+   { src: "../images/exhibitions/it/it-1.jpg", alt: "it-1", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" }, 
+   { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" } 
+ ], 
+ "kinder-bilder": [ 
+   { 
+     src: "../images/exhibitions/kinder.bilder/bilder-main.jpg", 
+     alt: "Kinder.Bilder", 
+     meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025", 
+     posterSrc: "../images/exhibitions/kinder.bilder/plakat_kinder.bilder.png", 
+     detailText: "<p>혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.</p><p>Often at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf. They stand by each other, even when their parents scold them or when mum's favourite plate breaks.</p><p>Together they turn cardboard boxes or the dining table into the best playground in the world.<br>They grow (up) together.</p><p>Another significant family member is Hyein's grandmother, who is a teacher. She has the reputation of being the 'tiger teacher'. She is very strict. However, Hyein is praised by her. However, 'Childhood' also tells of children's fears: moving to a big new city and being new or losing close friends, such as the family dog who has become a friend. These aren't 'childish'.</p><p>These memories often come up and then vanish again. She uses the image of foam that swells up but then disappears again. The shape of the ceramic picks up on this.</p><p>For many people, childhood is a time that they experience together with their siblings. Together they can look back on funny and sad experiences.<br>However, children are not immune to misfortunes. They also have fears and worries. Hyein's stories also show how powerful it is to be praised and to have someone by and on your side.</p><p style='font-size: 13px; opacity: 0.6; margin-top: 40px; letter-spacing: 0px;'>&copy; Text: Regina Ziegelstein</p>" 
+   }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-1.jpg", alt: "Kinder.Bilder-1", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-2.jpg", alt: "Kinder.Bilder-2", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-3.jpg", alt: "Kinder.Bilder-3", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-4.jpg", alt: "Kinder.Bilder-4", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-5.jpg", alt: "Kinder.Bilder-5", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-6.jpg", alt: "Kinder.Bilder-6", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-7.jpg", alt: "Kinder.Bilder-7", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-8.jpg", alt: "Kinder.Bilder-8", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }, 
+   { src: "../images/exhibitions/kinder.bilder/bilder-9.jpg", alt: "Kinder.Bilder-9", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" } 
+ ], 
+ "wesen-2024": [ 
+   { src: "../images/exhibitions/wesen-main.heic", alt: "Wesen Weißer Garten", meta: "Wesen Weißer Garten, 2024" } 
+ ], 
+ "hz-2024": [ 
+   { 
+     src: "../images/exhibitions/743hz/hz-main.jpg", 
+     alt: "743Hz", 
+     meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024", 
+     posterSrc: "../images/exhibitions/743hz/743-plakat.jpg", 
+     detailText: "<p>Der Kammerton 440 Hz ist in der westlichen Musikwelt normativ festgelegt. Die spirituell konnotierte Frequenz 432 Hz wird dagegen von zahlreichen Musiker:innen als der eigentlich stimulierende Ton deklariert. Welche Frequenz ist die angenehmste? Wann beginnt es unangenehm zu werden? Jede:r der Klasse hört sich durch das akustische Spektrum von 20 bis 20.000 Hz und bestimmt die jeweils eigene Schwelle, bei der es für sie:ihn beginnt unangenehm zu werden. Das Ergebnis: 21 unterschiedliche Frequenzen zwischen 117 und 1638 Hz. Der Mittelwert: 743 Hz. Auch Farben oder Strahlungen lassen sich als Schwingungen pro Sekunde und damit als Frequenzen beschreiben: Blau liegt z.B. bei 714 - 612 Terahertz, Röntgenstrahlung bei 60 Exahertz. Ließe sich auch hier eine visuelle Verortung vornehmen und über eine gemeinsame Frequenz der Klasse spekulieren? Wie unterschiedlich die einzelnen Frequenzen und künstlerischen Positionen auch sind, sie treffen in der Begegnung mit den Anderen im Raum aufeinander. So werden neue Verbindungspunkte und Kontexte erschlossen. Schon bei der Ausstellung MUTE im stillgelegten Club White Noise und einem leergeräumten Ladenlokal in der Neckarstraße war das zentrale Anliegen durch formale, gegenseitige Bezugnahme einen gemeinsamen Nenner zu finden. Auf den „gemuteten“ Zustand während der Corona-Monate folgt jetzt die Ausstellung 743 Hz im Projektraum V8 in Karlsruhe, der auch einen Dialog mit der Stadt und der art Karlsruhe eröffnet.<br><br>Leitung: Florina Leinss & Jochen Wagner (i.V. Reto Boller)<br>Opening: 23.02.2024 19:00 - Live Musik ab 22:00 mit @varan.tracks, @andreascretinmusic & @djytb_<br>Laufzeit: 23.02 – 25.02. 2024<br>Öffnungszeiten 24.02. und 25.02.2024, 14 -18 Uhr</p>" 
+   }, 
+   { src: "../images/exhibitions/743hz/hz-1.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" }, 
+   { src: "../images/exhibitions/743hz/hz-2.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" }, 
+   { src: "../images/exhibitions/743hz/hz-3.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" }, 
+   { src: "../images/exhibitions/743hz/hz-4.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" }, 
+   { src: "../images/exhibitions/743hz/hz-5.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" }, 
+   { src: "../images/exhibitions/743hz/hz-6.jpg", alt: "743Hz", meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024" } 
+ ] 
 };
 
 let currentGroupLength = 0;
@@ -743,32 +736,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 1. 사진 좌우 슬라이딩 시: 축소 효과 및 스크롤바 썸 동시 업데이트
-  sliderWindow.addEventListener("scroll", () => {
-    updateScrollbarThumb();
-    handleScrollInteractions();
-  });
+ sliderWindow.addEventListener("scroll", () => { 
+   updateScrollbarThumb(); 
+   handleScrollInteractions(); 
+ }); 
 
-  // 2. 하단 세로 스크롤 시: 축소 효과 적용
-  displayZone.addEventListener("scroll", () => {
-    handleScrollInteractions();
-  });
+ displayZone.addEventListener("scroll", () => { 
+   handleScrollInteractions(); 
+ }); 
 
-  menuBlock.addEventListener("mouseenter", () => {
-    subMenuContainer.style.opacity = "1";
-    subMenuContainer.style.transform = "translateX(0)";
-    subMenuContainer.style.pointerEvents = "auto";
-  });
+ menuBlock.addEventListener("mouseenter", () => { 
+   subMenuContainer.style.opacity = "1"; 
+   subMenuContainer.style.transform = "translateX(0)"; 
+   subMenuContainer.style.pointerEvents = "auto";   
+ }); 
 
-  menuBlock.addEventListener("mouseleave", () => {
-    subMenuContainer.style.opacity = "0";
-    subMenuContainer.style.transform = "translateX(50px)";
-    subMenuContainer.style.pointerEvents = "none";
-  });
+ menuBlock.addEventListener("mouseleave", () => { 
+   subMenuContainer.style.opacity = "0"; 
+   subMenuContainer.style.transform = "translateX(50px)"; 
+   subMenuContainer.style.pointerEvents = "none"; 
+ }); 
 
-  sliderWindow.addEventListener("scroll", () => {
-    updateScrollbarThumb();
-  });
+ window.addEventListener("resize", () => { 
+   if (currentGroupLength > 1) updateScrollbarThumb(); 
+ }); 
+
+ switchTab("worklist");
 
   window.addEventListener("resize", () => {
     if (currentGroupLength > 1) updateScrollbarThumb();
