@@ -704,18 +704,21 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollThumb.style.left = leftPos + "px";
   }
 
-  // 스크롤 시 카테고리 축소/이동 처리 함수
+// 가로 스크롤(사진 슬라이딩) 및 세로 스크롤(하단 이동) 모두 감지하여 카테고리 축소
   function handleScrollInteractions() {
-    // sliderWindow 대신 전체 스크롤 영역인 displayZone의 scrollTop을 감지합니다.
-    const scrollValue = displayZone.scrollTop;
+    const horizontalScroll = sliderWindow.scrollLeft; // 사진 좌우 슬라이딩 값
+    const verticalScroll = displayZone.scrollTop;    // 하단 세로 스크롤 값
+
+    // 둘 중 하나라도 50px 이상 스크롤되면 큰 값을 기준으로 애니메이션 진행
+    const effectiveScroll = Math.max(horizontalScroll, verticalScroll);
     infoZone.style.pointerEvents = "auto";
 
-    if (scrollValue > 50) {
-      const progress = Math.min((scrollValue - 50) / 200, 1);
+    if (effectiveScroll > 50) {
+      const progress = Math.min((effectiveScroll - 50) / 200, 1);
       const scaleValue = 1 - 0.22 * progress;
       const translateX = -155 * progress;
       const translateY = 150 * progress;
-      
+
       infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
       menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
     } else {
@@ -724,12 +727,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 좌우 이미지 슬라이더 스크롤 감지 (스크롤바 썸 전용)
+  // 1. 사진 좌우 슬라이딩 시: 축소 효과 및 스크롤바 썸 동시 업데이트
   sliderWindow.addEventListener("scroll", () => {
     updateScrollbarThumb();
+    handleScrollInteractions();
   });
 
-  // 상하 메인 구역 스크롤 감지 (카테고리 축소 애니메이션 적용)
+  // 2. 하단 세로 스크롤 시: 축소 효과 적용
   displayZone.addEventListener("scroll", () => {
     handleScrollInteractions();
   });
