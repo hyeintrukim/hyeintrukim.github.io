@@ -712,6 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 둘 중 하나라도 50px 이상 스크롤되면 큰 값을 기준으로 애니메이션 진행
     const effectiveScroll = Math.max(horizontalScroll, verticalScroll);
     infoZone.style.pointerEvents = "auto";
+    infoZone.style.willChange = "transform";
 
     if (effectiveScroll > 50) {
       const progress = Math.min((effectiveScroll - 50) / 200, 1);
