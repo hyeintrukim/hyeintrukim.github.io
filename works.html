@@ -141,7 +141,7 @@ body, html {
   overflow-x: hidden;
   padding-bottom: 600px;
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 .photo-slider-window {
@@ -155,13 +155,13 @@ body, html {
   box-sizing: border-box;
   padding-left: 475px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: hidden; /* 세로 스크롤 잘림 처리 */
   margin-top: 20px;
   transition: height 0.3s ease;
   touch-action: pan-y;
   overscroll-behavior-x: contain;
+  overscroll-behavior-y: none;
 }
-
 .photo-slider-window::-webkit-scrollbar {
   display: none;
 }
@@ -756,28 +756,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftPos = ratio * (barWidth - thumbWidth);
     scrollThumb.style.left = leftPos + "px";
   }
+let isTicking = false;
 
-  function handleScrollInteractions() {
-    const horizontalScroll = sliderWindow.scrollLeft;
-    const verticalScroll = displayZone.scrollTop;
-    const effectiveScroll = Math.max(horizontalScroll, verticalScroll);
+function handleScrollInteractions() {
+  if (!isTicking) {
+    window.requestAnimationFrame(() => {
+      const horizontalScroll = sliderWindow.scrollLeft;
+      const verticalScroll = displayZone.scrollTop;
+      const effectiveScroll = Math.max(horizontalScroll, verticalScroll);
 
-    infoZone.style.pointerEvents = "auto";
-    infoZone.style.willChange = "transform";
+      infoZone.style.pointerEvents = "auto";
+      infoZone.style.willChange = "transform";
 
-    if (effectiveScroll > 50) {
-      const progress = Math.min((effectiveScroll - 50) / 200, 1);
-      const scaleValue = 1 - 0.22 * progress;
-      const translateX = -155 * progress;
-      const translateY = 150 * progress;
-      
-      infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
-      menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
-    } else {
-      infoZone.style.transform = "translate(0px, 0px) scale(1)";
-      menuBlock.style.transform = "translate(0px, 0px) scale(1)";
-    }
+      if (effectiveScroll > 50) {
+        const progress = Math.min((effectiveScroll - 50) / 200, 1);
+        const scaleValue = 1 - 0.22 * progress;
+        const translateX = -155 * progress;
+        const translateY = 150 * progress;
+        
+        infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
+        menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
+      } else {
+        infoZone.style.transform = "translate(0px, 0px) scale(1)";
+        menuBlock.style.transform = "translate(0px, 0px) scale(1)";
+      }
+      isTicking = false;
+    });
+    isTicking = true;
   }
+}
 
   sliderWindow.addEventListener("scroll", () => {
     updateScrollbarThumb();
