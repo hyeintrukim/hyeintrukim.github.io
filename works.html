@@ -64,13 +64,14 @@ body, html {
   flex-shrink: 0; 
   padding-top: 43px; 
   position: relative; 
-  z-index: 90; 
+  z-index: 900; /* 클릭 레이어 우선순위를 높임 */
   background-color: transparent; 
   transition: transform .3s cubic-bezier(.25, 1, .5, 1), opacity .3s ease; 
   transform-origin: left top; 
   display: block; 
   pointer-events: auto !important;
-} 
+  will-change: transform; /* transform 축소 시 마우스 히트박스 어긋남 방지 */
+}
 
 .content-section { 
   background-color: transparent; 
@@ -110,8 +111,9 @@ body, html {
   cursor: pointer; 
   transition: color .2s ease, transform .2s ease; 
   position: relative; 
-  z-index: 100; 
-} 
+  z-index: 910; /* 글자 링크 클릭 레이어 보장 */
+  pointer-events: auto !important;
+}
 
 .works-text-link::before { 
   content: ''; 
