@@ -704,14 +704,18 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollThumb.style.left = leftPos + "px";
   }
 
+  // 스크롤 시 카테고리 축소/이동 처리 함수
   function handleScrollInteractions() {
-    const scrollValue = sliderWindow.scrollLeft;
+    // sliderWindow 대신 전체 스크롤 영역인 displayZone의 scrollTop을 감지합니다.
+    const scrollValue = displayZone.scrollTop;
     infoZone.style.pointerEvents = "auto";
+
     if (scrollValue > 50) {
-      const progress = Math.min((scrollValue - 50)/200, 1);
+      const progress = Math.min((scrollValue - 50) / 200, 1);
       const scaleValue = 1 - 0.22 * progress;
       const translateX = -155 * progress;
       const translateY = 150 * progress;
+      
       infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
       menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
     } else {
@@ -719,6 +723,16 @@ document.addEventListener("DOMContentLoaded", () => {
       menuBlock.style.transform = "translate(0px, 0px) scale(1)";
     }
   }
+
+  // 좌우 이미지 슬라이더 스크롤 감지 (스크롤바 썸 전용)
+  sliderWindow.addEventListener("scroll", () => {
+    updateScrollbarThumb();
+  });
+
+  // 상하 메인 구역 스크롤 감지 (카테고리 축소 애니메이션 적용)
+  displayZone.addEventListener("scroll", () => {
+    handleScrollInteractions();
+  });
 
   menuBlock.addEventListener("mouseenter", () => {
     subMenuContainer.style.opacity = "1";
