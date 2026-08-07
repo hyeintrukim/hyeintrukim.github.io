@@ -14,6 +14,7 @@ body, html {
   color: #654321;
   overflow-x: hidden;
 }
+
 .cv-main-container {
   width: 100%;
   height: 100%;
@@ -23,6 +24,7 @@ body, html {
   gap: 40px;
   position: relative;
 }
+
 .photo-zone {
   width: 155px;
   flex-shrink: 0;
@@ -31,6 +33,7 @@ body, html {
   z-index: 500;
   background-color: transparent;
 }
+
 .works-main-tab {
   font-size: 18px;
   font-weight: 1100;
@@ -50,10 +53,12 @@ body, html {
   position: relative;
   z-index: 100;
 }
+
 .works-main-tab:hover,
 .works-main-tab.active-tab {
   color: #02f;
 }
+
 .info-zone {
   width: 250px;
   flex-shrink: 0;
@@ -67,13 +72,16 @@ body, html {
   pointer-events: auto !important;
   will-change: transform;
 }
+
 .content-section {
   background-color: transparent;
   display: none;
 }
+
 .content-section.active {
   display: block;
 }
+
 .works-year-title {
   font-size: 19px;
   font-weight: 700;
@@ -83,10 +91,12 @@ body, html {
   letter-spacing: -1px;
   line-height: 1.5;
 }
+
 .content-section > .works-year-title:first-child {
   margin-top: 0;
   padding-top: 2px;
 }
+
 .works-text-link {
   display: block;
   font-size: 16px;
@@ -104,6 +114,7 @@ body, html {
   z-index: 910;
   pointer-events: auto !important;
 }
+
 .works-text-link::before {
   content: "";
   position: absolute;
@@ -113,11 +124,12 @@ body, html {
   right: -10px;
   background: transparent;
 }
+
 .works-text-link:hover,
 .works-text-link.viewing {
   color: #02f;
-  font-weight: 400 !important;
 }
+
 .artwork-display-zone {
   position: absolute;
   left: 0;
@@ -129,6 +141,7 @@ body, html {
   overflow-x: hidden;
   padding-bottom: 600px;
 }
+
 .photo-slider-window {
   width: 100%;
   height: 58vh;
@@ -144,20 +157,25 @@ body, html {
   margin-top: 20px;
   transition: height 0.3s ease;
 }
+
 .photo-slider-window::-webkit-scrollbar {
   display: none;
 }
+
 .artwork-display-zone.multi-mode .photo-slider-window {
   overflow-x: auto;
   cursor: grab;
 }
+
 .artwork-display-zone.multi-mode .photo-slider-window:active {
   cursor: grabbing;
 }
+
 .artwork-display-zone.single-mode .photo-slider-window {
   overflow-x: hidden;
   cursor: default;
 }
+
 .slide-train {
   display: flex;
   flex-direction: row;
@@ -167,6 +185,7 @@ body, html {
   height: 100%;
   position: relative;
 }
+
 .slide-item {
   flex-shrink: 0;
   display: flex;
@@ -176,6 +195,7 @@ body, html {
   position: relative;
   height: 100%;
 }
+
 .viewer-frame {
   height: 100%;
   display: flex;
@@ -183,6 +203,7 @@ body, html {
   justify-content: center;
   position: relative;
 }
+
 .artwork-viewer {
   display: block;
   width: auto;
@@ -192,9 +213,11 @@ body, html {
   user-select: none;
   -webkit-user-drag: none;
 }
+
 .artwork-display-zone.exhibitions-active .photo-slider-window {
   height: 72vh;
 }
+
 .artwork-meta-info-fixed {
   position: absolute;
   right: 60px;
@@ -211,9 +234,11 @@ body, html {
   z-index: 95;
   opacity: 1;
 }
+
 .artwork-display-zone.exhibitions-active .artwork-meta-info-fixed {
   top: 76vh;
 }
+
 .custom-scrollbar-container {
   width: 600px;
   height: 3px;
@@ -222,6 +247,7 @@ body, html {
   position: relative;
   display: none;
 }
+
 .custom-scrollbar-thumb {
   position: absolute;
   left: 0;
@@ -230,6 +256,7 @@ body, html {
   width: 150px;
   background-color: #654321;
 }
+
 .header-menu-block {
   position: fixed;
   top: 40px;
@@ -241,6 +268,7 @@ body, html {
   transition: transform .3s cubic-bezier(.25,1,.5,1);
   transform-origin: right top;
 }
+
 .cv-logo-link {
   text-decoration: none;
   display: inline-block;
@@ -253,6 +281,7 @@ body, html {
   z-index: 1010;
   height: 170px;
 }
+
 .char-k, .char-o, .char-r, .char-s, .char-w {
   font-size: 115px;
   color: transparent;
@@ -262,11 +291,13 @@ body, html {
   position: relative;
   display: inline-block;
 }
+
 .char-w { top: 0; left: 0px; letter-spacing: -12px; }
 .char-o { top: 22px; left: -8px; }
 .char-r { top: -8px; left: -2px; }
 .char-k { top: 32px; left: -10px; }
 .char-s { top: 12px; left: -14px; }
+
 .sub-menu-container {
   display: flex;
   flex-direction: column;
@@ -278,6 +309,7 @@ body, html {
   pointer-events: auto;
   margin-top: -30px;
 }
+
 .sub-menu-link {
   font-size: 23px;
   text-decoration: none;
@@ -287,6 +319,7 @@ body, html {
   letter-spacing: -1px;
   line-height: 1.2;
 }
+
 .exhibition-bottom-section {
   max-width: 1200px;
   margin: 100px auto 50px 0;
@@ -297,6 +330,7 @@ body, html {
   padding: 0 40px 0 420px;
   box-sizing: border-box;
 }
+
 .exhibition-left-text {
   flex: 2;
   text-align: left;
@@ -304,21 +338,24 @@ body, html {
   font-size: 14px;
   line-height: 1.8;
   letter-spacing: -0.01em;
-  white-space: pre-line; /* 엔터 줄바꿈 자동 적용 */
+  white-space: pre-line;
 }
+
 .exhibition-left-text p {
   margin-bottom: 24px;
 }
+
 .exhibition-right-poster {
-  flex: 2.5; /* 포스터 박스 너비비율 확대 (기존 1) */
+  flex: 2.5;
   display: flex;
   justify-content: center;
 }
+
 .exhibition-right-poster img {
-  width: 100%; /* 너비를 박스에 가득 채움 */
-  max-width: 550px; /* 원하는 최대 가로 폭 크기 설정 */
+  width: 100%;
+  max-width: 550px;
   height: auto;
-  max-height: 1000px; /* 높이 제한 대폭 확대 */
+  max-height: 1000px;
   object-fit: contain;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
@@ -330,6 +367,7 @@ body, html {
     <span class="works-main-tab" onclick='switchTab("worklist")' id="tab-worklist">WORK LIST</span><br>
     <span class="works-main-tab" onclick='switchTab("exhibitions")' id="tab-exhibitions">EXHIBITIONS</span>
   </div>
+
   <div class="info-zone" id="infoZone">
     <div class="content-section" id="section-worklist">
       <div class="works-year-title">2026</div>
@@ -349,6 +387,7 @@ body, html {
       <span class="works-text-link" onclick='loadArtworkGroup("rabbit-and-me", this)'>Rabbit and me</span>
       <span class="works-text-link" onclick='loadArtworkGroup("vegetarian", this)'>Vegetarian</span>
     </div>
+
     <div class="content-section" id="section-exhibitions">
       <div class="works-year-title">2026</div>
       <span class="works-text-link" onclick='loadArtworkGroup("mirror-2026", this)'>Do you clean your mirror, everyday? <span style="font-size:13px;opacity:.7;font-style:italic">solo</span></span>
@@ -368,16 +407,18 @@ body, html {
       <span class="works-text-link" onclick='loadArtworkGroup("mute", this)'>MUTE</span>
     </div>
   </div>
+
   <div class="artwork-display-zone" id="displayZone">
     <div class="photo-slider-window" id="sliderWindow">
       <div class="slide-train" id="slideTrain"></div>
     </div>
-    <div class="artwork-meta-info-fixed" id="fixedMetaInfo"></div>
+    <div class="artwork-meta-info-fixed" id="fixedMetainfo"></div>
     <div class="custom-scrollbar-container" id="customScrollbar">
       <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
     </div>
     <div id="exhibitionIntroSection" class="exhibition-bottom-section" style="display: none;"></div>
   </div>
+
   <div class="header-menu-block" id="menuBlock">
     <a class="cv-logo-link" href="../index.html">
       <span class="char-w">W</span>
@@ -424,7 +465,7 @@ const dbRepository = {
     { src: "../images/work-list/victory-of-lays.jpg", alt: "Victory of Lays", meta: "Victory of Lays, Oil on canvas, 220 x 60 cm, 2025" }
   ],
   "hope": [
-    { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
+    { src: "../images/work-list/hope/hope-main.jpg", alt: "Hope", meta: "Hope, Drawing on Installation, Polyester, 214 х 60 х 46 cm, 2025" },
     { src: "../images/work-list/hope/hope-1.jpg", alt: "Hope 1", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025", marginTop: "40px" },
     { src: "../images/work-list/hope/hope-2.jpg", alt: "Hope 2", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
     { src: "../images/work-list/hope/hope-3.jpg", alt: "Hope 3", meta: "Hope, Drawing on Installation, Polyester, 214 x 60 x 46 cm, 2025" },
@@ -463,36 +504,42 @@ const dbRepository = {
       alt: "Do you clean your mirror, everyday?",
       meta: "Do you clean your mirror, everyday? Solo exhibition.",
       posterSrc: "../images/exhibitions/mirror/mirror-poster.jpg",
-      detailText: "Do You Clean Your Mirror, Everyday? ist eine Einzelausstellung, die sich mit den verborgenen emotionalen Landschaften des Menschen auseinandersetzt.\n\nAusgangspunkt der Ausstellung ist die Metapher des Spiegels - nicht als bloßes Objekt der Reflexion, sondern als Ort der Selbstbegegnung. So wie Staub und Flecken den Blick auf unser Spiegelbild verdecken, erschweren äußere Erwartungen, Vorurteile, Ängste und Eitelkeit den Zugang zu unseren ursprünglichen Emotionen. Die Ausstellung lädt das Publikum ein, sich eine einfache, zugleich grundlegende Frage zu stellen: Wie sauber ist dein Spiegel heute?\n\nIm Zentrum der künstlerischen Arbeit von Hyein Kim stehen Emotionen, die gesellschaftlich häufig verdrängt oder als negativ bewertet werden - etwa Eifersucht, Angst oder Depression. Anstatt diese Gefühle als Makel zu verstehen, begreift die Künstlerin sie als ursprüngliche Bestandteile menschlicher Existenz."
+      detailText: "Do You Clean Your Mirror, Everyday? ist eine Einzelausstellung, die sich mit den verborgenen emotionalen Landschaften des Menschen auseinandersetzt.\n\nAusgangspunkt der Ausstellung ist die Metapher des Spiegels - nicht als bloßes Objekt der Reflexion, sondern als Ort der Selbstbegegnung."
     }
   ],
   "heussen-2026": [
     {
-      src: 
-      alt: 
-      meta: "<i>Heussen Awards winner<i>, Kudamm Heussen law firm, 2026",
-      posterSrc: 
+      src: "../images/exhibitions/default.jpg",
+      alt: "Heussen Perspectives",
+      meta: "<i>Heussen Awards winner</i>, Kudamm Heussen law firm, 2026",
+      posterSrc: "../images/exhibitions/default-poster.jpg",
       detailText: "Heussen 전시 관련 서문 내용 공간입니다."
     }
   ],
   "versprochen-2026": [
-    { src: "../images/exhibitions/versprochen/versprochen-main.jpg", alt: "versprochen-main", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026", posterSrc: "../images/exhibitions/versprochen/versprochen-plakat.jpg", detailText: "<b>Versprochen</b><br><br>전시 기획 서문 내용 공간입니다." },
+    { 
+      src: "../images/exhibitions/versprochen/versprochen-main.jpg", 
+      alt: "versprochen-main", 
+      meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026", 
+      posterSrc: "../images/exhibitions/versprochen/versprochen-plakat.jpg", 
+      detailText: "<b>Versprochen</b><br><br>전시 기획 서문 내용 공간입니다." 
+    },
     { src: "../images/exhibitions/versprochen/versprochen-1.jpg", alt: "versprochen-1", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
     { src: "../images/exhibitions/versprochen/versprochen-2.JPG", alt: "versprochen-2", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
     { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }
   ],
   "az": [
-    src: 
-    alt: "A-Z Mapping the Future"
-    meta: "<i>A-Z Mapping the Future<i>, State gallery of Stuttgart, 2025"
-    posterSrc: ".../images/exhibitions/az/plakat_az.png"
-    detailText: Countless silver balloons shaped like Korean characters, a powerful video artwork about the life of an artist, a flag made out of latex and street dirt, delicate black and white artworks on paper, and large-scale installations – the exhibition “A – Z” shows the impressive and diverse final projects of the young artists from ABK Stuttgart. More than thirty graduates from thirteen classes demonstrate how ready they are to take the leap from the academy into a life dedicated to art with their interdisciplinary works. They experiment with a wide range of techniques and materials, address socially relevant topics and often place their own bodies at the center of their artistic works. “Mapping the future” brings the variety of artistic creation at the ABK Stuttgart into the museum space and signals that for the participating artists, the future has already begun. 
-      An exhibition of the final projects from the degree programs Diploma in Fine Arts, M. Ed. Artistic Teachings with Fine Arts, and M.F.A. Body, Theory and Poetics of the Performative.
+    {
+      src: "../images/exhibitions/az/az-main.jpg",
+      alt: "A-Z Mapping the Future",
+      meta: "<i>A-Z Mapping the Future</i>, State gallery of Stuttgart, 2025",
+      posterSrc: "../images/exhibitions/az/plakat_az.png",
+      detailText: "Countless silver balloons shaped like Korean characters, a powerful video artwork about the life of an artist..."
     }
   ],
   "berlin-2025": [
     { src: "../images/exhibitions/positions/positions-main.jpg", alt: "Academy Positions 2025", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025", posterSrc: "../images/exhibitions/positions/positions-plakat.png", detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다." },
-    { src: "../images/exhibitions/positions/positions-1.jpg", alt: "positions-1", meta: "<i>Bienenstich</i>, POSITIONS Berlin Art fair, Berlin, 2025" },
+    { src: "../images/exhibitions/positions/positions-1.jpg", alt: "positions-1", meta: "<i>Bienenstich</i>, POSITIONS Berlin Art fair, Berlin, 2025"},
     { src: "../images/exhibitions/positions/positions-2.jpg", alt: "positions-2", meta: "<i>The way to Home</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
     { src: "../images/exhibitions/positions/positions-3.jpg", alt: "positions-3", meta: "<i>Academy Positions</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
     { src: "../images/exhibitions/positions/positions-4.jpg", alt: "positions-4", meta: "<i>Academy Positions</i>, Photo: Clara Wenzel-Theiler/Dominik Friess, POSITIONS Berlin Art fair, Berlin, 2025" },
@@ -500,9 +547,9 @@ const dbRepository = {
     { src: "../images/exhibitions/positions/positions-6.jpg", alt: "positions-6", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025" }
   ],
   "it-can-be-done": [
-    { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>lt can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025", posterSrc: "../images/exhibitions/it/it-plakat.jpg", detailText: "<b>It can be done, but only I can do it</b><br><br>전시 기획 서문 내용 공간입니다." },
-    { src: "../images/exhibitions/it/it-1.jpg", alt: "it-1", meta: "<i>lt can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
-    { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>lt can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
+    { src: "../images/exhibitions/it/it-main.jpg", alt: "it-main", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025", posterSrc: "../images/exhibitions/it/it-plakat.jpg", detailText: "<b>It can be done, but only I can do it</b><br><br>전시 기획 서문 내용 공간입니다." },
+    { src: "../images/exhibitions/it/it-1.jpg", alt: "it-1", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" },
+    { src: "../images/exhibitions/it/it-2.jpg", alt: "it-2", meta: "<i>It can be done, but only I can do it</i>, Gustav-Siegle-Haus, Stuttgart, 2025" }
   ],
   "kinder-bilder": [
     {
@@ -510,7 +557,7 @@ const dbRepository = {
       alt: "Kinder.Bilder",
       meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025",
       posterSrc: "../images/exhibitions/kinder.bilder/plakat_kinder.bilder.png",
-      detailText: "혜인 (Hyein) describes herself as a storyteller. She uses the ceramic and the pedestal that comes with her work to tell stories from her childhood.\n\nOften at her side: her brother 우인 (Wooin). They are accomplices on the hunt for the sweets on the top shelf."
+      detailText: "혜인 (Hyein) describes herself as a storyteller."
     },
     { src: "../images/exhibitions/kinder.bilder/bilder-1.jpg", alt: "Kinder.Bilder-1", meta: "<i>Kinder.Bilder</i>, Raum 004, Munich, 2025" }
   ],
@@ -523,18 +570,19 @@ const dbRepository = {
       alt: "743Hz",
       meta: "<i>743Hz</i>, V8 Plattform für neue Kunst, Karlsruhe, 2024",
       posterSrc: "../images/exhibitions/743hz/743-plakat.jpg",
-      detailText: "Der Kammerton 440 Hz ist in der westlichen Musikwelt normativ festgelegt. Die spirituell konnotierte Frequenz 432 Hz wird dagegen von zahlreichen Musiker:innen als der eigentlich stimulierende Ton deklariert."
+      detailText: "Der Kammerton 440 Hz ist in der westlichen Musikwelt normativ festgelegt."
     }
   ],
   "mute": [
     {
       src: "../images/exhibitions/mute/mute-plakat.png",
-      alt: "Mute"
-      meta: "<i>Mute<i>, Neckarstraße, Stuttgart, 2021",
+      alt: "Mute",
+      meta: "<i>Mute</i>, Neckarstraße, Stuttgart, 2021",
       posterSrc: "../images/exhibitions/mute/plakat_mute.png",
-      detailText: Ein stillgelegter Club, ein leergeräumtes Ladenlokal. Zwei Orte in der Stuttgarter Innenstadt, die sinnbildlich für die vergangenen 15 Monate stehen. In diesen Räumen werden Arbeiten zu sehen sein, die an verschiedensten Orten und unter ungewöhnlichen Umständen entstanden sind. Abseits des vertrauten Arbeitsumfeldes wurden Klassenbesprechungen durch schriftlichen Austausch oder digitale Treffen ersetzt. Das Zusammentragen der Werke wird zu einem besonderen Moment. Geblieben ist der individuelle Ansatz aller Studierenden, der auch in einer gemeinsamen Klassenausstellung über einer allgemeinen Thematik steht.
-   }
-],
+      detailText: "Ein stillgelegter Club, ein leergeräumtes Ladenlokal."
+    }
+  ]
+};
 
 let currentGroupLength = 0;
 let currentActiveTab = "worklist";
@@ -546,7 +594,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const customScrollbar = document.getElementById("customScrollbar");
   const scrollThumb = document.getElementById("scrollThumb");
   const infoZone = document.getElementById("infoZone");
-  const fixedMetaInfo = document.getElementById("fixedMetaInfo");
+  const fixedMetainfo = document.getElementById("fixedMetainfo");
   const menuBlock = document.getElementById("menuBlock");
   const subMenuContainer = menuBlock.querySelector(".sub-menu-container");
 
@@ -554,10 +602,13 @@ document.addEventListener("DOMContentLoaded", () => {
     currentActiveTab = tabName;
     document.querySelectorAll(".works-main-tab").forEach(e => e.classList.remove("active-tab"));
     document.querySelectorAll(".content-section").forEach(e => e.classList.remove("active"));
+    
     const targetTab = document.getElementById("tab-" + tabName);
     const targetSection = document.getElementById("section-" + tabName);
+    
     if (targetTab) targetTab.classList.add("active-tab");
     if (targetSection) targetSection.classList.add("active");
+    
     const firstLink = targetSection ? targetSection.querySelector(".works-text-link") : null;
     if (firstLink) {
       firstLink.click();
@@ -567,14 +618,15 @@ document.addEventListener("DOMContentLoaded", () => {
   window.loadArtworkGroup = function(groupKey, element) {
     if (!groupKey) return;
     window.currentGroupItems = dbRepository[groupKey] || [];
+    
     document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing"));
     if (element) element.classList.add("viewing");
-    
+
     slideTrain.innerHTML = "";
     sliderWindow.scrollLeft = 0;
     sliderWindow.scrollTop = 0;
     displayZone.scrollTop = 0;
-    
+
     const items = window.currentGroupItems;
     currentGroupLength = items.length;
 
@@ -585,17 +637,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (currentGroupLength > 0) {
-      fixedMetaInfo.innerHTML = items[0].meta;
-      fixedMetaInfo.style.opacity = "1";
-      fixedMetaInfo.style.right = items[0].metaRight ? items[0].metaRight : "60px";
+      fixedMetainfo.innerHTML = items[0].meta;
+      fixedMetainfo.style.opacity = "1";
+      fixedMetainfo.style.right = items[0].metaRight ? items[0].metaRight : "60px";
+      
       if (currentActiveTab === "exhibitions") {
-        fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "76vh";
+        fixedMetainfo.style.top = items[0].metaTop ? items[0].metaTop : "76vh";
       } else {
-        fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "62vh";
+        fixedMetainfo.style.top = items[0].metaTop ? items[0].metaTop : "62vh";
       }
     } else {
-      fixedMetaInfo.innerHTML = "";
-      fixedMetaInfo.style.opacity = "0";
+      fixedMetainfo.innerHTML = "";
+      fixedMetainfo.style.opacity = "0";
     }
 
     if (currentGroupLength > 1) {
@@ -617,7 +670,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (item.marginBottom) slideItem.style.marginBottom = item.marginBottom;
       if (item.width) slideItem.style.width = item.width;
       if (item.height) slideItem.style.height = item.height;
-      
+
       slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`;
       slideTrain.appendChild(slideItem);
     });
@@ -626,7 +679,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(updateScrollbarThumb, 100);
     }
 
-    //=== 탭별 하단 스크롤 컨텐츠 분기 로직 ===
+    // 하단 설명 및 포스터 영역 업데이트
     const bottomSection = document.getElementById("exhibitionIntroSection");
     if (bottomSection) {
       const firstItem = items[0];
@@ -637,13 +690,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
         
         bottomSection.innerHTML = `
-  <div class="exhibition-right-poster" style="flex: 2.5; display: flex; justify-content: center;">
-    <img src="${posterSrc}" alt="Poster" style="width: 100%; max-width: 550px; height: auto; max-height: 1000px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
-  </div>
-  <div class="exhibition-left-text" style="flex: 2; text-align: left; color: #111; font-size: 14px; line-height: 1.8; letter-spacing: -0.01em;">
-    <div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div>
-    <div>${detailText}</div>
-  </div>`;
+          <div class="exhibition-right-poster" style="flex: 2.5; display: flex; justify-content: center;">
+            <img src="${posterSrc}" alt="Poster" style="width: 100%; max-width: 550px; height: auto; max-height: 1000px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
+          </div>
+          <div class="exhibition-left-text" style="flex: 2; text-align: left; color: #111; font-size: 14px; line-height: 1.8; letter-spacing: -0.01em;">
+            <div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div>
+            <div>${detailText}</div>
+          </div>`;
       } else if (currentActiveTab === "worklist" && firstItem && firstItem.detailText) {
         bottomSection.style.display = "block";
         bottomSection.innerHTML = `
@@ -682,6 +735,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const scaleValue = 1 - 0.22 * progress;
       const translateX = -155 * progress;
       const translateY = 150 * progress;
+      
       infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
       menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
     } else {
