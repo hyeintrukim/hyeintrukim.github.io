@@ -53,15 +53,17 @@ body, html {
     color: #02f;
 }
 .info-zone {
-    width: 250px;
-    flex-shrink: 0;
-    padding-top: 43px;
-    position: relative;
-    z-index: 90;
-    background-color: transparent;
-    transition: transform .3s cubic-bezier(.25,1,.5,1), opacity .3s ease;
-    transform-origin: left center;
-    display: block;
+  width: 250px;
+  flex-shrink: 0;
+  padding-top: 43px;
+  position: relative;
+  z-index: 90;
+  background-color: transparent;
+  transition: transform .3s cubic-bezier(.25, 1, .5, 1), opacity .3s ease;
+  
+  /* 변형 기준점을 좌측 상단으로 지정하여 축소 시 왼쪽 위 기준으로 매끄럽게 줄어들도록 합니다 */
+  transform-origin: left top; 
+  display: block;
 }
 .content-section {
     background-color: transparent;
@@ -662,18 +664,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleScrollInteractions() {
-        const scrollValue = sliderWindow.scrollLeft;
-        infoZone.style.pointerEvents = "auto";
-        if (scrollValue > 50) {
-            const progress = Math.min((scrollValue - 50) / 250, 1);
-            const scaleValue = 1 - 0.22 * progress;
-            infoZone.style.transform = `translate(${-15 * progress}px, ${55 * progress}px) scale(${scaleValue})`;
-            menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
-        } else {
-            infoZone.style.transform = "translate(0,0) scale(1)";
-            menuBlock.style.transform = "translate(0,0) scale(1)";
-        }
-    }
+  const scrollValue = sliderWindow.scrollLeft;
+  infoZone.style.pointerEvents = "auto";
+
+  if (scrollValue > 50) {
+    // 스크롤 진행도 (0 ~ 1)
+    const progress = Math.min((scrollValue - 50) / 200, 1);
+    
+    // 축소 비율 (1.0 -> 0.78)
+    const scaleValue = 1 - 0.22 * progress; 
+    
+    // 왼쪽으로 이동할 X축 값 (-155px 이동하여 photoZone 아래 근처로 붙도록 조정)
+    const translateX = -155 * progress; 
+    
+    // 아래로 이동할 Y축 값 (EXHIBITIONS 아래 위치로 이동)
+    const translateY = 60 * progress; 
+
+    // 카테고리(infoZone) 이동 및 축소 적용
+    infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
+    
+    // 오른쪽 상단 메뉴(menuBlock) 축소 및 이동
+    menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
+  } else {
+    // 초기 위치로 복구
+    infoZone.style.transform = "translate(0px, 0px) scale(1)";
+    menuBlock.style.transform = "translate(0px, 0px) scale(1)";
+  }
+}
 
     menuBlock.addEventListener("mouseenter", () => {
         subMenuContainer.style.opacity = "1";
