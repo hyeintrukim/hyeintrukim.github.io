@@ -425,6 +425,7 @@ const dbRepository = {
      height: "130%",
      marginLeft: "150px", 
      marginRight: "200px" 
+     detailText: "작품에 대한 상세 설명이나 작업 노트 텍스트가 여기에 나타납니다." // <-- WORK LIST 설명 추가
    } 
  ], 
  "victory-of-lays": [ 
@@ -558,79 +559,82 @@ document.addEventListener("DOMContentLoaded", () => {
     } 
   }; 
 
-  window.loadArtworkGroup = function(groupKey, element) { 
-    if (!groupKey) return; 
-    window.currentGroupItems = dbRepository[groupKey] || []; 
-    document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing")); 
-    if (element) element.classList.add("viewing"); 
-     
-    slideTrain.innerHTML = ""; 
-    sliderWindow.scrollLeft = 0; 
-    sliderWindow.scrollTop = 0; 
-    displayZone.scrollTop = 0; 
-     
-    const items = window.currentGroupItems; 
-    currentGroupLength = items.length; 
+window.loadArtworkGroup = function(groupKey, element) { 
+  if (!groupKey) return; 
+  window.currentGroupItems = dbRepository[groupKey] || []; 
+  document.querySelectorAll(".works-text-link").forEach(e => e.classList.remove("viewing")); 
+  if (element) element.classList.add("viewing"); 
+   
+  slideTrain.innerHTML = ""; 
+  sliderWindow.scrollLeft = 0; 
+  sliderWindow.scrollTop = 0; 
+  displayZone.scrollTop = 0; 
+   
+  const items = window.currentGroupItems; 
+  currentGroupLength = items.length; 
+   
+  if (currentActiveTab === "exhibitions") { 
+    displayZone.classList.add("exhibitions-active"); 
+  } else { 
+    displayZone.classList.remove("exhibitions-active"); 
+  } 
+   
+  if (currentGroupLength > 0) { 
+    fixedMetaInfo.innerHTML = items[0].meta; 
+    fixedMetaInfo.style.opacity = "1"; 
+    fixedMetaInfo.style.right = items[0].metaRight ? items[0].metaRight : "60px"; 
      
     if (currentActiveTab === "exhibitions") { 
-      displayZone.classList.add("exhibitions-active"); 
+      fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "76vh"; 
     } else { 
-      displayZone.classList.remove("exhibitions-active"); 
+      fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "62vh"; 
     } 
+  } else { 
+    fixedMetaInfo.innerHTML = ""; 
+    fixedMetaInfo.style.opacity = "0"; 
+  } 
+   
+  if (currentGroupLength > 1) { 
+    displayZone.classList.add("multi-mode"); 
+    displayZone.classList.remove("single-mode"); 
+    customScrollbar.style.display = "block"; 
+  } else { 
+    displayZone.classList.remove("multi-mode"); 
+    displayZone.classList.add("single-mode"); 
+    customScrollbar.style.display = "none"; 
+  } 
+   
+  items.forEach(item => { 
+    const slideItem = document.createElement("div"); 
+    slideItem.className = "slide-item"; 
+    if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft; 
+    if (item.marginRight) slideItem.style.marginRight = item.marginRight; 
+    if (item.marginTop) slideItem.style.marginTop = item.marginTop; 
+    if (item.marginBottom) slideItem.style.marginBottom = item.marginBottom; 
+    if (item.width) slideItem.style.width = item.width; 
+    if (item.height) slideItem.style.height = item.height; 
      
-    if (currentGroupLength > 0) { 
-      fixedMetaInfo.innerHTML = items[0].meta; 
-      fixedMetaInfo.style.opacity = "1"; 
-      fixedMetaInfo.style.right = items[0].metaRight ? items[0].metaRight : "60px"; 
+    slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`; 
+    slideTrain.appendChild(slideItem); 
+  }); 
+   
+  if (currentGroupLength > 1) { 
+    setTimeout(updateScrollbarThumb, 100); 
+  } 
+   
+  // === 탭별 하단 스크롤 컨텐츠 분기 로직 ===
+  const bottomSection = document.getElementById("exhibitionIntroSection"); 
+  if (bottomSection) { 
+    const firstItem = items[0]; 
+    
+    // 1. EXHIBITIONS 탭인 경우: 포스터 + 글 함께 표시
+    if (currentActiveTab === "exhibitions" && firstItem && (firstItem.detailText || firstItem.posterSrc)) { 
+      bottomSection.style.display = "flex"; 
+      const detailText = firstItem.detailText || ""; 
+      const altText = firstItem.alt || ""; 
+      const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg"; 
        
-      if (currentActiveTab === "exhibitions") { 
-        fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "76vh"; 
-      } else { 
-        fixedMetaInfo.style.top = items[0].metaTop ? items[0].metaTop : "62vh"; 
-      } 
-    } else { 
-      fixedMetaInfo.innerHTML = ""; 
-      fixedMetaInfo.style.opacity = "0"; 
-    } 
-     
-    if (currentGroupLength > 1) { 
-      displayZone.classList.add("multi-mode"); 
-      displayZone.classList.remove("single-mode"); 
-      customScrollbar.style.display = "block"; 
-    } else { 
-      displayZone.classList.remove("multi-mode"); 
-      displayZone.classList.add("single-mode"); 
-      customScrollbar.style.display = "none"; 
-    } 
-     
-    items.forEach(item => { 
-      const slideItem = document.createElement("div"); 
-      slideItem.className = "slide-item"; 
-      if (item.marginLeft) slideItem.style.marginLeft = item.marginLeft; 
-      if (item.marginRight) slideItem.style.marginRight = item.marginRight; 
-      if (item.marginTop) slideItem.style.marginTop = item.marginTop; 
-      if (item.marginBottom) slideItem.style.marginBottom = item.marginBottom; 
-      if (item.width) slideItem.style.width = item.width; 
-      if (item.height) slideItem.style.height = item.height; 
-       
-      slideItem.innerHTML = `<div class="viewer-frame"><img class="artwork-viewer" src="${item.src}" alt="${item.alt}"></div>`; 
-      slideTrain.appendChild(slideItem); 
-    }); 
-     
-    if (currentGroupLength > 1) { 
-      setTimeout(updateScrollbarThumb, 100); 
-    } 
-     
-    const bottomSection = document.getElementById("exhibitionIntroSection"); 
-    if (bottomSection) { 
-      const firstItem = items[0]; 
-      if (firstItem && (firstItem.detailText || firstItem.posterSrc)) { 
-        bottomSection.style.display = "flex"; 
-        const detailText = firstItem.detailText || ""; 
-        const altText = firstItem.alt || ""; 
-        const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg"; 
-         
-        bottomSection.innerHTML = ` 
+      bottomSection.innerHTML = ` 
         <div class="exhibition-right-poster" style="flex: 0.8; display: flex; justify-content: center;"> 
           <img src="${posterSrc}" alt="Poster" style="max-width: 100%; height: auto; max-height: 650px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);"> 
         </div> 
@@ -638,15 +642,27 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div> 
           <div>${detailText}</div> 
         </div> 
-        `; 
-      } else { 
-        bottomSection.style.display = "none"; 
-        bottomSection.innerHTML = ""; 
-      } 
+      `; 
     } 
-     
-    handleScrollInteractions(); 
-  }; 
+    // 2. WORK LIST 탭인 경우: 작업 설명(텍스트)만 전면 표시
+    else if (currentActiveTab === "worklist" && firstItem && firstItem.detailText) {
+      bottomSection.style.display = "block";
+      bottomSection.innerHTML = `
+        <div class="work-detail-text" style="max-width: 800px; margin: 0 auto; color: #111; font-size: 15px; line-height: 1.9; letter-spacing: -0.01em;">
+          <div style="font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #654321;">${firstItem.alt || ""}</div>
+          <div>${firstItem.detailText}</div>
+        </div>
+      `;
+    }
+    // 3. 별도 하단 내용이 없는 경우: 숨김 처리
+    else { 
+      bottomSection.style.display = "none"; 
+      bottomSection.innerHTML = ""; 
+    } 
+  } 
+   
+  handleScrollInteractions(); 
+}
 
   function updateScrollbarThumb() { 
     if (currentGroupLength <= 1) return; 
