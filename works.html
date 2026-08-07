@@ -718,6 +718,47 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   };
+  // 현재 화면에 가장 많이 보이는 이미지의 index를 찾아서 캡션을 업데이트하는 함수
+function updateActiveMetaOnScroll() {
+  if (!window.currentGroupItems || window.currentGroupItems.length <= 1) return;
+
+  const slideItems = slideTrain.querySelectorAll('.slide-item');
+  const windowCenter = sliderWindow.scrollLeft + (sliderWindow.clientWidth / 2);
+
+  let closestIndex = 0;
+  let minDistance = Infinity;
+
+  slideItems.forEach((item, index) => {
+    // 각 이미지의 중앙 X 위치 계산
+    const itemCenter = item.offsetLeft + (item.clientWidth / 2);
+    const distance = Math.abs(windowCenter - itemCenter);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  // 해당 인덱스의 meta 정보로 우측 하단 캡션 교체
+  const activeItem = window.currentGroupItems[closestIndex];
+  if (activeItem && activeItem.meta) {
+    fixedMetainfo.innerHTML = activeItem.meta;
+    fixedMetainfo.style.right = activeItem.metaRight ? activeItem.metaRight : "60px";
+    
+    if (currentActiveTab === "exhibitions") {
+      fixedMetainfo.style.top = activeItem.metaTop ? activeItem.metaTop : "76vh";
+    } else {
+      fixedMetainfo.style.top = activeItem.metaTop ? activeItem.metaTop : "62vh";
+    }
+  }
+}
+
+// 스크롤 이벤트 리스너 업데이트
+sliderWindow.addEventListener("scroll", () => {
+  updateScrollbarThumb();
+  handleScrollInteractions();
+  updateActiveMetaOnScroll(); // <-- 스크롤 시 캡션 자동 변경 로직 추가!
+});
 
   function updateScrollbarThumb() {
     if (currentGroupLength <= 1) return;
