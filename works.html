@@ -140,6 +140,8 @@ body, html {
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 600px;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .photo-slider-window {
@@ -156,6 +158,8 @@ body, html {
   overflow-y: hidden;
   margin-top: 20px;
   transition: height 0.3s ease;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
 }
 
 .photo-slider-window::-webkit-scrollbar {
