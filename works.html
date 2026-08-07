@@ -310,14 +310,15 @@ body, html {
   margin-bottom: 24px;
 }
 .exhibition-right-poster {
-  flex: 1;
+  flex: 2.5; /* 포스터 박스 너비비율 확대 (기존 1) */
   display: flex;
   justify-content: center;
 }
 .exhibition-right-poster img {
-  max-width: 100%;
+  width: 100%; /* 너비를 박스에 가득 채움 */
+  max-width: 550px; /* 원하는 최대 가로 폭 크기 설정 */
   height: auto;
-  max-height: 850px; /* 확대된 포스터 최대 높이 */
+  max-height: 1000px; /* 높이 제한 대폭 확대 */
   object-fit: contain;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
@@ -520,8 +521,9 @@ const dbRepository = {
       alt: "Mute"
       meta: "<i>Mute<i>, Neckarstraße, Stuttgart, 2021",
       posterSrc: "../images/exhibitions/mute/plakat_mute.png",
-      detailText:
-};
+      detailText: Ein stillgelegter Club, ein leergeräumtes Ladenlokal. Zwei Orte in der Stuttgarter Innenstadt, die sinnbildlich für die vergangenen 15 Monate stehen. In diesen Räumen werden Arbeiten zu sehen sein, die an verschiedensten Orten und unter ungewöhnlichen Umständen entstanden sind. Abseits des vertrauten Arbeitsumfeldes wurden Klassenbesprechungen durch schriftlichen Austausch oder digitale Treffen ersetzt. Das Zusammentragen der Werke wird zu einem besonderen Moment. Geblieben ist der individuelle Ansatz aller Studierenden, der auch in einer gemeinsamen Klassenausstellung über einer allgemeinen Thematik steht.
+   }
+],
 
 let currentGroupLength = 0;
 let currentActiveTab = "worklist";
@@ -624,13 +626,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const posterSrc = firstItem.posterSrc || "../images/exhibitions/default-poster.jpg";
         
         bottomSection.innerHTML = `
-          <div class="exhibition-right-poster" style="flex: 1; display: flex; justify-content: center;">
-            <img src="${posterSrc}" alt="Poster" style="max-width: 100%; height: auto; max-height: 850px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
-          </div>
-          <div class="exhibition-left-text" style="flex: 2; text-align: left; color: #111; font-size: 14px; line-height: 1.8; letter-spacing: -0.01em;">
-            <div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div>
-            <div>${detailText}</div>
-          </div>`;
+  <div class="exhibition-right-poster" style="flex: 2.5; display: flex; justify-content: center;">
+    <img src="${posterSrc}" alt="Poster" style="width: 100%; max-width: 550px; height: auto; max-height: 1000px; object-fit: contain; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
+  </div>
+  <div class="exhibition-left-text" style="flex: 2; text-align: left; color: #111; font-size: 14px; line-height: 1.8; letter-spacing: -0.01em;">
+    <div class="exhibition-detail-title" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${altText}</div>
+    <div>${detailText}</div>
+  </div>`;
       } else if (currentActiveTab === "worklist" && firstItem && firstItem.detailText) {
         bottomSection.style.display = "block";
         bottomSection.innerHTML = `
