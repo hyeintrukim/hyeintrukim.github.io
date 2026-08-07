@@ -668,27 +668,22 @@ document.addEventListener("DOMContentLoaded", () => {
   infoZone.style.pointerEvents = "auto";
 
   if (scrollValue > 50) {
-    // 스크롤 진행도 (0 ~ 1)
     const progress = Math.min((scrollValue - 50) / 200, 1);
-    
-    // 축소 비율 (1.0 -> 0.78)
     const scaleValue = 1 - 0.22 * progress; 
     
-    // 왼쪽으로 이동할 X축 값 (-155px 이동하여 photoZone 아래 근처로 붙도록 조정)
+    // X축: 좌측 photoZone 영역으로 이동 (-155px)
     const translateX = -155 * progress; 
     
-    // 아래로 이동할 Y축 값 (EXHIBITIONS 아래 위치로 이동)
-    const translateY = 60 * progress; 
+    // Y축: 버튼(WORK LIST, EXHIBITIONS) 밑으로 충분히 내려가도록 수치 증가 (140px ~ 180px 추천)[cite: 1]
+    const translateY = 150 * progress; 
 
-    // 카테고리(infoZone) 이동 및 축소 적용
+    // 위치 이동 및 크기 축소 적용[cite: 1]
     infoZone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleValue})`;
-    
-    // 오른쪽 상단 메뉴(menuBlock) 축소 및 이동
-    menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;
+    menuBlock.style.transform = `translate(0px, ${50 * progress}px) scale(${scaleValue})`;[cite: 1]
   } else {
-    // 초기 위치로 복구
-    infoZone.style.transform = "translate(0px, 0px) scale(1)";
-    menuBlock.style.transform = "translate(0px, 0px) scale(1)";
+    // 초기 위치 복구[cite: 1]
+    infoZone.style.transform = "translate(0px, 0px) scale(1)";[cite: 1]
+    menuBlock.style.transform = "translate(0px, 0px) scale(1)";[cite: 1]
   }
 }
 
