@@ -357,7 +357,7 @@ body, html {
       <span class="works-text-link" onclick='loadArtworkGroup("versprochen-2026", this)'>Versprochen</span>
       <div class="works-year-title">2025</div>
       <span class="works-text-link" onclick='loadArtworkGroup("vertigo-2025", this)'>The Vertigo of Appearing</span>
-      <span class="works-text-link" onclick='loadArtworkGroup("az-mapping-2025", this)'>A-Z Mapping the Future</span>
+      <span class="works-text-link" onclick='loadArtworkGroup("az", this)'>A-Z Mapping the Future</span>
       <span class="works-text-link" onclick='loadArtworkGroup("berlin-2025", this)'>Academy Positions Berlin Art fair</span>
       <span class="works-text-link" onclick='loadArtworkGroup("it-can-be-done", this)'>It can be done, but only I can do it</span>
       <span class="works-text-link" onclick='loadArtworkGroup("kinder-bilder", this)'>Kinder.Bilder</span>
@@ -365,7 +365,7 @@ body, html {
       <span class="works-text-link" onclick='loadArtworkGroup("wesen-2024", this)'>Wesen Weißer Garten</span>
       <span class="works-text-link" onclick='loadArtworkGroup("hz-2024", this)'>743Hz</span>
       <div class="works-year-title">2021</div>
-      <span class="works-text-link" onclick='loadArtworkGroup("mute-2021", this)'>MUTE</span>
+      <span class="works-text-link" onclick='loadArtworkGroup("mute", this)'>MUTE</span>
     </div>
   </div>
   <div class="artwork-display-zone" id="displayZone">
@@ -468,8 +468,10 @@ const dbRepository = {
   ],
   "heussen-2026": [
     {
-      src: "../images/exhibitions/heussen-1.jpg", alt: "Heussen", meta: "Heussen Exhibition Text...",
-      posterSrc: "../images/exhibitions/heussen-poster.jpg",
+      src: 
+      alt: 
+      meta: "<i>Heussen Awards winner<i>, Kudamm Heussen law firm, 2026",
+      posterSrc: 
       detailText: "Heussen 전시 관련 서문 내용 공간입니다."
     }
   ],
@@ -478,6 +480,15 @@ const dbRepository = {
     { src: "../images/exhibitions/versprochen/versprochen-1.jpg", alt: "versprochen-1", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
     { src: "../images/exhibitions/versprochen/versprochen-2.JPG", alt: "versprochen-2", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" },
     { src: "../images/exhibitions/versprochen/versprochen-3.jpg", alt: "versprochen-3", meta: "<i>versprochen</i>, Municipal Gallery of Backnang, Backnang, 2026" }
+  ],
+  "az": [
+    src: 
+    alt: "A-Z Mapping the Future"
+    meta: "<i>A-Z Mapping the Future<i>, State gallery of Stuttgart, 2025"
+    posterSrc: ".../images/exhibitions/az/plakat_az.png"
+    detailText: Countless silver balloons shaped like Korean characters, a powerful video artwork about the life of an artist, a flag made out of latex and street dirt, delicate black and white artworks on paper, and large-scale installations – the exhibition “A – Z” shows the impressive and diverse final projects of the young artists from ABK Stuttgart. More than thirty graduates from thirteen classes demonstrate how ready they are to take the leap from the academy into a life dedicated to art with their interdisciplinary works. They experiment with a wide range of techniques and materials, address socially relevant topics and often place their own bodies at the center of their artistic works. “Mapping the future” brings the variety of artistic creation at the ABK Stuttgart into the museum space and signals that for the participating artists, the future has already begun. 
+      An exhibition of the final projects from the degree programs Diploma in Fine Arts, M. Ed. Artistic Teachings with Fine Arts, and M.F.A. Body, Theory and Poetics of the Performative.
+    }
   ],
   "berlin-2025": [
     { src: "../images/exhibitions/positions/positions-main.jpg", alt: "Academy Positions 2025", meta: "<i>Academy Positions</i>, POSITIONS Berlin Art fair, Berlin, 2025", posterSrc: "../images/exhibitions/positions/positions-plakat.png", detailText: "<b>Academy Positions 2025 Berlin Art fair</b><br><br>전시 기획 서문 내용 공간입니다." },
